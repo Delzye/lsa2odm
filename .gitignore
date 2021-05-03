@@ -28,6 +28,7 @@ hs_err_pid*
 .classpath
 .project
 .settings/
+.factorypath
 
 # Maven (from: https://github.com/github/gitignore/blob/master/Maven.gitignore)
 
@@ -47,3 +48,8 @@ buildNumber.properties
 
 *~
 *.swp
+
+# Special files
+#
+# Too big
+src/main/xml/trivial_text_responses_long.lsr

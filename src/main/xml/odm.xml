@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ODM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" Description="" FileType="Snapshot" FileOID="" CreationDateTime="" ODMVersion="1.3" Originator="" SourceSystem="" SourceSystemVersion="">
+  <Study OID="PlaceholderOID">
+    <GlobalVariables>
+      <StudyName/>
+      <StudyDescription/>
+      <ProtocolName/>
+    </GlobalVariables>
+    <MetaDataVersion OID="MetaData876373" Name="">
+      <Protocol>
+        <StudyEventRef StudyEventOID="Event.1" Mandatory="No"/>
+      </Protocol>
+      <StudyEventDef OID="Event.1" Repeating="No" Type="Common">
+        <FormRef FormOID="876373" Mandatory="No"/>
+      </StudyEventDef>
+      <FormDef OID="876373" Name="trivial_text_example" Repeating="No">
+        <ItemGroupRef ItemGroupOID="8" Mandatory="Yes"/>
+        <ItemGroupRef ItemGroupOID="9" Mandatory="Yes"/>
+        <ItemGroupRef ItemGroupOID="10" Mandatory="Yes"/>
+      </FormDef>
+      <ItemGroupDef OID="8" Name="g1" Repeating="No">
+        <ItemRef ItemOID="57" Mandatory="N"/>
+        <ItemRef ItemOID="58" Mandatory="N"/>
+        <ItemRef ItemOID="59" Mandatory="N"/>
+      </ItemGroupDef>
+      <ItemGroupDef OID="9" Name="g2" Repeating="No">
+        <ItemRef ItemOID="60" Mandatory="N"/>
+        <ItemRef ItemOID="61" Mandatory="N"/>
+        <ItemRef ItemOID="62" Mandatory="N"/>
+      </ItemGroupDef>
+      <ItemGroupDef OID="10" Name="g3" Repeating="No">
+        <ItemRef ItemOID="63" Mandatory="N"/>
+        <ItemRef ItemOID="64" Mandatory="N"/>
+        <ItemRef ItemOID="65" Mandatory="N"/>
+      </ItemGroupDef>
+      <ItemDef OID="57" Name="G01Q01" DataType="string"/>
+      <ItemDef OID="58" Name="G01Q02" DataType="string"/>
+      <ItemDef OID="59" Name="G01Q03" DataType="string"/>
+      <ItemDef OID="60" Name="G02Q04" DataType="string"/>
+      <ItemDef OID="61" Name="G02Q05" DataType="string"/>
+      <ItemDef OID="62" Name="G02Q06" DataType="string"/>
+      <ItemDef OID="63" Name="G03Q07" DataType="string"/>
+      <ItemDef OID="64" Name="G03Q08" DataType="string"/>
+      <ItemDef OID="65" Name="G03Q09" DataType="string"/>
+    </MetaDataVersion>
+  </Study>
+  <ClinicalData  StudyOID="PlaceholderOID" MetaDataVersionOID="MetaData876373">
+    <SubjectData SubjectKey="1">
+      <StudyEventData  StudyEventOID="Event.1">
+        <FormData FormOID="876373">
+          <ItemGroupData ItemGroupOID="8">
+            <ItemData ItemOID="57" Value="a1_1"/>
+            <ItemData ItemOID="58" Value="a1_2"/>
+            <ItemData ItemOID="59" Value="a1_3"/>
+          </ItemGroupData>
+          <ItemGroupData ItemGroupOID="9">
+            <ItemData ItemOID="60" Value="a2_1"/>
+            <ItemData ItemOID="61" Value="a2_2"/>
+            <ItemData ItemOID="62" Value="a2_3"/>
+          </ItemGroupData>
+          <ItemGroupData ItemGroupOID="10">
+            <ItemData ItemOID="63" Value="a3_1"/>
+            <ItemData ItemOID="64" Value="a3_2"/>
+            <ItemData ItemOID="65" Value="a3_3"/>
+          </ItemGroupData>
+        </FormData>
+      </StudyEventData>
+    </SubjectData>
+    <SubjectData SubjectKey="2">
+      <StudyEventData  StudyEventOID="Event.1">
+        <FormData FormOID="876373">
+          <ItemGroupData ItemGroupOID="8"/>
+          <ItemGroupData ItemGroupOID="9"/>
+          <ItemGroupData ItemGroupOID="10"/>
+        </FormData>
+      </StudyEventData>
+    </SubjectData>
+    <SubjectData SubjectKey="3">
+      <StudyEventData  StudyEventOID="Event.1">
+        <FormData FormOID="876373">
+          <ItemGroupData ItemGroupOID="8">
+            <ItemData ItemOID="58" Value="2a_1_2"/>
+          </ItemGroupData>
+          <ItemGroupData ItemGroupOID="9"/>
+          <ItemGroupData ItemGroupOID="10">
+            <ItemData ItemOID="65" Value="2a3_3"/>
+          </ItemGroupData>
+        </FormData>
+      </StudyEventData>
+    </SubjectData>
+  </ClinicalData>
+</ODM>
