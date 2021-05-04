@@ -1,2 +1,2 @@
-# lsa2dom
+# lsa2odm
 Convert Limesurvey .lsa files to CDISC ODM
