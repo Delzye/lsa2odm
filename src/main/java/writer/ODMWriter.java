@@ -148,10 +148,13 @@ public class ODMWriter
 			addQuestionRef(q.getGid(), q.getQid(), q.getMandatory());
 			switch (q.getType()) {
 				case "T":
-					addQuestion(q.getQid(), q.getTitle(), "string");
+					addQuestion(q, "string");
 					break;
 				case "A":
 					addQuestionWithCL(q);
+					break;
+				case "N":
+					addQuestion(q, "float");
 					break;
 				 default:
 					log.info("Not yet supported: " + q.getType());
@@ -186,18 +189,23 @@ public class ODMWriter
 		}
 	}
 //====================================== helper functions ======================================= 
-	private Element addQuestion(String qid, String title, String data_type)
+	private Element addQuestion(Question q, String data_type)
 	{
-		return meta_data.addElement("ItemDef")
-			.addAttribute("OID", qid)
-			.addAttribute("Name", title)
-			.addAttribute("DataType", data_type);
+		Element e =  meta_data.addElement("ItemDef")
+							  .addAttribute("OID", q.getQid())
+							  .addAttribute("Name", q.getTitle())
+							  .addAttribute("DataType", data_type);
+		e.addElement("Question")
+		 .addElement("TranslatedText")
+		 .addAttribute("xml:lang", q.getLanguage())
+		 .addText(q.getQuestion());
+		return e;
 	}
 
 	private void addQuestionWithCL(Question q)
 	{
 		String answers_oid = q.getAnswers().getAnswers_oid();
-		addQuestion(q.getQid(), q.getTitle(), q.getAnswers().getType()).addElement("CodeListRef")
+		addQuestion(q, q.getAnswers().getType()).addElement("CodeListRef")
 			.addAttribute("CodeListOID", answers_oid);
 		if (!written_cl_oids.contains(answers_oid)) {
 			Element cl = code_lists.addElement("CodeList")

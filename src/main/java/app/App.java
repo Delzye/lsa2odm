@@ -24,7 +24,7 @@ public class App {
     public static void main(String[] args)
     {
 		BasicConfigurator.configure();
-		String filename = "cl+text";
+		String filename = "cl_sc";
 		File lss_file = new File("src/main/xml/" + filename + "_example.lss");
 		File lsr_file = new File("src/main/xml/" + filename + "_responses.lsr");
 		File xsd_file = new File("src/main/xml/lss.xsd");

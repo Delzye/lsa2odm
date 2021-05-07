@@ -13,9 +13,10 @@ public class Question
 	protected String help;
 	protected String title;
 	protected String mandatory;
+	protected String language;
 	protected AnswersList answers;
 
-	public Question(String qid, int gid, String type, String q, String title, String m)
+	public Question(String qid, int gid, String type, String q, String title, String m, String l)
 	{
 		this.qid = qid;
 		this.gid = gid;
@@ -23,6 +24,7 @@ public class Question
 		this.question = q;
 		this.title = title;
 		this.mandatory = m;
+		this.language = l;
 	}
 
 	public Question(Question q)

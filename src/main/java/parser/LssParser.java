@@ -21,6 +21,9 @@ public class LssParser
 	@Getter protected Survey survey;
 	Document doc;
 
+	Node q_l10ns_node;
+	Node sq_node;
+
 	public LssParser(File lss)
 	{
 		this.lss = lss;
@@ -69,17 +72,18 @@ public class LssParser
 	{
 		@SuppressWarnings("unchecked")
 		List<Element> questions_list = doc.selectNodes("//document/questions/rows/row");
-		Node q_l10ns_elem = doc.selectSingleNode("//document/question_l10ns/rows");
-		Node sq_elem = doc.selectSingleNode("//document/subquestions/rows");
+		q_l10ns_node = doc.selectSingleNode("//document/question_l10ns/rows");
+		sq_node = doc.selectSingleNode("//document/subquestions/rows");
 
 		for (Element question : questions_list) {
 			String qid = question.element("qid").getText();
 			Question q = new Question(qid, 
 									  Integer.parseInt(question.element("gid").getText()),
 									  question.element("type").getText(),
-									  q_l10ns_elem.selectSingleNode("row[qid=" + qid + "]/question").getText(),
+									  q_l10ns_node.selectSingleNode("row[qid=" + qid + "]/question").getText(),
 									  question.element("title").getText(),
-									  question.element("mandatory").getText());
+									  question.element("mandatory").getText(),
+									  q_l10ns_node.selectSingleNode("row[qid=" + qid + "]/language").getText());
 
 			log.info("Working on question: " + q.qid);
 
@@ -91,10 +95,25 @@ public class LssParser
 					q.setType("T");
 					survey.addQuestion(q);
 					break;
+				case "N":
+					survey.addQuestion(q);
+					break;
 				// Single 5-Point Choice
 				case "5":
 					q.setType("A");
 					q.setAnswers(new AnswersList("5pt.cl", getIntCl(5), "string", true));
+					survey.addQuestion(q);
+					break;
+				// Yes/No
+				case "Y":
+					q.setType("A");
+					q.setAnswers(new AnswersList("YN.cl", getYNCl(), "string", false));
+					survey.addQuestion(q);
+					break;
+				// Gender
+				case "G":
+					q.setType("A");
+					q.setAnswers(new AnswersList("Gender.cl", getGenderCl(), "string", false));
 					survey.addQuestion(q);
 					break;
 				// List with comment
@@ -119,23 +138,11 @@ public class LssParser
 					break;
 				// Multiple Texts
 				case "Q":
-					@SuppressWarnings("unchecked")
-					List<Element> sq_list = sq_elem.selectNodes("row[parent_qid=" + q.qid + "]/qid");
-					List<Integer> sqids = sq_list.stream()
-													 .map(e -> e.getText())
-													 .map(Integer::parseInt)
-													 .collect(Collectors.toList());  // Make a list of qid elements to a list of ints
-					for (int sqid : sqids) {
-						Question sq = new Question(q.qid + q.title,
-									  q.gid,
-									  "T",
-									  q.question + " " + q_l10ns_elem.selectSingleNode("row[qid=" + sqid + "]/question").getText(),
-									  Integer.toString(sqid),
-									  q.mandatory);
-						sq.setHelp(q.help);
-
-						survey.addQuestion(sq);
-					}
+					addSubquestions(q, "T");
+					break;
+				// Multiple Texts
+				case "K":
+					addSubquestions(q, "N");
 					break;
 				default:
 					log.info("Question type not supported: " + q.type);
@@ -164,5 +171,44 @@ public class LssParser
 			ans_map.put(a,a);
 		}
 		return ans_map;
+	}
+
+	private HashMap<String, String> getYNCl()
+	{
+		HashMap<String, String> ans_map = new HashMap<>();
+		ans_map.put("Y", "yes");
+		ans_map.put("N", "no");
+		return ans_map;
+	}
+
+	private HashMap<String, String> getGenderCl()
+	{
+		HashMap<String, String> ans_map = new HashMap<>();
+		ans_map.put("M", "male");
+		ans_map.put("F", "female");
+		return ans_map;
+	}
+
+	private void addSubquestions(Question q, String type)
+	{
+		@SuppressWarnings("unchecked")
+		List<Element> sq_list = sq_node.selectNodes("row[parent_qid=" + q.qid + "]/qid");
+		List<String> sqids = sq_list.stream()
+										 .map(e -> e.getText())
+										 .collect(Collectors.toList());  // Make a list of qid elements to a list of strings
+		for (String sqid : sqids) {
+			String question = q_l10ns_node.selectSingleNode("row[qid=" + sqid + "]/question").getText();
+			String sq_title = sq_node.selectSingleNode("row[qid=" + sqid + "]/title").getText();
+			Question sq = new Question(q.qid + sq_title,
+						  q.gid,
+						  type,
+						  q.question + " " + question,
+						  sqid,
+						  q.mandatory,
+						  q.language);
+			sq.setHelp(q.help);
+
+			survey.addQuestion(sq);
+		}
 	}
 }

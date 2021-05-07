@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+   <LimeSurveyDocType>Responses</LimeSurveyDocType>
+   <DBVersion>443</DBVersion>
+   <languages>
+      <language>en</language>
+   </languages>
+   <responses>
+      <fields>
+         <fieldname>id</fieldname>
+         <fieldname>token</fieldname>
+         <fieldname>submitdate</fieldname>
+         <fieldname>lastpage</fieldname>
+         <fieldname>startlanguage</fieldname>
+         <fieldname>seed</fieldname>
+         <fieldname>159575X11X66</fieldname>
+         <fieldname>159575X11X66other</fieldname>
+         <fieldname>159575X11X67</fieldname>
+         <fieldname>159575X11X68</fieldname>
+         <fieldname>159575X11X69</fieldname>
+         <fieldname>159575X11X70</fieldname>
+         <fieldname>159575X11X71</fieldname>
+         <fieldname>159575X11X72SQ001</fieldname>
+         <fieldname>159575X11X72SQ002</fieldname>
+         <fieldname>159575X11X72SQ005</fieldname>
+         <fieldname>159575X11X72SQ004</fieldname>
+         <fieldname>159575X11X72SQ003</fieldname>
+      </fields>
+      <rows>
+         <row>
+            <id><![CDATA[1]]></id>
+            <submitdate><![CDATA[1980-01-01 00:00:00]]></submitdate>
+            <lastpage><![CDATA[1]]></lastpage>
+            <startlanguage><![CDATA[en]]></startlanguage>
+            <seed><![CDATA[1558087453]]></seed>
+            <_159575X11X66><![CDATA[Q1A1]]></_159575X11X66>
+            <_159575X11X66other />
+            <_159575X11X67><![CDATA[Q2A2]]></_159575X11X67>
+            <_159575X11X68><![CDATA[2021-05-26 00:00:00]]></_159575X11X68>
+            <_159575X11X69><![CDATA[M]]></_159575X11X69>
+            <_159575X11X70><![CDATA[Y]]></_159575X11X70>
+            <_159575X11X71><![CDATA[45.0000000000]]></_159575X11X71>
+            <_159575X11X72SQ001><![CDATA[53.0000000000]]></_159575X11X72SQ001>
+            <_159575X11X72SQ002><![CDATA[34.0000000000]]></_159575X11X72SQ002>
+            <_159575X11X72SQ005><![CDATA[76.0000000000]]></_159575X11X72SQ005>
+            <_159575X11X72SQ003><![CDATA[345.0000000000]]></_159575X11X72SQ003>
+         </row>
+         <row>
+            <id><![CDATA[2]]></id>
+            <submitdate><![CDATA[1980-01-01 00:00:00]]></submitdate>
+            <lastpage><![CDATA[1]]></lastpage>
+            <startlanguage><![CDATA[en]]></startlanguage>
+            <seed><![CDATA[912985222]]></seed>
+            <_159575X11X66><![CDATA[-oth-]]></_159575X11X66>
+            <_159575X11X66other><![CDATA[adasd]]></_159575X11X66other>
+            <_159575X11X67><![CDATA[Q2A1]]></_159575X11X67>
+            <_159575X11X68><![CDATA[2021-01-26 00:00:00]]></_159575X11X68>
+            <_159575X11X69><![CDATA[F]]></_159575X11X69>
+            <_159575X11X70><![CDATA[N]]></_159575X11X70>
+            <_159575X11X71><![CDATA[43.0000000000]]></_159575X11X71>
+            <_159575X11X72SQ001><![CDATA[3443.0000000000]]></_159575X11X72SQ001>
+            <_159575X11X72SQ002><![CDATA[34.0000000000]]></_159575X11X72SQ002>
+            <_159575X11X72SQ004><![CDATA[34.0000000000]]></_159575X11X72SQ004>
+            <_159575X11X72SQ003><![CDATA[4.0000000000]]></_159575X11X72SQ003>
+         </row>
+      </rows>
+   </responses>
+</document>
