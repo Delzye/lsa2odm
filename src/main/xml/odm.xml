@@ -7,95 +7,122 @@
       <StudyDescription/>
       <ProtocolName/>
     </GlobalVariables>
-    <MetaDataVersion OID="MetaData741984" Name="">
+    <MetaDataVersion OID="MetaData237198" Name="">
       <Protocol>
         <StudyEventRef StudyEventOID="Event.1" Mandatory="No"/>
       </Protocol>
       <StudyEventDef OID="Event.1" Repeating="No" Type="Common">
-        <FormRef FormOID="741984" Mandatory="No"/>
+        <FormRef FormOID="237198" Mandatory="No"/>
       </StudyEventDef>
-      <FormDef OID="741984" Name="First_question_parsing" Repeating="No">
-        <ItemGroupRef ItemGroupOID="5" Mandatory="Yes"/>
-        <ItemGroupRef ItemGroupOID="6" Mandatory="Yes"/>
+      <FormDef OID="237198" Name="cl+text_test" Repeating="No">
+        <ItemGroupRef ItemGroupOID="7" Mandatory="Yes"/>
       </FormDef>
-      <ItemGroupDef OID="5" Name="G1" Repeating="No">
-        <ItemRef ItemOID="40" Mandatory="N"/>
-        <ItemRef ItemOID="41" Mandatory="N"/>
-        <ItemRef ItemOID="42" Mandatory="N"/>
-        <ItemRef ItemOID="43" Mandatory="N"/>
-        <ItemRef ItemOID="44" Mandatory="N"/>
-        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
-        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
-        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
-        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
+      <ItemGroupDef OID="7" Name="g1" Repeating="No">
+        <ItemRef ItemOID="53" Mandatory="N"/>
+        <ItemRef ItemOID="54other" Mandatory="N"/>
+        <ItemRef ItemOID="54" Mandatory="N"/>
+        <ItemRef ItemOID="55comment" Mandatory="N"/>
+        <ItemRef ItemOID="55" Mandatory="N"/>
+        <ItemRef ItemOID="56other" Mandatory="N"/>
+        <ItemRef ItemOID="56" Mandatory="N"/>
       </ItemGroupDef>
-      <ItemGroupDef OID="6" Name="G2" Repeating="No">
-        <ItemRef ItemOID="50" Mandatory="N"/>
-        <ItemRef ItemOID="51" Mandatory="N"/>
-      </ItemGroupDef>
-      <ItemDef OID="40" Name="G01Q01" DataType="string"/>
-      <ItemDef OID="41" Name="G01Q02" DataType="string"/>
-      <ItemDef OID="42" Name="G01Q03" DataType="string"/>
-      <ItemDef OID="43" Name="G01Q04" DataType="string"/>
-      <ItemDef OID="44" Name="G01Q05" DataType="string"/>
-      <ItemDef OID="45G01Q06" Name="46" DataType="string"/>
-      <ItemDef OID="45G01Q06" Name="47" DataType="string"/>
-      <ItemDef OID="45G01Q06" Name="48" DataType="string"/>
-      <ItemDef OID="45G01Q06" Name="49" DataType="string"/>
-      <ItemDef OID="50" Name="G02Q07" DataType="string">
-        <CodeListRef CodeListOID="5pt.cl"/>
+      <ItemDef OID="53" Name="G01Q01" DataType="string">
+        <CodeListRef CodeListOID="53.cl"/>
       </ItemDef>
-      <ItemDef OID="51" Name="G01Q08" DataType="string">
-        <CodeListRef CodeListOID="51.cl"/>
+      <ItemDef OID="54other" Name="G01Q02" DataType="string"/>
+      <ItemDef OID="54" Name="G01Q02" DataType="string">
+        <CodeListRef CodeListOID="54.cl"/>
       </ItemDef>
-      <CodeList OID="5pt.cl" Name="" DataType="string">
-        <EnumeratedElement CodedValue="1"/>
-        <EnumeratedElement CodedValue="2"/>
-        <EnumeratedElement CodedValue="3"/>
-        <EnumeratedElement CodedValue="4"/>
-        <EnumeratedElement CodedValue="5"/>
-      </CodeList>
-      <CodeList OID="51.cl" Name="" DataType="string">
+      <ItemDef OID="55comment" Name="G01Q03" DataType="string"/>
+      <ItemDef OID="55" Name="G01Q03" DataType="string">
+        <CodeListRef CodeListOID="55.cl"/>
+      </ItemDef>
+      <ItemDef OID="56other" Name="G01Q04" DataType="string"/>
+      <ItemDef OID="56" Name="G01Q04" DataType="string">
+        <CodeListRef CodeListOID="56.cl"/>
+      </ItemDef>
+      <CodeList OID="53.cl" Name="" DataType="string">
         <CodeListElement CodedValue="AO01">
           <Decode>
-            <TranslatedText xml:lang="">opt1</TranslatedText>
-          </Decode>
-        </CodeListElement>
-        <CodeListElement CodedValue="AO04">
-          <Decode>
-            <TranslatedText xml:lang="">opt4</TranslatedText>
+            <TranslatedText xml:lang="">A1</TranslatedText>
           </Decode>
         </CodeListElement>
         <CodeListElement CodedValue="AO02">
           <Decode>
-            <TranslatedText xml:lang="">opt2</TranslatedText>
+            <TranslatedText xml:lang="">A2</TranslatedText>
           </Decode>
         </CodeListElement>
         <CodeListElement CodedValue="AO03">
           <Decode>
-            <TranslatedText xml:lang="">opt3</TranslatedText>
+            <TranslatedText xml:lang="">A3</TranslatedText>
+          </Decode>
+        </CodeListElement>
+      </CodeList>
+      <CodeList OID="54.cl" Name="" DataType="string">
+        <CodeListElement CodedValue="AO01">
+          <Decode>
+            <TranslatedText xml:lang="">A2_1</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO02">
+          <Decode>
+            <TranslatedText xml:lang="">A2_2</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO03">
+          <Decode>
+            <TranslatedText xml:lang="">A2_3</TranslatedText>
+          </Decode>
+        </CodeListElement>
+      </CodeList>
+      <CodeList OID="55.cl" Name="" DataType="string">
+        <CodeListElement CodedValue="AO01">
+          <Decode>
+            <TranslatedText xml:lang="">A3_1</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO02">
+          <Decode>
+            <TranslatedText xml:lang="">A3_2</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO03">
+          <Decode>
+            <TranslatedText xml:lang="">A3_3</TranslatedText>
+          </Decode>
+        </CodeListElement>
+      </CodeList>
+      <CodeList OID="56.cl" Name="" DataType="string">
+        <CodeListElement CodedValue="AO01">
+          <Decode>
+            <TranslatedText xml:lang="">A4_1</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO02">
+          <Decode>
+            <TranslatedText xml:lang="">A4_2</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO03">
+          <Decode>
+            <TranslatedText xml:lang="">A4_3</TranslatedText>
           </Decode>
         </CodeListElement>
       </CodeList>
     </MetaDataVersion>
   </Study>
-  <ClinicalData  StudyOID="PlaceholderOID" MetaDataVersionOID="MetaData741984">
-    <SubjectData SubjectKey="2">
+  <ClinicalData  StudyOID="PlaceholderOID" MetaDataVersionOID="MetaData237198">
+    <SubjectData SubjectKey="1">
       <StudyEventData  StudyEventOID="Event.1">
-        <FormData FormOID="741984">
-          <ItemGroupData ItemGroupOID="5">
-            <ItemData ItemOID="40" Value="sft_answer"/>
-            <ItemData ItemOID="42" Value="lft_answer"/>
-            <ItemData ItemOID="43" Value="lft_with_timer_answer"/>
-            <ItemData ItemOID="44" Value="hft_answer"/>
-            <ItemData ItemOID="45SQ001" Value="mst_1_answer"/>
-            <ItemData ItemOID="45SQ002" Value="mst_2_answer"/>
-            <ItemData ItemOID="45SQ003" Value="mst_3_answer"/>
-            <ItemData ItemOID="45SQ004" Value="mst_4_answer"/>
-          </ItemGroupData>
-          <ItemGroupData ItemGroupOID="6">
-            <ItemData ItemOID="50" Value="5"/>
-            <ItemData ItemOID="51" Value="AO04"/>
+        <FormData FormOID="237198">
+          <ItemGroupData ItemGroupOID="7">
+            <ItemData ItemOID="53" Value="AO01"/>
+            <ItemData ItemOID="54" Value="-oth-"/>
+            <ItemData ItemOID="54other" Value="other_q2"/>
+            <ItemData ItemOID="55" Value="AO03"/>
+            <ItemData ItemOID="55comment" Value="q3_comment"/>
+            <ItemData ItemOID="56" Value="-oth-"/>
+            <ItemData ItemOID="56other" Value="q4_other"/>
           </ItemGroupData>
         </FormData>
       </StudyEventData>

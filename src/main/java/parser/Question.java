@@ -25,6 +25,16 @@ public class Question
 		this.mandatory = m;
 	}
 
+	public Question(Question q)
+	{
+		this.qid = q.qid;
+		this.gid = q.gid;
+		this.type = q.type;
+		this.question = q.question;
+		this.title = q.title;
+		this.mandatory = q.mandatory;
+	}
+
 	public void setAnswerOID(String oid)
 	{
 		answers.setAnswers_oid(oid);

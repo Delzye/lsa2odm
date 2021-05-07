@@ -1,11 +1,14 @@
 package app;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
+
+import org.apache.log4j.BasicConfigurator;
 import org.xml.sax.SAXException;
+
+import lombok.extern.log4j.Log4j;
+
 import java.io.File;
 import java.io.IOException;
 import javax.xml.transform.stream.StreamSource;
@@ -15,21 +18,20 @@ import writer.ODMWriter;
 import parser.LssParser;
 import parser.LsrParser;
 
+@Log4j
 public class App {
- 
-    private static final Logger logger = Logger.getLogger(App.class);
  
     public static void main(String[] args)
     {
-        //Configure logger
-        BasicConfigurator.configure();
-		File lss_file = new File("src/main/xml/texts_example.lss");
-		File lsr_file = new File("src/main/xml/texts_responses.lsr");
+		BasicConfigurator.configure();
+		String filename = "cl+text";
+		File lss_file = new File("src/main/xml/" + filename + "_example.lss");
+		File lsr_file = new File("src/main/xml/" + filename + "_responses.lsr");
 		File xsd_file = new File("src/main/xml/lss.xsd");
 		try{
 			validateFile(lss_file, xsd_file);	
 		} catch (IOException | SAXException e) {
-			logger.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 		// Parse .lss document
 		LssParser lss_parser = new LssParser(lss_file);
@@ -63,8 +65,8 @@ public class App {
 	    }
 	    catch (SAXException ex)
 	    {
-	        System.out.println(xmlFile.getName() + " is not valid because ");
-	        System.out.println(ex.getMessage());
+	        log.info(xmlFile.getName() + " is not valid because ");
+	        log.info(ex.getMessage());
 	    }
 	}
 }

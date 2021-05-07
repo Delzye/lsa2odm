@@ -49,7 +49,6 @@ public class LssParser
 
 	private void parseQuestionGroups()
 	{
-//########################################### Get the question groups #############################################################
 		@SuppressWarnings("unchecked")
 		List<Element> groups_elem = doc.selectNodes("//document/group_l10ns/rows/row");
 		for(Element elem : groups_elem) {
@@ -90,13 +89,33 @@ public class LssParser
 				case "T":
 				case "U":
 					q.setType("T");
-					survey.questions.add(q);
+					survey.addQuestion(q);
 					break;
 				// Single 5-Point Choice
 				case "5":
 					q.setType("A");
 					q.setAnswers(new AnswersList("5pt.cl", getIntCl(5), "string", true));
-					survey.questions.add(q);
+					survey.addQuestion(q);
+					break;
+				// List with comment
+				case "O":
+						Question q_comment = new Question(q);
+						q_comment.setQid(q_comment.getQid().concat("comment"));
+						q_comment.setType("T");
+						survey.addQuestion(q_comment);
+				// Radio List
+				case "L":
+					if (question.elementTextTrim("other").equals("Y")) {
+						Question q_other = new Question(q);
+						q_other.setQid(q_other.getQid().concat("other"));
+						q_other.setType("T");
+						survey.addQuestion(q_other);
+					}
+				// Dropdown List
+				case "!":
+					q.setType("A");
+					q.setAnswers(new AnswersList(q.getQid() + ".cl", getAnswersByID(q.qid), "string", false));
+					survey.addQuestion(q);
 					break;
 				// Multiple Texts
 				case "Q":
@@ -115,13 +134,8 @@ public class LssParser
 									  q.mandatory);
 						sq.setHelp(q.help);
 
-						survey.questions.add(sq);
+						survey.addQuestion(sq);
 					}
-					break;
-				case "!":
-					q.setType("A");
-					q.setAnswers(new AnswersList(q.getQid() + ".cl", getAnswersByID(q.qid), "string", false));
-					survey.addQuestion(q);
 					break;
 				default:
 					log.info("Question type not supported: " + q.type);
