@@ -100,7 +100,7 @@ public class ODMWriter
 		glob_var.addElement("StudyDescription");
 		glob_var.addElement("ProtocolName");
 		
-		meta_data_oid = "MetaData" + survey.getIDString();
+		meta_data_oid = "MetaData" + survey.getId();
 		study_event_oid = "Event.1";
 		meta_data = study.addElement("MetaDataVersion")
 						 .addAttribute("OID", meta_data_oid)
@@ -114,11 +114,11 @@ public class ODMWriter
 									   .addAttribute("Repeating", "No")
 									   .addAttribute("Type", "Common");
 		study_event.addElement("FormRef")
-				   .addAttribute("FormOID", survey.getIDString())
+				   .addAttribute("FormOID", survey.getId())
 				   .addAttribute("Mandatory", "No");
 
 		form = meta_data.addElement("FormDef")
-						.addAttribute("OID", survey.getIDString())
+						.addAttribute("OID", survey.getId())
 						.addAttribute("Name", survey.getName())
 						.addAttribute("Repeating", "No");
 	}
@@ -173,7 +173,7 @@ public class ODMWriter
 				.addElement("StudyEventData")
 				.addAttribute(" StudyEventOID", study_event_oid)
 				.addElement("FormData")
-				.addAttribute("FormOID", survey.getIDString());
+				.addAttribute("FormOID", survey.getId());
 			for (Map.Entry<Integer, ArrayList<Answer>> entry : r.getAnswers().entrySet()) {
 				Element ig_data = form_data.addElement("ItemGroupData")
 					.addAttribute("ItemGroupOID", Integer.toString(entry.getKey()));
@@ -205,12 +205,19 @@ public class ODMWriter
 				.addAttribute("Name", "")
 				.addAttribute("DataType", q.getAnswers().getType());
 			if (q.getAnswers().isSimple()) {
-				for (Map.Entry<Integer, String> e : q.getAnswers().getAnswers().entrySet()) {
+				for (Map.Entry<String, String> e : q.getAnswers().getAnswers().entrySet()) {
 					cl.addElement("EnumeratedElement")
 						.addAttribute("CodedValue", e.getValue());
 				}
 			} else {
-
+				for (Map.Entry<String, String> e : q.getAnswers().getAnswers().entrySet()) {
+					cl.addElement("CodeListElement")
+						.addAttribute("CodedValue", e.getKey())
+						.addElement("Decode")
+						.addElement("TranslatedText")
+						.addAttribute("xml:lang", "")
+						.addText(e.getValue());
+				}
 			}
 		}
 	}

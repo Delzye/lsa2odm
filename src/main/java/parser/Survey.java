@@ -2,11 +2,15 @@ package parser;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class Survey
 {
 	protected String name;
 	protected String description;
-	protected int id;
+	protected String id;
 	
 	protected ArrayList<QuestionGroup> groups;
 	protected ArrayList<Question> questions;
@@ -18,26 +22,10 @@ public class Survey
 		questions = new ArrayList<Question>();
 		qidList = new ArrayList<Integer>();
 	}
-	
-	public String getName()
+
+	public void addQuestion(Question q)
 	{
-		return this.name;
-	}
-	public String getDescription()
-	{
-		return this.description;
-	}
-	public String getIDString()
-	{
-		return "" + id;
-	}
-	public ArrayList<QuestionGroup> getGroups()
-	{
-		return this.groups;
-	}
-	public ArrayList<Question> getQuestions()
-	{
-		return this.questions;
+		questions.add(q);
 	}
 }
 

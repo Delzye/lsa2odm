@@ -7,84 +7,95 @@
       <StudyDescription/>
       <ProtocolName/>
     </GlobalVariables>
-    <MetaDataVersion OID="MetaData876373" Name="">
+    <MetaDataVersion OID="MetaData741984" Name="">
       <Protocol>
         <StudyEventRef StudyEventOID="Event.1" Mandatory="No"/>
       </Protocol>
       <StudyEventDef OID="Event.1" Repeating="No" Type="Common">
-        <FormRef FormOID="876373" Mandatory="No"/>
+        <FormRef FormOID="741984" Mandatory="No"/>
       </StudyEventDef>
-      <FormDef OID="876373" Name="trivial_text_example" Repeating="No">
-        <ItemGroupRef ItemGroupOID="8" Mandatory="Yes"/>
-        <ItemGroupRef ItemGroupOID="9" Mandatory="Yes"/>
-        <ItemGroupRef ItemGroupOID="10" Mandatory="Yes"/>
+      <FormDef OID="741984" Name="First_question_parsing" Repeating="No">
+        <ItemGroupRef ItemGroupOID="5" Mandatory="Yes"/>
+        <ItemGroupRef ItemGroupOID="6" Mandatory="Yes"/>
       </FormDef>
-      <ItemGroupDef OID="8" Name="g1" Repeating="No">
-        <ItemRef ItemOID="57" Mandatory="N"/>
-        <ItemRef ItemOID="58" Mandatory="N"/>
-        <ItemRef ItemOID="59" Mandatory="N"/>
+      <ItemGroupDef OID="5" Name="G1" Repeating="No">
+        <ItemRef ItemOID="40" Mandatory="N"/>
+        <ItemRef ItemOID="41" Mandatory="N"/>
+        <ItemRef ItemOID="42" Mandatory="N"/>
+        <ItemRef ItemOID="43" Mandatory="N"/>
+        <ItemRef ItemOID="44" Mandatory="N"/>
+        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
+        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
+        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
+        <ItemRef ItemOID="45G01Q06" Mandatory="N"/>
       </ItemGroupDef>
-      <ItemGroupDef OID="9" Name="g2" Repeating="No">
-        <ItemRef ItemOID="60" Mandatory="N"/>
-        <ItemRef ItemOID="61" Mandatory="N"/>
-        <ItemRef ItemOID="62" Mandatory="N"/>
+      <ItemGroupDef OID="6" Name="G2" Repeating="No">
+        <ItemRef ItemOID="50" Mandatory="N"/>
+        <ItemRef ItemOID="51" Mandatory="N"/>
       </ItemGroupDef>
-      <ItemGroupDef OID="10" Name="g3" Repeating="No">
-        <ItemRef ItemOID="63" Mandatory="N"/>
-        <ItemRef ItemOID="64" Mandatory="N"/>
-        <ItemRef ItemOID="65" Mandatory="N"/>
-      </ItemGroupDef>
-      <ItemDef OID="57" Name="G01Q01" DataType="string"/>
-      <ItemDef OID="58" Name="G01Q02" DataType="string"/>
-      <ItemDef OID="59" Name="G01Q03" DataType="string"/>
-      <ItemDef OID="60" Name="G02Q04" DataType="string"/>
-      <ItemDef OID="61" Name="G02Q05" DataType="string"/>
-      <ItemDef OID="62" Name="G02Q06" DataType="string"/>
-      <ItemDef OID="63" Name="G03Q07" DataType="string"/>
-      <ItemDef OID="64" Name="G03Q08" DataType="string"/>
-      <ItemDef OID="65" Name="G03Q09" DataType="string"/>
+      <ItemDef OID="40" Name="G01Q01" DataType="string"/>
+      <ItemDef OID="41" Name="G01Q02" DataType="string"/>
+      <ItemDef OID="42" Name="G01Q03" DataType="string"/>
+      <ItemDef OID="43" Name="G01Q04" DataType="string"/>
+      <ItemDef OID="44" Name="G01Q05" DataType="string"/>
+      <ItemDef OID="45G01Q06" Name="46" DataType="string"/>
+      <ItemDef OID="45G01Q06" Name="47" DataType="string"/>
+      <ItemDef OID="45G01Q06" Name="48" DataType="string"/>
+      <ItemDef OID="45G01Q06" Name="49" DataType="string"/>
+      <ItemDef OID="50" Name="G02Q07" DataType="string">
+        <CodeListRef CodeListOID="5pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="51" Name="G01Q08" DataType="string">
+        <CodeListRef CodeListOID="51.cl"/>
+      </ItemDef>
+      <CodeList OID="5pt.cl" Name="" DataType="string">
+        <EnumeratedElement CodedValue="1"/>
+        <EnumeratedElement CodedValue="2"/>
+        <EnumeratedElement CodedValue="3"/>
+        <EnumeratedElement CodedValue="4"/>
+        <EnumeratedElement CodedValue="5"/>
+      </CodeList>
+      <CodeList OID="51.cl" Name="" DataType="string">
+        <CodeListElement CodedValue="AO01">
+          <Decode>
+            <TranslatedText xml:lang="">opt1</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO04">
+          <Decode>
+            <TranslatedText xml:lang="">opt4</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO02">
+          <Decode>
+            <TranslatedText xml:lang="">opt2</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO03">
+          <Decode>
+            <TranslatedText xml:lang="">opt3</TranslatedText>
+          </Decode>
+        </CodeListElement>
+      </CodeList>
     </MetaDataVersion>
   </Study>
-  <ClinicalData  StudyOID="PlaceholderOID" MetaDataVersionOID="MetaData876373">
-    <SubjectData SubjectKey="1">
-      <StudyEventData  StudyEventOID="Event.1">
-        <FormData FormOID="876373">
-          <ItemGroupData ItemGroupOID="8">
-            <ItemData ItemOID="57" Value="a1_1"/>
-            <ItemData ItemOID="58" Value="a1_2"/>
-            <ItemData ItemOID="59" Value="a1_3"/>
-          </ItemGroupData>
-          <ItemGroupData ItemGroupOID="9">
-            <ItemData ItemOID="60" Value="a2_1"/>
-            <ItemData ItemOID="61" Value="a2_2"/>
-            <ItemData ItemOID="62" Value="a2_3"/>
-          </ItemGroupData>
-          <ItemGroupData ItemGroupOID="10">
-            <ItemData ItemOID="63" Value="a3_1"/>
-            <ItemData ItemOID="64" Value="a3_2"/>
-            <ItemData ItemOID="65" Value="a3_3"/>
-          </ItemGroupData>
-        </FormData>
-      </StudyEventData>
-    </SubjectData>
+  <ClinicalData  StudyOID="PlaceholderOID" MetaDataVersionOID="MetaData741984">
     <SubjectData SubjectKey="2">
       <StudyEventData  StudyEventOID="Event.1">
-        <FormData FormOID="876373">
-          <ItemGroupData ItemGroupOID="8"/>
-          <ItemGroupData ItemGroupOID="9"/>
-          <ItemGroupData ItemGroupOID="10"/>
-        </FormData>
-      </StudyEventData>
-    </SubjectData>
-    <SubjectData SubjectKey="3">
-      <StudyEventData  StudyEventOID="Event.1">
-        <FormData FormOID="876373">
-          <ItemGroupData ItemGroupOID="8">
-            <ItemData ItemOID="58" Value="2a_1_2"/>
+        <FormData FormOID="741984">
+          <ItemGroupData ItemGroupOID="5">
+            <ItemData ItemOID="40" Value="sft_answer"/>
+            <ItemData ItemOID="42" Value="lft_answer"/>
+            <ItemData ItemOID="43" Value="lft_with_timer_answer"/>
+            <ItemData ItemOID="44" Value="hft_answer"/>
+            <ItemData ItemOID="45SQ001" Value="mst_1_answer"/>
+            <ItemData ItemOID="45SQ002" Value="mst_2_answer"/>
+            <ItemData ItemOID="45SQ003" Value="mst_3_answer"/>
+            <ItemData ItemOID="45SQ004" Value="mst_4_answer"/>
           </ItemGroupData>
-          <ItemGroupData ItemGroupOID="9"/>
-          <ItemGroupData ItemGroupOID="10">
-            <ItemData ItemOID="65" Value="2a3_3"/>
+          <ItemGroupData ItemGroupOID="6">
+            <ItemData ItemOID="50" Value="5"/>
+            <ItemData ItemOID="51" Value="AO04"/>
           </ItemGroupData>
         </FormData>
       </StudyEventData>

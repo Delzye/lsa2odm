@@ -23,8 +23,8 @@ public class App {
     {
         //Configure logger
         BasicConfigurator.configure();
-		File lss_file = new File("src/main/xml/trivial_text_example.lss");
-		File lsr_file = new File("src/main/xml/trivial_text_responses.lsr");
+		File lss_file = new File("src/main/xml/texts_example.lss");
+		File lsr_file = new File("src/main/xml/texts_responses.lsr");
 		File xsd_file = new File("src/main/xml/lss.xsd");
 		try{
 			validateFile(lss_file, xsd_file);	
