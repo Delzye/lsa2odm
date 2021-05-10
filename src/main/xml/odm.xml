@@ -7,187 +7,683 @@
       <StudyDescription/>
       <ProtocolName/>
     </GlobalVariables>
-    <MetaDataVersion OID="MetaData159575" Name="">
+    <MetaDataVersion OID="MetaData329734" Name="">
       <Protocol>
         <StudyEventRef StudyEventOID="Event.1" Mandatory="No"/>
       </Protocol>
       <StudyEventDef OID="Event.1" Repeating="No" Type="Common">
-        <FormRef FormOID="159575" Mandatory="No"/>
+        <FormRef FormOID="329734" Mandatory="No"/>
       </StudyEventDef>
-      <FormDef OID="159575" Name="code_lists_single_choice" Repeating="No">
-        <ItemGroupRef ItemGroupOID="11" Mandatory="Yes"/>
+      <FormDef OID="329734" Name="Array-Questions" Repeating="No">
+        <ItemGroupRef ItemGroupOID="12" Mandatory="Yes"/>
       </FormDef>
-      <ItemGroupDef OID="11" Name="g1" Repeating="No">
-        <ItemRef ItemOID="66other" Mandatory="N"/>
-        <ItemRef ItemOID="66" Mandatory="N"/>
-        <ItemRef ItemOID="67" Mandatory="N"/>
-        <ItemRef ItemOID="69" Mandatory="N"/>
-        <ItemRef ItemOID="70" Mandatory="N"/>
-        <ItemRef ItemOID="71" Mandatory="N"/>
-        <ItemRef ItemOID="72SQ001" Mandatory="N"/>
-        <ItemRef ItemOID="72SQ002" Mandatory="N"/>
-        <ItemRef ItemOID="72SQ005" Mandatory="N"/>
-        <ItemRef ItemOID="72SQ004" Mandatory="N"/>
-        <ItemRef ItemOID="72SQ003" Mandatory="N"/>
+      <ItemGroupDef OID="12" Name="g1" Repeating="No">
+        <ItemRef ItemOID="83SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="83SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="83SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="83SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="83SQ005" Mandatory="N"/>
+        <ItemRef ItemOID="83SQ006" Mandatory="N"/>
+        <ItemRef ItemOID="90SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="90SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="90SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="90SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="95SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="95SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="95SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="95SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="100SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="100SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="100SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="100SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ004_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ005_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ001_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ002_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ003_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ004_SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ005_SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ001_SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ002_SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ003_SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ004_SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ005_SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ001_SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ002_SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ003_SQ004" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ004_SQ005" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ005_SQ005" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ001_SQ005" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ002_SQ005" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ003_SQ005" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ004_SQ006" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ005_SQ006" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ001_SQ006" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ002_SQ006" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ003_SQ006" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ004_SQ007" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ005_SQ007" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ001_SQ007" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ002_SQ007" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ003_SQ007" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ004_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ005_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ001_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ002_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="105SQ003_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="118SQ003_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="118SQ002_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="118SQ001_SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="118SQ003_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="118SQ002_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="118SQ001_SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="124SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="124SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="124SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="128SQ001" Mandatory="N"/>
+        <ItemRef ItemOID="128SQ002" Mandatory="N"/>
+        <ItemRef ItemOID="128SQ003" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ001-0" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ002-0" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ003-0" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ004-0" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ005-0" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ001-1" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ002-1" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ003-1" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ004-1" Mandatory="N"/>
+        <ItemRef ItemOID="132SQ005-1" Mandatory="N"/>
       </ItemGroupDef>
-      <ItemDef OID="66other" Name="G01Q01" DataType="string">
+      <ItemDef OID="83SQ001" Name="84" DataType="string">
         <Question>
-          <TranslatedText>question 1?</TranslatedText>
+          <TranslatedText xml:lang="de">Free choice array SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="83.cl"/>
+      </ItemDef>
+      <ItemDef OID="83SQ002" Name="85" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">Free choice array SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="83.cl"/>
+      </ItemDef>
+      <ItemDef OID="83SQ003" Name="86" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">Free choice array SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="83.cl"/>
+      </ItemDef>
+      <ItemDef OID="83SQ004" Name="87" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">Free choice array SQ4</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="83.cl"/>
+      </ItemDef>
+      <ItemDef OID="83SQ005" Name="88" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">Free choice array SQ5</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="83.cl"/>
+      </ItemDef>
+      <ItemDef OID="83SQ006" Name="89" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">Free choice array SQ6</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="83.cl"/>
+      </ItemDef>
+      <ItemDef OID="90SQ001" Name="91" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">5pt_choice_array Q2SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="5pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="90SQ002" Name="92" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">5pt_choice_array Q2SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="5pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="90SQ003" Name="93" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">5pt_choice_array Q2SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="5pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="90SQ004" Name="94" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">5pt_choice_array Q3SQ4</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="5pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="95SQ001" Name="96" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">10pt_array_choice Q3SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="10pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="95SQ002" Name="97" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">10pt_array_choice Q3SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="10pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="95SQ003" Name="98" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">10pt_array_choice Q3SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="10pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="95SQ004" Name="99" DataType="integer">
+        <Question>
+          <TranslatedText xml:lang="de">10pt_array_choice Q3SQ4</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="10pt.cl"/>
+      </ItemDef>
+      <ItemDef OID="100SQ001" Name="101" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">ISD_array_choice Q4SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="ISD.cl"/>
+      </ItemDef>
+      <ItemDef OID="100SQ002" Name="102" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">ISD_array_choice Q4SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="ISD.cl"/>
+      </ItemDef>
+      <ItemDef OID="100SQ003" Name="103" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">ISD_array_choice Q4SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="ISD.cl"/>
+      </ItemDef>
+      <ItemDef OID="100SQ004" Name="104" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">ISD_array_choice Q4SQ4</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="ISD.cl"/>
+      </ItemDef>
+      <ItemDef OID="105SQ004_SQ002" Name="110/112" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ4 Q5XSQ2</TranslatedText>
         </Question>
       </ItemDef>
-      <ItemDef OID="66" Name="G01Q01" DataType="string">
+      <ItemDef OID="105SQ005_SQ002" Name="111/112" DataType="float">
         <Question>
-          <TranslatedText xml:lang="en">question 1?</TranslatedText>
-        </Question>
-        <CodeListRef CodeListOID="66.cl"/>
-      </ItemDef>
-      <ItemDef OID="67" Name="G01Q02" DataType="string">
-        <Question>
-          <TranslatedText xml:lang="en">IMG SEL LIST</TranslatedText>
-        </Question>
-        <CodeListRef CodeListOID="67.cl"/>
-      </ItemDef>
-      <ItemDef OID="69" Name="G01Q04" DataType="string">
-        <Question>
-          <TranslatedText xml:lang="en">G1</TranslatedText>
-        </Question>
-        <CodeListRef CodeListOID="Gender.cl"/>
-      </ItemDef>
-      <ItemDef OID="70" Name="G01Q05" DataType="string">
-        <Question>
-          <TranslatedText xml:lang="en">YN1</TranslatedText>
-        </Question>
-        <CodeListRef CodeListOID="YN.cl"/>
-      </ItemDef>
-      <ItemDef OID="71" Name="G01Q06" DataType="float">
-        <Question>
-          <TranslatedText xml:lang="en">Ni1</TranslatedText>
+          <TranslatedText>numbers_array Q5YSQ5 Q5XSQ2</TranslatedText>
         </Question>
       </ItemDef>
-      <ItemDef OID="72SQ001" Name="78" DataType="float">
+      <ItemDef OID="105SQ001_SQ002" Name="106/112" DataType="float">
         <Question>
-          <TranslatedText xml:lang="en">MULT NI SQ1</TranslatedText>
+          <TranslatedText>numbers_array Q5YSQ1 Q5XSQ2</TranslatedText>
         </Question>
       </ItemDef>
-      <ItemDef OID="72SQ002" Name="79" DataType="float">
+      <ItemDef OID="105SQ002_SQ002" Name="108/112" DataType="float">
         <Question>
-          <TranslatedText xml:lang="en">MULT NI SQ2</TranslatedText>
+          <TranslatedText>numbers_array Q5YSQ2 Q5XSQ2</TranslatedText>
         </Question>
       </ItemDef>
-      <ItemDef OID="72SQ005" Name="80" DataType="float">
+      <ItemDef OID="105SQ003_SQ002" Name="109/112" DataType="float">
         <Question>
-          <TranslatedText xml:lang="en">MULT NI SQ3</TranslatedText>
+          <TranslatedText>numbers_array Q5YSQ3 Q5XSQ2</TranslatedText>
         </Question>
       </ItemDef>
-      <ItemDef OID="72SQ004" Name="81" DataType="float">
+      <ItemDef OID="105SQ004_SQ003" Name="110/113" DataType="float">
         <Question>
-          <TranslatedText xml:lang="en">MULT NI SQ4</TranslatedText>
+          <TranslatedText>numbers_array Q5YSQ4 Q5XSQ3</TranslatedText>
         </Question>
       </ItemDef>
-      <ItemDef OID="72SQ003" Name="82" DataType="float">
+      <ItemDef OID="105SQ005_SQ003" Name="111/113" DataType="float">
         <Question>
-          <TranslatedText xml:lang="en">MULT NI SQ5</TranslatedText>
+          <TranslatedText>numbers_array Q5YSQ5 Q5XSQ3</TranslatedText>
         </Question>
       </ItemDef>
-      <CodeList OID="66.cl" Name="" DataType="string">
-        <CodeListElement CodedValue="Q1A2">
-          <Decode>
-            <TranslatedText xml:lang="">Answer 2 Q1</TranslatedText>
-          </Decode>
-        </CodeListElement>
-        <CodeListElement CodedValue="Q1A1">
-          <Decode>
-            <TranslatedText xml:lang="">Answer 1 Q1</TranslatedText>
-          </Decode>
-        </CodeListElement>
-        <CodeListElement CodedValue="Q1A3">
-          <Decode>
-            <TranslatedText xml:lang="">Answer 3 Q1</TranslatedText>
-          </Decode>
-        </CodeListElement>
-      </CodeList>
-      <CodeList OID="67.cl" Name="" DataType="string">
+      <ItemDef OID="105SQ001_SQ003" Name="106/113" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ1 Q5XSQ3</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ002_SQ003" Name="108/113" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ2 Q5XSQ3</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ003_SQ003" Name="109/113" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ3 Q5XSQ3</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ004_SQ004" Name="110/114" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ4 Q5XSQ4</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ005_SQ004" Name="111/114" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ5 Q5XSQ4</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ001_SQ004" Name="106/114" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ1 Q5XSQ4</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ002_SQ004" Name="108/114" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ2 Q5XSQ4</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ003_SQ004" Name="109/114" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ3 Q5XSQ4</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ004_SQ005" Name="110/115" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ4 Q5XSQ5</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ005_SQ005" Name="111/115" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ5 Q5XSQ5</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ001_SQ005" Name="106/115" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ1 Q5XSQ5</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ002_SQ005" Name="108/115" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ2 Q5XSQ5</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ003_SQ005" Name="109/115" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ3 Q5XSQ5</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ004_SQ006" Name="110/116" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ4 Q5XSQ6</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ005_SQ006" Name="111/116" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ5 Q5XSQ6</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ001_SQ006" Name="106/116" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ1 Q5XSQ6</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ002_SQ006" Name="108/116" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ2 Q5XSQ6</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ003_SQ006" Name="109/116" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ3 Q5XSQ6</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ004_SQ007" Name="110/117" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ4 Q5XSQ7</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ005_SQ007" Name="111/117" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ5 Q5XSQ7</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ001_SQ007" Name="106/117" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ1 Q5XSQ7</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ002_SQ007" Name="108/117" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ2 Q5XSQ7</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ003_SQ007" Name="109/117" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ3 Q5XSQ7</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ004_SQ001" Name="110/107" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ4 Q5XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ005_SQ001" Name="111/107" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ5 Q5XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ001_SQ001" Name="106/107" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ1 Q5XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ002_SQ001" Name="108/107" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ2 Q5XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="105SQ003_SQ001" Name="109/107" DataType="float">
+        <Question>
+          <TranslatedText>numbers_array Q5YSQ3 Q5XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="118SQ003_SQ002" Name="121/123" DataType="string">
+        <Question>
+          <TranslatedText>array_texts_question Q6YSQ2 Q6YSQ2</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="118SQ002_SQ002" Name="122/123" DataType="string">
+        <Question>
+          <TranslatedText>array_texts_question Q6YSQ3 Q6YSQ2</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="118SQ001_SQ002" Name="119/123" DataType="string">
+        <Question>
+          <TranslatedText>array_texts_question Q6YSQ1 Q6YSQ2</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="118SQ003_SQ001" Name="121/120" DataType="string">
+        <Question>
+          <TranslatedText>array_texts_question Q6YSQ2 Q6XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="118SQ002_SQ001" Name="122/120" DataType="string">
+        <Question>
+          <TranslatedText>array_texts_question Q6YSQ3 Q6XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="118SQ001_SQ001" Name="119/120" DataType="string">
+        <Question>
+          <TranslatedText>array_texts_question Q6YSQ1 Q6XSQ1</TranslatedText>
+        </Question>
+      </ItemDef>
+      <ItemDef OID="124SQ001" Name="125" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">YNU_array Q7SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="YNU.cl"/>
+      </ItemDef>
+      <ItemDef OID="124SQ002" Name="126" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">YNU_array Q7SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="YNU.cl"/>
+      </ItemDef>
+      <ItemDef OID="124SQ003" Name="127" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">YNU_array Q7SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="YNU.cl"/>
+      </ItemDef>
+      <ItemDef OID="128SQ001" Name="129" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">column_array Q8SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="128.cl"/>
+      </ItemDef>
+      <ItemDef OID="128SQ002" Name="130" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">column_array Q8SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="128.cl"/>
+      </ItemDef>
+      <ItemDef OID="128SQ003" Name="131" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">column_array Q8SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="128.cl"/>
+      </ItemDef>
+      <ItemDef OID="132SQ001-0" Name="133" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.0"/>
+      </ItemDef>
+      <ItemDef OID="132SQ002-0" Name="134" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.0"/>
+      </ItemDef>
+      <ItemDef OID="132SQ003-0" Name="135" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.0"/>
+      </ItemDef>
+      <ItemDef OID="132SQ004-0" Name="136" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ4</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.0"/>
+      </ItemDef>
+      <ItemDef OID="132SQ005-0" Name="137" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ5</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.0"/>
+      </ItemDef>
+      <ItemDef OID="132SQ001-1" Name="133" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ1</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.1"/>
+      </ItemDef>
+      <ItemDef OID="132SQ002-1" Name="134" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ2</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.1"/>
+      </ItemDef>
+      <ItemDef OID="132SQ003-1" Name="135" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ3</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.1"/>
+      </ItemDef>
+      <ItemDef OID="132SQ004-1" Name="136" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ4</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.1"/>
+      </ItemDef>
+      <ItemDef OID="132SQ005-1" Name="137" DataType="string">
+        <Question>
+          <TranslatedText xml:lang="de">dual_scale_array Q9SQ5</TranslatedText>
+        </Question>
+        <CodeListRef CodeListOID="132.1"/>
+      </ItemDef>
+      <CodeList OID="83.cl" Name="" DataType="string">
         <CodeListElement CodedValue="AO01">
           <Decode>
-            <TranslatedText xml:lang="">Q2 A0</TranslatedText>
+            <TranslatedText xml:lang="">Q1A1</TranslatedText>
           </Decode>
         </CodeListElement>
-        <CodeListElement CodedValue="Q2A1">
+        <CodeListElement CodedValue="AO04">
           <Decode>
-            <TranslatedText xml:lang="">Answer 1 Q2</TranslatedText>
+            <TranslatedText xml:lang="">Q1A4</TranslatedText>
           </Decode>
         </CodeListElement>
-        <CodeListElement CodedValue="Q2A3">
+        <CodeListElement CodedValue="AO02">
           <Decode>
-            <TranslatedText xml:lang="">Answer 3 Q2</TranslatedText>
+            <TranslatedText xml:lang="">Q1A2</TranslatedText>
           </Decode>
         </CodeListElement>
-        <CodeListElement CodedValue="Q2A2">
+        <CodeListElement CodedValue="AO03">
           <Decode>
-            <TranslatedText xml:lang="">Answer 2 Q2</TranslatedText>
+            <TranslatedText xml:lang="">Q1A3</TranslatedText>
           </Decode>
         </CodeListElement>
       </CodeList>
-      <CodeList OID="Gender.cl" Name="" DataType="string">
-        <CodeListElement CodedValue="F">
+      <CodeList OID="5pt.cl" Name="" DataType="integer">
+        <EnumeratedElement CodedValue="1"/>
+        <EnumeratedElement CodedValue="2"/>
+        <EnumeratedElement CodedValue="3"/>
+        <EnumeratedElement CodedValue="4"/>
+        <EnumeratedElement CodedValue="5"/>
+      </CodeList>
+      <CodeList OID="10pt.cl" Name="" DataType="integer">
+        <EnumeratedElement CodedValue="1"/>
+        <EnumeratedElement CodedValue="2"/>
+        <EnumeratedElement CodedValue="3"/>
+        <EnumeratedElement CodedValue="4"/>
+        <EnumeratedElement CodedValue="5"/>
+        <EnumeratedElement CodedValue="6"/>
+        <EnumeratedElement CodedValue="7"/>
+        <EnumeratedElement CodedValue="8"/>
+        <EnumeratedElement CodedValue="9"/>
+        <EnumeratedElement CodedValue="10"/>
+      </CodeList>
+      <CodeList OID="ISD.cl" Name="" DataType="string">
+        <CodeListElement CodedValue="S">
           <Decode>
-            <TranslatedText xml:lang="">female</TranslatedText>
+            <TranslatedText xml:lang="">Same</TranslatedText>
           </Decode>
         </CodeListElement>
-        <CodeListElement CodedValue="M">
+        <CodeListElement CodedValue="D">
           <Decode>
-            <TranslatedText xml:lang="">male</TranslatedText>
+            <TranslatedText xml:lang="">Decrease</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="I">
+          <Decode>
+            <TranslatedText xml:lang="">Increase</TranslatedText>
           </Decode>
         </CodeListElement>
       </CodeList>
-      <CodeList OID="YN.cl" Name="" DataType="string">
+      <CodeList OID="YNU.cl" Name="" DataType="string">
+        <CodeListElement CodedValue="U">
+          <Decode>
+            <TranslatedText xml:lang="">Uncertain</TranslatedText>
+          </Decode>
+        </CodeListElement>
         <CodeListElement CodedValue="Y">
           <Decode>
-            <TranslatedText xml:lang="">yes</TranslatedText>
+            <TranslatedText xml:lang="">Yes</TranslatedText>
           </Decode>
         </CodeListElement>
         <CodeListElement CodedValue="N">
           <Decode>
-            <TranslatedText xml:lang="">no</TranslatedText>
+            <TranslatedText xml:lang="">No</TranslatedText>
+          </Decode>
+        </CodeListElement>
+      </CodeList>
+      <CodeList OID="128.cl" Name="" DataType="string">
+        <CodeListElement CodedValue="AO01">
+          <Decode>
+            <TranslatedText xml:lang="">Q8AO1</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO06">
+          <Decode>
+            <TranslatedText xml:lang="">Q8AO6</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO04">
+          <Decode>
+            <TranslatedText xml:lang="">Q8AO4</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO05">
+          <Decode>
+            <TranslatedText xml:lang="">Q8AO5</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO02">
+          <Decode>
+            <TranslatedText xml:lang="">Q8AO2</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="AO03">
+          <Decode>
+            <TranslatedText xml:lang="">Q8AO3</TranslatedText>
+          </Decode>
+        </CodeListElement>
+      </CodeList>
+      <CodeList OID="132.0" Name="" DataType="string">
+        <CodeListElement CodedValue="48">
+          <Decode>
+            <TranslatedText xml:lang="">Q9A1AO1</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="49">
+          <Decode>
+            <TranslatedText xml:lang="">Q9A1AO2</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="50">
+          <Decode>
+            <TranslatedText xml:lang="">Q9A1AO3</TranslatedText>
+          </Decode>
+        </CodeListElement>
+      </CodeList>
+      <CodeList OID="132.1" Name="" DataType="string">
+        <CodeListElement CodedValue="51">
+          <Decode>
+            <TranslatedText xml:lang="">Q9A2AO1</TranslatedText>
+          </Decode>
+        </CodeListElement>
+        <CodeListElement CodedValue="52">
+          <Decode>
+            <TranslatedText xml:lang="">Q9A3AO1</TranslatedText>
           </Decode>
         </CodeListElement>
       </CodeList>
     </MetaDataVersion>
   </Study>
-  <ClinicalData  StudyOID="PlaceholderOID" MetaDataVersionOID="MetaData159575">
+  <ClinicalData  StudyOID="PlaceholderOID" MetaDataVersionOID="MetaData329734">
     <SubjectData SubjectKey="1">
       <StudyEventData  StudyEventOID="Event.1">
-        <FormData FormOID="159575">
-          <ItemGroupData ItemGroupOID="11">
-            <ItemData ItemOID="66" Value="Q1A1"/>
-            <ItemData ItemOID="67" Value="Q2A2"/>
-            <ItemData ItemOID="68" Value="2021-05-26 00:00:00"/>
-            <ItemData ItemOID="69" Value="M"/>
-            <ItemData ItemOID="70" Value="Y"/>
-            <ItemData ItemOID="71" Value="45.0000000000"/>
-            <ItemData ItemOID="72SQ001" Value="53.0000000000"/>
-            <ItemData ItemOID="72SQ002" Value="34.0000000000"/>
-            <ItemData ItemOID="72SQ005" Value="76.0000000000"/>
-            <ItemData ItemOID="72SQ003" Value="345.0000000000"/>
-          </ItemGroupData>
-        </FormData>
-      </StudyEventData>
-    </SubjectData>
-    <SubjectData SubjectKey="2">
-      <StudyEventData  StudyEventOID="Event.1">
-        <FormData FormOID="159575">
-          <ItemGroupData ItemGroupOID="11">
-            <ItemData ItemOID="66" Value="-oth-"/>
-            <ItemData ItemOID="66other" Value="adasd"/>
-            <ItemData ItemOID="67" Value="Q2A1"/>
-            <ItemData ItemOID="68" Value="2021-01-26 00:00:00"/>
-            <ItemData ItemOID="69" Value="F"/>
-            <ItemData ItemOID="70" Value="N"/>
-            <ItemData ItemOID="71" Value="43.0000000000"/>
-            <ItemData ItemOID="72SQ001" Value="3443.0000000000"/>
-            <ItemData ItemOID="72SQ002" Value="34.0000000000"/>
-            <ItemData ItemOID="72SQ004" Value="34.0000000000"/>
-            <ItemData ItemOID="72SQ003" Value="4.0000000000"/>
+        <FormData FormOID="329734">
+          <ItemGroupData ItemGroupOID="12">
+            <ItemData ItemOID="83SQ001" Value="AO01"/>
+            <ItemData ItemOID="83SQ003" Value="AO03"/>
+            <ItemData ItemOID="83SQ005" Value="AO03"/>
+            <ItemData ItemOID="90SQ002" Value="3"/>
+            <ItemData ItemOID="90SQ004" Value="5"/>
+            <ItemData ItemOID="95SQ001" Value="2"/>
+            <ItemData ItemOID="95SQ003" Value="8"/>
+            <ItemData ItemOID="95SQ004" Value="5"/>
+            <ItemData ItemOID="100SQ001" Value="I"/>
+            <ItemData ItemOID="100SQ002" Value="S"/>
+            <ItemData ItemOID="100SQ003" Value="D"/>
+            <ItemData ItemOID="105SQ002_SQ001" Value="8"/>
+            <ItemData ItemOID="105SQ002_SQ002" Value="8"/>
+            <ItemData ItemOID="105SQ002_SQ003" Value="4"/>
+            <ItemData ItemOID="105SQ002_SQ004" Value="1"/>
+            <ItemData ItemOID="105SQ002_SQ005" Value="4"/>
+            <ItemData ItemOID="105SQ003_SQ004" Value="3"/>
+            <ItemData ItemOID="105SQ003_SQ007" Value="4"/>
+            <ItemData ItemOID="105SQ004_SQ003" Value="4"/>
+            <ItemData ItemOID="105SQ004_SQ005" Value="3"/>
+            <ItemData ItemOID="105SQ005_SQ006" Value="2"/>
+            <ItemData ItemOID="105SQ005_SQ007" Value="3"/>
+            <ItemData ItemOID="118SQ001_SQ001" Value="T1"/>
+            <ItemData ItemOID="118SQ001_SQ002" Value="T2"/>
+            <ItemData ItemOID="118SQ003_SQ001" Value="T3"/>
+            <ItemData ItemOID="118SQ003_SQ002" Value="T4"/>
+            <ItemData ItemOID="118SQ002_SQ001" Value="T5"/>
+            <ItemData ItemOID="118SQ002_SQ002" Value="T6"/>
+            <ItemData ItemOID="124SQ001" Value="Y"/>
+            <ItemData ItemOID="124SQ002" Value="U"/>
+            <ItemData ItemOID="124SQ003" Value="N"/>
+            <ItemData ItemOID="128SQ001" Value="AO01"/>
+            <ItemData ItemOID="128SQ002" Value="AO04"/>
+            <ItemData ItemOID="128SQ003" Value="AO03"/>
+            <ItemData ItemOID="132SQ001-0" Value="AO01"/>
+            <ItemData ItemOID="132SQ002-0" Value="AO02"/>
+            <ItemData ItemOID="132SQ004-0" Value="AO02"/>
+            <ItemData ItemOID="132SQ005-1" Value="AO02"/>
           </ItemGroupData>
         </FormData>
       </StudyEventData>

@@ -156,6 +156,9 @@ public class ODMWriter
 				case "N":
 					addQuestion(q, "float");
 					break;
+				case "D":
+					addQuestion(q, "datetime");
+					break;
 				 default:
 					log.info("Not yet supported: " + q.getType());
 					break;
@@ -227,6 +230,7 @@ public class ODMWriter
 						.addText(e.getValue());
 				}
 			}
+			written_cl_oids.add(answers_oid);
 		}
 	}
 

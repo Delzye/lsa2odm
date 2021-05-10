@@ -20,12 +20,14 @@ public class LsrParser
 	Element rows;
 	ArrayList<QuestionGroup> qg_list;
 	@Getter ArrayList<Response> responses;
+	List<String> date_time_qids;
 
-	public LsrParser(File lsr_file, ArrayList<QuestionGroup> qg_list)
+	public LsrParser(File lsr_file, ArrayList<QuestionGroup> qg_list, ArrayList<String> dt_qids)
 	{
 		this.lsr_file = lsr_file;
 		this.qg_list = qg_list;
 		responses = new ArrayList<Response>();
+		this.date_time_qids = dt_qids;
 	}
 
 	public void createDocument()
@@ -42,6 +44,8 @@ public class LsrParser
 	{
 		@SuppressWarnings("unchecked")
 		List<Element> row_list = doc.selectNodes("//document/responses/rows/row");
+
+		log.info(date_time_qids);
 		
 		// Iterate over all row-Elements (one per survey-participant)
 		for (Element row : row_list) {
@@ -70,8 +74,10 @@ public class LsrParser
 
 					// only add an answer if it isn't empty
 					if (ans != "") { 
+						if (date_time_qids.contains(e_match.group(2))) {
+							ans = ans.replace(" ", "T");
+						}
 						Answer a = new Answer(Integer.parseInt(e_match.group(1)), e_match.group(2), ans);
-						log.info(a.toString());
 						r.addToAnswers(a);
 					}
 				}

@@ -24,7 +24,7 @@ public class App {
     public static void main(String[] args)
     {
 		BasicConfigurator.configure();
-		String filename = "cl_sc";
+		String filename = "array";
 		File lss_file = new File("src/main/xml/" + filename + "_example.lss");
 		File lsr_file = new File("src/main/xml/" + filename + "_responses.lsr");
 		File xsd_file = new File("src/main/xml/lss.xsd");
@@ -38,7 +38,7 @@ public class App {
 		lss_parser.parseDocument();
 
 		// Parse .lsr document
-		LsrParser lsr_parser = new LsrParser(lsr_file, lss_parser.getSurvey().getGroups());
+		LsrParser lsr_parser = new LsrParser(lsr_file, lss_parser.getSurvey().getGroups(), lss_parser.getDate_time_qids());
 		lsr_parser.createDocument();
 		lsr_parser.parseAnswers();
 
