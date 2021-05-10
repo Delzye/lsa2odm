@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+   <LimeSurveyDocType>Responses</LimeSurveyDocType>
+   <DBVersion>443</DBVersion>
+   <languages>
+      <language>de</language>
+   </languages>
+   <responses>
+      <fields>
+         <fieldname>id</fieldname>
+         <fieldname>token</fieldname>
+         <fieldname>submitdate</fieldname>
+         <fieldname>lastpage</fieldname>
+         <fieldname>startlanguage</fieldname>
+         <fieldname>seed</fieldname>
+         <fieldname>329734X12X83SQ001</fieldname>
+         <fieldname>329734X12X83SQ002</fieldname>
+         <fieldname>329734X12X83SQ003</fieldname>
+         <fieldname>329734X12X83SQ004</fieldname>
+         <fieldname>329734X12X83SQ005</fieldname>
+         <fieldname>329734X12X83SQ006</fieldname>
+         <fieldname>329734X12X90SQ001</fieldname>
+         <fieldname>329734X12X90SQ002</fieldname>
+         <fieldname>329734X12X90SQ003</fieldname>
+         <fieldname>329734X12X90SQ004</fieldname>
+         <fieldname>329734X12X95SQ001</fieldname>
+         <fieldname>329734X12X95SQ002</fieldname>
+         <fieldname>329734X12X95SQ003</fieldname>
+         <fieldname>329734X12X95SQ004</fieldname>
+         <fieldname>329734X12X100SQ001</fieldname>
+         <fieldname>329734X12X100SQ002</fieldname>
+         <fieldname>329734X12X100SQ003</fieldname>
+         <fieldname>329734X12X100SQ004</fieldname>
+         <fieldname>329734X12X105SQ001_SQ001</fieldname>
+         <fieldname>329734X12X105SQ001_SQ002</fieldname>
+         <fieldname>329734X12X105SQ001_SQ003</fieldname>
+         <fieldname>329734X12X105SQ001_SQ004</fieldname>
+         <fieldname>329734X12X105SQ001_SQ005</fieldname>
+         <fieldname>329734X12X105SQ001_SQ006</fieldname>
+         <fieldname>329734X12X105SQ001_SQ007</fieldname>
+         <fieldname>329734X12X105SQ002_SQ001</fieldname>
+         <fieldname>329734X12X105SQ002_SQ002</fieldname>
+         <fieldname>329734X12X105SQ002_SQ003</fieldname>
+         <fieldname>329734X12X105SQ002_SQ004</fieldname>
+         <fieldname>329734X12X105SQ002_SQ005</fieldname>
+         <fieldname>329734X12X105SQ002_SQ006</fieldname>
+         <fieldname>329734X12X105SQ002_SQ007</fieldname>
+         <fieldname>329734X12X105SQ003_SQ001</fieldname>
+         <fieldname>329734X12X105SQ003_SQ002</fieldname>
+         <fieldname>329734X12X105SQ003_SQ003</fieldname>
+         <fieldname>329734X12X105SQ003_SQ004</fieldname>
+         <fieldname>329734X12X105SQ003_SQ005</fieldname>
+         <fieldname>329734X12X105SQ003_SQ006</fieldname>
+         <fieldname>329734X12X105SQ003_SQ007</fieldname>
+         <fieldname>329734X12X105SQ004_SQ001</fieldname>
+         <fieldname>329734X12X105SQ004_SQ002</fieldname>
+         <fieldname>329734X12X105SQ004_SQ003</fieldname>
+         <fieldname>329734X12X105SQ004_SQ004</fieldname>
+         <fieldname>329734X12X105SQ004_SQ005</fieldname>
+         <fieldname>329734X12X105SQ004_SQ006</fieldname>
+         <fieldname>329734X12X105SQ004_SQ007</fieldname>
+         <fieldname>329734X12X105SQ005_SQ001</fieldname>
+         <fieldname>329734X12X105SQ005_SQ002</fieldname>
+         <fieldname>329734X12X105SQ005_SQ003</fieldname>
+         <fieldname>329734X12X105SQ005_SQ004</fieldname>
+         <fieldname>329734X12X105SQ005_SQ005</fieldname>
+         <fieldname>329734X12X105SQ005_SQ006</fieldname>
+         <fieldname>329734X12X105SQ005_SQ007</fieldname>
+         <fieldname>329734X12X118SQ001_SQ001</fieldname>
+         <fieldname>329734X12X118SQ001_SQ002</fieldname>
+         <fieldname>329734X12X118SQ003_SQ001</fieldname>
+         <fieldname>329734X12X118SQ003_SQ002</fieldname>
+         <fieldname>329734X12X118SQ002_SQ001</fieldname>
+         <fieldname>329734X12X118SQ002_SQ002</fieldname>
+         <fieldname>329734X12X124SQ001</fieldname>
+         <fieldname>329734X12X124SQ002</fieldname>
+         <fieldname>329734X12X124SQ003</fieldname>
+         <fieldname>329734X12X128SQ001</fieldname>
+         <fieldname>329734X12X128SQ002</fieldname>
+         <fieldname>329734X12X128SQ003</fieldname>
+         <fieldname>329734X12X132SQ001#0</fieldname>
+         <fieldname>329734X12X132SQ001#1</fieldname>
+         <fieldname>329734X12X132SQ002#0</fieldname>
+         <fieldname>329734X12X132SQ002#1</fieldname>
+         <fieldname>329734X12X132SQ003#0</fieldname>
+         <fieldname>329734X12X132SQ003#1</fieldname>
+         <fieldname>329734X12X132SQ004#0</fieldname>
+         <fieldname>329734X12X132SQ004#1</fieldname>
+         <fieldname>329734X12X132SQ005#0</fieldname>
+         <fieldname>329734X12X132SQ005#1</fieldname>
+      </fields>
+      <rows>
+         <row>
+            <id><![CDATA[1]]></id>
+            <submitdate><![CDATA[1980-01-01 00:00:00]]></submitdate>
+            <lastpage><![CDATA[1]]></lastpage>
+            <startlanguage><![CDATA[de]]></startlanguage>
+            <seed><![CDATA[859731791]]></seed>
+            <_329734X12X83SQ001><![CDATA[AO01]]></_329734X12X83SQ001>
+            <_329734X12X83SQ002 />
+            <_329734X12X83SQ003><![CDATA[AO03]]></_329734X12X83SQ003>
+            <_329734X12X83SQ004 />
+            <_329734X12X83SQ005><![CDATA[AO03]]></_329734X12X83SQ005>
+            <_329734X12X83SQ006 />
+            <_329734X12X90SQ001 />
+            <_329734X12X90SQ002><![CDATA[3]]></_329734X12X90SQ002>
+            <_329734X12X90SQ003 />
+            <_329734X12X90SQ004><![CDATA[5]]></_329734X12X90SQ004>
+            <_329734X12X95SQ001><![CDATA[2]]></_329734X12X95SQ001>
+            <_329734X12X95SQ002 />
+            <_329734X12X95SQ003><![CDATA[8]]></_329734X12X95SQ003>
+            <_329734X12X95SQ004><![CDATA[5]]></_329734X12X95SQ004>
+            <_329734X12X100SQ001><![CDATA[I]]></_329734X12X100SQ001>
+            <_329734X12X100SQ002><![CDATA[S]]></_329734X12X100SQ002>
+            <_329734X12X100SQ003><![CDATA[D]]></_329734X12X100SQ003>
+            <_329734X12X100SQ004 />
+            <_329734X12X105SQ002_SQ001><![CDATA[8]]></_329734X12X105SQ002_SQ001>
+            <_329734X12X105SQ002_SQ002><![CDATA[8]]></_329734X12X105SQ002_SQ002>
+            <_329734X12X105SQ002_SQ003><![CDATA[4]]></_329734X12X105SQ002_SQ003>
+            <_329734X12X105SQ002_SQ004><![CDATA[1]]></_329734X12X105SQ002_SQ004>
+            <_329734X12X105SQ002_SQ005><![CDATA[4]]></_329734X12X105SQ002_SQ005>
+            <_329734X12X105SQ002_SQ006 />
+            <_329734X12X105SQ002_SQ007 />
+            <_329734X12X105SQ003_SQ001 />
+            <_329734X12X105SQ003_SQ002 />
+            <_329734X12X105SQ003_SQ003 />
+            <_329734X12X105SQ003_SQ004><![CDATA[3]]></_329734X12X105SQ003_SQ004>
+            <_329734X12X105SQ003_SQ005 />
+            <_329734X12X105SQ003_SQ006 />
+            <_329734X12X105SQ003_SQ007><![CDATA[4]]></_329734X12X105SQ003_SQ007>
+            <_329734X12X105SQ004_SQ001 />
+            <_329734X12X105SQ004_SQ002 />
+            <_329734X12X105SQ004_SQ003><![CDATA[4]]></_329734X12X105SQ004_SQ003>
+            <_329734X12X105SQ004_SQ004 />
+            <_329734X12X105SQ004_SQ005><![CDATA[3]]></_329734X12X105SQ004_SQ005>
+            <_329734X12X105SQ004_SQ006 />
+            <_329734X12X105SQ004_SQ007 />
+            <_329734X12X105SQ005_SQ001 />
+            <_329734X12X105SQ005_SQ002 />
+            <_329734X12X105SQ005_SQ003 />
+            <_329734X12X105SQ005_SQ004 />
+            <_329734X12X105SQ005_SQ005 />
+            <_329734X12X105SQ005_SQ006><![CDATA[2]]></_329734X12X105SQ005_SQ006>
+            <_329734X12X105SQ005_SQ007><![CDATA[3]]></_329734X12X105SQ005_SQ007>
+            <_329734X12X118SQ001_SQ001><![CDATA[T1]]></_329734X12X118SQ001_SQ001>
+            <_329734X12X118SQ001_SQ002><![CDATA[T2]]></_329734X12X118SQ001_SQ002>
+            <_329734X12X118SQ003_SQ001><![CDATA[T3]]></_329734X12X118SQ003_SQ001>
+            <_329734X12X118SQ003_SQ002><![CDATA[T4]]></_329734X12X118SQ003_SQ002>
+            <_329734X12X118SQ002_SQ001><![CDATA[T5]]></_329734X12X118SQ002_SQ001>
+            <_329734X12X118SQ002_SQ002><![CDATA[T6]]></_329734X12X118SQ002_SQ002>
+            <_329734X12X124SQ001><![CDATA[Y]]></_329734X12X124SQ001>
+            <_329734X12X124SQ002><![CDATA[U]]></_329734X12X124SQ002>
+            <_329734X12X124SQ003><![CDATA[N]]></_329734X12X124SQ003>
+            <_329734X12X128SQ001><![CDATA[AO01]]></_329734X12X128SQ001>
+            <_329734X12X128SQ002><![CDATA[AO04]]></_329734X12X128SQ002>
+            <_329734X12X128SQ003><![CDATA[AO03]]></_329734X12X128SQ003>
+            <_329734X12X132SQ001-0><![CDATA[AO01]]></_329734X12X132SQ001-0>
+            <_329734X12X132SQ001-1 />
+            <_329734X12X132SQ002-0><![CDATA[AO02]]></_329734X12X132SQ002-0>
+            <_329734X12X132SQ002-1 />
+            <_329734X12X132SQ003-0 />
+            <_329734X12X132SQ003-1 />
+            <_329734X12X132SQ004-0><![CDATA[AO02]]></_329734X12X132SQ004-0>
+            <_329734X12X132SQ004-1 />
+            <_329734X12X132SQ005-0 />
+            <_329734X12X132SQ005-1><![CDATA[AO02]]></_329734X12X132SQ005-1>
+         </row>
+      </rows>
+   </responses>
+</document>
