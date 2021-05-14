@@ -9,6 +9,7 @@ import parser.Question;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import lombok.extern.log4j.Log4j;
@@ -26,9 +27,9 @@ public class ODMWriter
 	Element meta_data;
 	Element form;
 	Element code_lists;
+	Element clinical_data;
 
 	Survey survey;
-	ArrayList<Response> responses;
 	
 	String meta_data_oid;
 	String survey_oid;
@@ -36,10 +37,9 @@ public class ODMWriter
 	HashMap<Integer, Element> question_groups;
 	ArrayList<String> written_cl_oids;
 	
-	public ODMWriter(Survey s, ArrayList<Response> r)
+	public ODMWriter(Survey s)
 	{
 		this.survey = s;
-		this.responses = r;
 		this.doc = DocumentHelper.createDocument();
 		this.question_groups = new HashMap<Integer, Element>();
 		this.written_cl_oids = new ArrayList<String>();
@@ -55,7 +55,7 @@ public class ODMWriter
 		code_lists = tmp.addElement("code_lists");
 		addQuestions();
 
-		writeAnswersToDocument();
+		addClinicalDataElement();
 	}
 
 	public void writeFile()
@@ -167,12 +167,15 @@ public class ODMWriter
 		meta_data.appendContent(code_lists);
 	}
 
-	private void writeAnswersToDocument()
+	private void addClinicalDataElement()
 	{
-		Element clinical_data = root.addElement("ClinicalData")
+		clinical_data = root.addElement("ClinicalData")
 			.addAttribute(" StudyOID", survey_oid)
 			.addAttribute("MetaDataVersionOID", meta_data_oid);
+	}
 
+	public void addAnswers(LinkedList<Response> responses)
+	{
 		for (Response r : responses) {
 			Element form_data = clinical_data.addElement("SubjectData")
 				.addAttribute("SubjectKey", Integer.toString(r.getId()))

@@ -1,7 +1,10 @@
 package parser;
 
+import writer.ODMWriter;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,15 +22,17 @@ public class LsrParser
 	Document doc;
 	Element rows;
 	ArrayList<QuestionGroup> qg_list;
-	@Getter ArrayList<Response> responses;
+	@Getter LinkedList<Response> responses;
 	List<String> date_time_qids;
+	ODMWriter writer;
 
-	public LsrParser(File lsr_file, ArrayList<QuestionGroup> qg_list, ArrayList<String> dt_qids)
+	public LsrParser(File lsr_file, ArrayList<QuestionGroup> qg_list, ArrayList<String> dt_qids, ODMWriter writer)
 	{
 		this.lsr_file = lsr_file;
 		this.qg_list = qg_list;
-		responses = new ArrayList<Response>();
+		responses = new LinkedList<Response>();
 		this.date_time_qids = dt_qids;
+		this.writer = writer;
 	}
 
 	public void createDocument()
@@ -47,6 +52,7 @@ public class LsrParser
 
 		log.info(date_time_qids);
 		
+		int x = 0;
 		// Iterate over all row-Elements (one per survey-participant)
 		for (Element row : row_list) {
 
@@ -58,11 +64,12 @@ public class LsrParser
 			}
 			@SuppressWarnings("unchecked")
 			List<Element> children = row.elements();
+
 			// Iterate over all elements in row (most of which are answers, but also id, language etc.)
 			for (Element e : children) {
 
 				// Pattern for Answer-Names: _{Survey_id}X{gid}X{qid}{ext}
-				// Where ext can be either the title of a subquestion or other/comment
+				// Where ext can be one of "{subquestion_title}|other|comment"
 				Pattern ans_p = Pattern.compile("^_\\d+X(\\d+)X(.+?)$");
 				log.info(e.getName());
 				Matcher e_match = ans_p.matcher(e.getName());
@@ -83,6 +90,13 @@ public class LsrParser
 				}
 			}
 			responses.add(r);
+			x++;
+			if (x == 1000) {
+				x = 0;
+				writer.addAnswers(responses);
+				responses.clear();
+			}
 		}
+		writer.addAnswers(responses);
 	}
 }
