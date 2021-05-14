@@ -1,0 +1,34 @@
+# Old version (read entire lsr, then write to doc)
+
+## ArrayList
+
+RAM: 1135mb
+Exec speed: 04:18min
+
+
+## LinkedList
+
+RAM: 1326mb
+Exec speed: 04:11min
+
+# New version (read part of lsr, then write to doc)
+
+## 1000 Questions per write
+
+RAM: 1017mb
+Exec speed: 04:09min
+
+## 100 Questions per write
+
+RAM:
+Exec speed:
+
+## LinkedList with 1000 Questions per write
+
+RAM: 827mb/ 1228mb / 756mb / 1106mb / 884mb / 1297mb
+Exec speed: 04:20min / 03:59min / 04:30min / 02:46min / 02:46min / 02:42min
+
+## LinkedList with 100 Questions per write
+
+RAM: 1296mb
+Exec speed: 04:19min
