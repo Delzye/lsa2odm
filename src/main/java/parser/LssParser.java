@@ -141,6 +141,12 @@ public class LssParser
 						q_other.setQid(q_other.getQid().concat("other"));
 						q_other.setType("T");
 						survey.addQuestion(q_other);
+						/*	Cond: SE-StudyEventOID/F-FormOID[RepeatKey]/IG-ItemGroupOID/I-ItemOID == "-oth-"
+						 *
+						 */
+						String cond_oid = q.getQid().concat(".cond");
+						survey.addCondition(new Condition(cond_oid, Integer.toString(q.getGid()), q.getQid()));
+						q_other.setCond(cond_oid);
 					}
 				// Dropdown List
 				case "!":

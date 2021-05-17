@@ -15,6 +15,7 @@ public class Question
 	protected String mandatory;
 	protected String language;
 	protected AnswersList answers;
+	protected String cond;
 
 	public Question(String qid, int gid, String type, String q, String title, String m, String l)
 	{

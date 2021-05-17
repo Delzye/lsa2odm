@@ -3,6 +3,7 @@ package writer;
 import parser.Survey;
 import parser.Response;
 import parser.Answer;
+import parser.Condition;
 import parser.QuestionGroup;
 import parser.Question;
 
@@ -54,6 +55,7 @@ public class ODMWriter
 		Document tmp = DocumentHelper.createDocument();
 		code_lists = tmp.addElement("code_lists");
 		addQuestions();
+		addConditions();
 
 		addClinicalDataElement();
 	}
@@ -145,7 +147,12 @@ public class ODMWriter
 
 		for (Question q : survey.getQuestions()) {
 			log.info("Adding question to group: " + q.getGid());
-			addQuestionRef(q.getGid(), q.getQid(), q.getMandatory());
+			if (q.getCond() == "") {
+				addQuestionRef(q.getGid(), q.getQid(), q.getMandatory());
+			}
+			else {
+				addQuestionRefWithCond(q.getGid(), q.getQid(), q.getMandatory(), q.getCond());
+			}
 			switch (q.getType()) {
 				case "T":
 					addQuestion(q, "string");
@@ -165,6 +172,17 @@ public class ODMWriter
 			}
 		}
 		meta_data.appendContent(code_lists);
+	}
+
+	private void addConditions()
+	{
+		for (Condition c : survey.getCond_list()) {
+			meta_data.addElement("ConditionDef")
+					 .addAttribute("OID", c.getOid())
+					 .addAttribute("Name", c.getOid())
+					 .addElement("FormalExpression")
+					 .addText("SE-" + study_event_oid + "/F-" + survey.getId() + "/IG-" + c.getGid() + "/I-" + c.getQid() + "!=\"-oth-\"");
+		}
 	}
 
 	private void addClinicalDataElement()
@@ -242,5 +260,13 @@ public class ODMWriter
 		question_groups.get(gid).addElement("ItemRef")
 			.addAttribute("ItemOID", qid)
 			.addAttribute("Mandatory", mandatory);
+	}
+
+	private void addQuestionRefWithCond(int gid, String qid, String mandatory, String cond_oid)
+	{
+		question_groups.get(gid).addElement("ItemRef")
+			.addAttribute("ItemOID", qid)
+			.addAttribute("Mandatory", mandatory)
+			.addAttribute("CollectionExceptionConditionOID", cond_oid);
 	}
 }
