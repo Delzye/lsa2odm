@@ -137,16 +137,7 @@ public class LssParser
 				// Radio List
 				case "L":
 					if (question.elementTextTrim("other").equals("Y")) {
-						Question q_other = new Question(q);
-						q_other.setQid(q_other.getQid().concat("other"));
-						q_other.setType("T");
-						survey.addQuestion(q_other);
-						/*	Cond: SE-StudyEventOID/F-FormOID[RepeatKey]/IG-ItemGroupOID/I-ItemOID == "-oth-"
-						 *
-						 */
-						String cond_oid = q.getQid().concat(".cond");
-						survey.addCondition(new Condition(cond_oid, Integer.toString(q.getGid()), q.getQid()));
-						q_other.setCond(cond_oid);
+						addOtherQuestion(q);
 					}
 				// Dropdown List
 				case "!":
@@ -199,6 +190,15 @@ public class LssParser
 				case ";":
 					q.setType("T");
 					addQuestionMatrix(q);
+					break;
+				// Multiple Choice (Normal, Bootstrap, Image select)
+				case "M":
+					addSubquestionsWithCL(q, "A", "MC.cl", getMCCL(), "string", false, "");
+					if (question.elementTextTrim("other").equals("Y")) {
+						q.setQid(q.getQid().concat("other"));
+						q.setType("T");
+						survey.addQuestion(q);
+					}
 					break;
 				default:
 					log.info("Question type not supported: " + q.type);
@@ -273,6 +273,15 @@ public class LssParser
 		ans_map.put("U", "Uncertain");
 		return ans_map;
 	}
+
+	private HashMap<String, String> getMCCL()
+	{
+		HashMap<String, String> ans_map = new HashMap<>();
+		ans_map.put("Y", "Yes");
+		ans_map.put("", "No");
+		return ans_map;
+	}
+
 
 	private void addSubquestionsWithCL(Question q, String type, String oid, HashMap<String, String> ans, String t, boolean b, String qid_append)
 	{
@@ -368,5 +377,19 @@ public class LssParser
 		return sq_list.stream()
 					  .map(e -> e.getText())
 					  .collect(Collectors.toList());  // Make a list of qid elements to a list of strings
+	}
+
+	private void addOtherQuestion(Question q)
+	{
+		Question q_other = new Question(q);
+		q_other.setQid(q_other.getQid().concat("other"));
+		q_other.setType("T");
+		survey.addQuestion(q_other);
+		/*	Cond: SE-StudyEventOID/F-FormOID[RepeatKey]/IG-ItemGroupOID/I-ItemOID == "-oth-"
+		 *
+		 */
+		String cond_oid = q.getQid().concat(".cond");
+		survey.addCondition(new Condition(cond_oid, Integer.toString(q.getGid()), q.getQid()));
+		q_other.setCond(cond_oid);
 	}
 }
