@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor
 public class Condition
 {
+	protected String type;
 	protected String oid;
-	protected String gid;
-	protected String qid;
+	protected String cond;
 }

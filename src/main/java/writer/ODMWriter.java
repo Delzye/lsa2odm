@@ -177,11 +177,12 @@ public class ODMWriter
 	private void addConditions()
 	{
 		for (Condition c : survey.getCond_list()) {
-			meta_data.addElement("ConditionDef")
+			Element fe = meta_data.addElement("ConditionDef")
 					 .addAttribute("OID", c.getOid())
 					 .addAttribute("Name", c.getOid())
 					 .addElement("FormalExpression")
-					 .addText("SE-" + study_event_oid + "/F-" + survey.getId() + "/IG-" + c.getGid() + "/I-" + c.getQid() + "!=\"-oth-\"");
+					 .addAttribute("Context", c.getType());
+			fe.addText(c.getCond());
 		}
 	}
 

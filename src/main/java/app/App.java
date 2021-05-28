@@ -36,9 +36,9 @@ public class App {
 		// }
 		long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
-		String filename = "trivial_text";
+		String filename = "conditions+token";
 		File lss_file = new File("src/main/xml/" + filename + "_example.lss");
-		File lsr_file = new File("src/main/xml/" + filename + "_responses_long.lsr");
+		File lsr_file = new File("src/main/xml/" + filename + "_responses.lsr");
 		File xsd_file = new File("src/main/xml/lss.xsd");
 		try{
 			validateFile(lss_file, xsd_file);	
