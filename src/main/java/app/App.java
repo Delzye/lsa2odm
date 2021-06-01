@@ -10,7 +10,10 @@ import org.xml.sax.SAXException;
 import lombok.extern.log4j.Log4j;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +38,9 @@ public class App {
 		// 	System.out.println("Match not found");
 		// }
 		long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+
+		// Properties File
+		propsConfig();
 
 		String filename = "conditions+token";
 		File lss_file = new File("src/main/xml/" + filename + "_example.lss");
@@ -63,6 +69,7 @@ public class App {
 		// Performance Output:
 		long afterUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		log.info("Utilized memory: " + ((afterUsedMem-beforeUsedMem)/(1024*1024)) + "mb");
+		log.info(Runtime.getRuntime().totalMemory());
 	}
 
 	private static void validateFile(File xmlFile, File xsdFile) throws SAXException, IOException
@@ -85,5 +92,31 @@ public class App {
 	        log.info(xmlFile.getName() + " is not valid because ");
 	        log.info(ex.getMessage());
 	    }
+	}
+
+	private static void propsConfig()
+	{
+		File file = new File("src/main/java/app/config.properties");
+		if (!file.exists()) {
+			try (OutputStream output = new FileOutputStream("src/main/java/app/config.properties")) {
+
+            Properties prop = new Properties();
+
+            // set the properties value
+            prop.setProperty("dummy.survey_oid", "PlaceholderOID");
+            prop.setProperty("dummy.study_event_oid", "Event.1");
+            prop.setProperty("dummy.study_event_name", "StudyEvent.1");
+			prop.setProperty("dummy.study_name", "StudyPlaceholderName");
+			prop.setProperty("dummy.protocol_name", "StudyProtocolPlaceholder");
+            prop.setProperty("ext.cond", ".cond");
+			prop.setProperty("odm.meta_data_prefix", "MetaData");
+            prop.setProperty("imi.syntax_name", "imi");
+
+            prop.store(output, null);
+
+			} catch (IOException io) {
+				io.printStackTrace();
+			}
+		}
 	}
 }

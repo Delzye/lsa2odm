@@ -1,11 +1,15 @@
 package parser;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -24,8 +28,8 @@ public class LssParser
 	protected File lss;
 	@Getter protected Survey survey;
 	protected Document doc;
+	Properties prop;
 	@Getter protected ArrayList<String> date_time_qids;
-	String se_oid = "s-e.1";
 
 	Node q_l10ns_node;
 	Node sq_node;
@@ -40,6 +44,14 @@ public class LssParser
 		this.lss = lss;
 		survey = new Survey();
 		date_time_qids = new ArrayList<>();
+
+		// Load properties from the config file
+		try (InputStream input = new FileInputStream("src/main/java/app/config.properties")) {
+			prop = new Properties();
+            prop.load(input);
+        } catch (IOException ex) {
+            log.error(ex.getClass());
+        }
 	}
 
 	/**
@@ -234,6 +246,7 @@ public class LssParser
 	private int addCondition(Question q)
 	{
 		String condition = "NOT(";
+		@SuppressWarnings("unchecked")
 		List<Element> cond_elements = doc.selectNodes("//document/conditions/rows/row[qid=" + q.getQid() + "]");
 		int i = 0;
 		for (Element c : cond_elements) {
@@ -242,10 +255,8 @@ public class LssParser
 			Matcher match = ans_p.matcher(c.elementText("cfieldname"));
 			match.find();
 			String cond_str = "(";
-			String path = "SE-" + se_oid + "/F-" + survey.getId() + "/IG-" + match.group(1) + "/I-" + match.group(2);
-			log.info("PATH: " + path);
+			String path = "SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + match.group(1) + "/I-" + match.group(2);
 			cond_str += path;
-			log.info("COND_STR + PATH: " + cond_str);
 
 			if (c.elementText("method").equals("RX")) {
 				cond_str += "==\"";
@@ -258,22 +269,17 @@ public class LssParser
 				cond_str += (regex + "\"");
 			} else {
 				String val = c.elementText("value");
-				cond_str += (c.elementText("method") + (val.equals("") ? "" : val));
+				cond_str += (c.elementText("method") + (val.equals("") ? "NULL" : val));
 			}
 
-			log.info("COND_STR + Regex/formula: " + cond_str);
 			cond_str += ")";
 			condition = condition.concat(cond_str);
-			log.info("Final String: " + cond_str);
-			log.info("Condition:" + condition);
-
 			condition = condition.concat(i < cond_elements.size()? " AND " : ")");
-			log.info("Final:" + condition);
 		}
 		
 		if (cond_elements.size() != 0) {
-			survey.addCondition(new Condition("imi", q.getQid().concat(".cond"), condition));
-			q.setCond(q.getQid().concat(".cond"));
+			survey.addCondition(new Condition(prop.getProperty("imi.syntax_name"), q.getQid().concat(prop.getProperty("ext.cond")), condition));
+			q.setCond(q.getQid().concat(prop.getProperty("ext.cond")));
 			return 0;
 		}
 		return -1;
@@ -381,9 +387,11 @@ public class LssParser
 		/*	Cond: SE-StudyEventOID/F-FormOID[RepeatKey]/IG-ItemGroupOID/I-ItemOID == "-oth-"
 		 *
 		 */
-		String cond_oid = q.getQid().concat(".cond");
-		String cond_str = "SE-" + se_oid + "/F-" + survey.getId() + "/IG-" + q.getGid() + "/I-" + q.getQid() + "!=\"-oth-\"";
-		survey.addCondition(new Condition("imi", cond_oid, cond_str));
+		String cond_oid = q.getQid().concat(prop.getProperty("ext.cond"));
+		log.info("Added cond_oid");
+		String cond_str = "SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + q.getGid() + "/I-" + q.getQid() + "!=\"-oth-\"";
+		log.info("added cond_str");
+		survey.addCondition(new Condition(prop.getProperty("imi.syntax_name"), cond_oid, cond_str));
 		q_other.setCond(cond_oid);
 	}
 

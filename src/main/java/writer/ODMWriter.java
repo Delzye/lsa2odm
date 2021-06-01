@@ -7,11 +7,16 @@ import parser.Condition;
 import parser.QuestionGroup;
 import parser.Question;
 
+import java.time.LocalDateTime;
+import java.io.InputStream;
+import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Properties;
 
 import lombok.extern.log4j.Log4j;
 import org.dom4j.io.XMLWriter;
@@ -31,10 +36,9 @@ public class ODMWriter
 	Element clinical_data;
 
 	Survey survey;
+	Properties prop;
 	
 	String meta_data_oid;
-	String survey_oid;
-	String study_event_oid;
 	HashMap<Integer, Element> question_groups;
 	ArrayList<String> written_cl_oids;
 	
@@ -44,6 +48,14 @@ public class ODMWriter
 		this.doc = DocumentHelper.createDocument();
 		this.question_groups = new HashMap<Integer, Element>();
 		this.written_cl_oids = new ArrayList<String>();
+
+		// Load properties from the config file
+		try (InputStream input = new FileInputStream("src/main/java/app/config.properties")) {
+			prop = new Properties();
+            prop.load(input);
+        } catch (IOException ex) {
+            log.error(ex.getClass());
+        }
 	}
 
 	public void createODMFile()
@@ -52,11 +64,14 @@ public class ODMWriter
 		addStudyData();
 		addQuestionGroups();
 		
+		// Code Lists have to be insterted at a certain point inbetween other elements
+		// save them to a separate document first and insert all at the end
 		Document tmp = DocumentHelper.createDocument();
 		code_lists = tmp.addElement("code_lists");
+
+		// Exectue main functions
 		addQuestions();
 		addConditions();
-
 		addClinicalDataElement();
 	}
 
@@ -69,7 +84,7 @@ public class ODMWriter
 			writer.write(doc);
 			writer.close();
 		} catch (Exception e) {
-			log.info(e);
+			log.error(e);
 		}
 	}
 
@@ -80,45 +95,48 @@ public class ODMWriter
 					.addAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
 					.addAttribute("xmlns", "http://www.cdisc.org/ns/odm/v1.3")
 					.addAttribute("xsi:schemaLocation", "")
-					.addAttribute("Description", "")
+					.addAttribute("Description", "ODM-version of LimeSurvey Survey with ID: " + survey.getId())
 					.addAttribute("FileType", "Snapshot")
-					.addAttribute("FileOID", "")
-					.addAttribute("CreationDateTime", "")
-					.addAttribute("ODMVersion", "1.3")
-					.addAttribute("Originator", "")
-					.addAttribute("SourceSystem", "")
-					.addAttribute("SourceSystemVersion", "");
+					.addAttribute("FileOID", survey.getId())
+					.addAttribute("CreationDateTime", LocalDateTime.now().toString())
+					.addAttribute("ODMVersion", "1.3");
 	}
 
 
 	private void addStudyData()
 	{
-		survey_oid = "PlaceholderOID";
+		// Study Element
 		Element study = root.addElement("Study")
-			.addAttribute("OID", survey_oid);
+			.addAttribute("OID", prop.getProperty("dummy.survey_oid"));
 
+		// Add the global variables
 		Element glob_var = study.addElement("GlobalVariables");
-		glob_var.addElement("StudyName");
+		glob_var.addElement("StudyName").addText(prop.getProperty("dummy.study_name"));
 		glob_var.addElement("StudyDescription");
-		glob_var.addElement("ProtocolName");
+		glob_var.addElement("ProtocolName").addText(prop.getProperty("dummy.protocol_name"));
 		
-		meta_data_oid = "MetaData" + survey.getId();
-		study_event_oid = "Event.1";
+		// Construct the MetaDataOID
+		meta_data_oid = prop.getProperty("odm.meta_data_prefix") + survey.getId();
+
+		// Add the MetaDataVersion
 		meta_data = study.addElement("MetaDataVersion")
 						 .addAttribute("OID", meta_data_oid)
 						 .addAttribute("Name", "");
 		meta_data.addElement("Protocol").addElement("StudyEventRef")
-										.addAttribute("StudyEventOID", study_event_oid)
+										.addAttribute("StudyEventOID", prop.getProperty("dummy.study_event_oid"))
 										.addAttribute("Mandatory", "No");
 
+		// Add the dummy StudyEvent
 		Element study_event = meta_data.addElement("StudyEventDef")
-									   .addAttribute("OID", study_event_oid)
+									   .addAttribute("OID", prop.getProperty("dummy.study_event_oid"))
+									   .addAttribute("Name", prop.getProperty("dummy.study_event_name"))
 									   .addAttribute("Repeating", "No")
 									   .addAttribute("Type", "Common");
 		study_event.addElement("FormRef")
 				   .addAttribute("FormOID", survey.getId())
 				   .addAttribute("Mandatory", "No");
 
+		// Add the Form
 		form = meta_data.addElement("FormDef")
 						.addAttribute("OID", survey.getId())
 						.addAttribute("Name", survey.getName())
@@ -189,7 +207,7 @@ public class ODMWriter
 	private void addClinicalDataElement()
 	{
 		clinical_data = root.addElement("ClinicalData")
-			.addAttribute(" StudyOID", survey_oid)
+			.addAttribute(" StudyOID", prop.getProperty("dummy.survey_oid"))
 			.addAttribute("MetaDataVersionOID", meta_data_oid);
 	}
 
@@ -199,7 +217,7 @@ public class ODMWriter
 			Element form_data = clinical_data.addElement("SubjectData")
 				.addAttribute("SubjectKey", Integer.toString(r.getId()))
 				.addElement("StudyEventData")
-				.addAttribute(" StudyEventOID", study_event_oid)
+				.addAttribute(" StudyEventOID", prop.getProperty("dummy.study_event_oid"))
 				.addElement("FormData")
 				.addAttribute("FormOID", survey.getId());
 			for (Map.Entry<Integer, ArrayList<Answer>> entry : r.getAnswers().entrySet()) {
@@ -235,7 +253,7 @@ public class ODMWriter
 		if (!written_cl_oids.contains(answers_oid)) {
 			Element cl = code_lists.addElement("CodeList")
 				.addAttribute("OID", answers_oid)
-				.addAttribute("Name", "")
+				.addAttribute("Name", answers_oid)
 				.addAttribute("DataType", q.getAnswers().getType());
 			if (q.getAnswers().isSimple()) {
 				for (Map.Entry<String, String> e : q.getAnswers().getAnswers().entrySet()) {
@@ -244,7 +262,7 @@ public class ODMWriter
 				}
 			} else {
 				for (Map.Entry<String, String> e : q.getAnswers().getAnswers().entrySet()) {
-					cl.addElement("CodeListElement")
+					cl.addElement("CodeListItem")
 						.addAttribute("CodedValue", e.getKey())
 						.addElement("Decode")
 						.addElement("TranslatedText")

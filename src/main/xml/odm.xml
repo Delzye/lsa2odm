@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ODM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" Description="" FileType="Snapshot" FileOID="" CreationDateTime="" ODMVersion="1.3" Originator="" SourceSystem="" SourceSystemVersion="">
+<ODM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" Description="ODM-version of LimeSurvey Survey with ID: 969249" FileType="Snapshot" FileOID="969249" CreationDateTime="2021-06-01T19:26:52.438805641" ODMVersion="1.3">
   <Study OID="PlaceholderOID">
     <GlobalVariables>
-      <StudyName/>
+      <StudyName>StudyPlaceholderName</StudyName>
       <StudyDescription/>
-      <ProtocolName/>
+      <ProtocolName>StudyProtocolPlaceholder</ProtocolName>
     </GlobalVariables>
     <MetaDataVersion OID="MetaData969249" Name="">
       <Protocol>
         <StudyEventRef StudyEventOID="Event.1" Mandatory="No"/>
       </Protocol>
-      <StudyEventDef OID="Event.1" Repeating="No" Type="Common">
+      <StudyEventDef OID="Event.1" Name="StudyEvent.1" Repeating="No" Type="Common">
         <FormRef FormOID="969249" Mandatory="No"/>
       </StudyEventDef>
       <FormDef OID="969249" Name="conditions" Repeating="No">
@@ -84,7 +84,7 @@
         </Question>
         <CodeListRef CodeListOID="167.cl"/>
       </ItemDef>
-      <CodeList OID="10pt.cl" Name="" DataType="integer">
+      <CodeList OID="10pt.cl" Name="10pt.cl" DataType="integer">
         <EnumeratedElement CodedValue="1"/>
         <EnumeratedElement CodedValue="2"/>
         <EnumeratedElement CodedValue="3"/>
@@ -96,43 +96,43 @@
         <EnumeratedElement CodedValue="9"/>
         <EnumeratedElement CodedValue="10"/>
       </CodeList>
-      <CodeList OID="5pt.cl" Name="" DataType="string">
+      <CodeList OID="5pt.cl" Name="5pt.cl" DataType="string">
         <EnumeratedElement CodedValue="1"/>
         <EnumeratedElement CodedValue="2"/>
         <EnumeratedElement CodedValue="3"/>
         <EnumeratedElement CodedValue="4"/>
         <EnumeratedElement CodedValue="5"/>
       </CodeList>
-      <CodeList OID="167.cl" Name="" DataType="string">
-        <CodeListElement CodedValue="AO01">
+      <CodeList OID="167.cl" Name="167.cl" DataType="string">
+        <CodeListItem CodedValue="AO01">
           <Decode>
             <TranslatedText xml:lang="">rtrtht</TranslatedText>
           </Decode>
-        </CodeListElement>
-        <CodeListElement CodedValue="AO04">
+        </CodeListItem>
+        <CodeListItem CodedValue="AO04">
           <Decode>
             <TranslatedText xml:lang="">fgh</TranslatedText>
           </Decode>
-        </CodeListElement>
-        <CodeListElement CodedValue="AO02">
+        </CodeListItem>
+        <CodeListItem CodedValue="AO02">
           <Decode>
             <TranslatedText xml:lang="">ghfh</TranslatedText>
           </Decode>
-        </CodeListElement>
-        <CodeListElement CodedValue="AO03">
+        </CodeListItem>
+        <CodeListItem CodedValue="AO03">
           <Decode>
             <TranslatedText xml:lang="">fhgh</TranslatedText>
           </Decode>
-        </CodeListElement>
+        </CodeListItem>
       </CodeList>
       <ConditionDef OID="157.cond" Name="157.cond">
-        <FormalExpression Context="imi">NOT((SE-s-e.1/F-969249/IG-14/I-156=="^.+?@.+?\..+$"))</FormalExpression>
+        <FormalExpression Context="imi">NOT((SE-Event.1/F-969249/IG-14/I-156=="^.+?@.+?\..+$"))</FormalExpression>
       </ConditionDef>
       <ConditionDef OID="162.cond" Name="162.cond">
-        <FormalExpression Context="imi">NOT((SE-s-e.1/F-969249/IG-14/I-158SQ001==10) AND (SE-s-e.1/F-969249/IG-14/I-158SQ002==5) AND (SE-s-e.1/F-969249/IG-14/I-158SQ003==))</FormalExpression>
+        <FormalExpression Context="imi">NOT((SE-Event.1/F-969249/IG-14/I-158SQ001==10) AND (SE-Event.1/F-969249/IG-14/I-158SQ002==5) AND (SE-Event.1/F-969249/IG-14/I-158SQ003==NULL))</FormalExpression>
       </ConditionDef>
       <ConditionDef OID="163.cond" Name="163.cond">
-        <FormalExpression Context="imi">NOT((SE-s-e.1/F-969249/IG-14/I-162==4))</FormalExpression>
+        <FormalExpression Context="imi">NOT((SE-Event.1/F-969249/IG-14/I-162==4))</FormalExpression>
       </ConditionDef>
     </MetaDataVersion>
   </Study>
