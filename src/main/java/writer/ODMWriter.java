@@ -141,18 +141,30 @@ public class ODMWriter
 						.addAttribute("OID", survey.getId())
 						.addAttribute("Name", survey.getName())
 						.addAttribute("Repeating", "No");
+		form.addElement("Description").addText(survey.getDescription());
 	}
 
 	private void addQuestionGroups()
 	{
 		for (QuestionGroup qg : survey.getGroups()) {
+
+			// Add the reference
 			form.addElement("ItemGroupRef")
 				.addAttribute("ItemGroupOID", qg.getGIDString())
 				.addAttribute("Mandatory", "Yes"); // TODO: Dynamic mandatory?
-			question_groups.put(qg.getGID(), meta_data.addElement("ItemGroupDef")
-										  .addAttribute("OID", qg.getGIDString())
-										  .addAttribute("Name", qg.getName())
-										  .addAttribute("Repeating", "No"));
+
+			// Add the question group
+			Element qg_elem =  meta_data.addElement("ItemGroupDef")
+										.addAttribute("OID", qg.getGIDString())
+										.addAttribute("Name", qg.getName())
+										.addAttribute("Repeating", "No");
+			
+			if (qg.getDescription() != null) {
+				qg_elem.addElement("Description")
+					   .addText(qg.getDescription());
+			}
+			
+			question_groups.put(qg.getGID(), qg_elem);
 			log.info("Added the question group: " + qg.getGID());
 		}
 	}

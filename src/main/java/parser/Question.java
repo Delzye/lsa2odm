@@ -36,6 +36,8 @@ public class Question
 		this.question = q.question;
 		this.title = q.title;
 		this.mandatory = q.mandatory;
+		this.language = q.language;
+		this.cond = q.cond;
 	}
 
 	public void setAnswerOID(String oid)

@@ -64,11 +64,13 @@ public class LssParser
 		SAXReader saxReader = new SAXReader();
 		doc = saxReader.read(lss);
 
+		// Basic Survey Metadata
 		Element survey_elem = (Element) doc.selectSingleNode("//document/surveys_languagesettings/rows/row");
 		survey.setName(survey_elem.element("surveyls_title").getText());
 		survey.setDescription(survey_elem.element("surveyls_description").getText());
 		survey.setId(survey_elem.element("surveyls_survey_id").getText());
 		
+		// questions and question groups
 		parseQuestionGroups();
 		parseQuestions();
 
@@ -85,14 +87,19 @@ public class LssParser
 		@SuppressWarnings("unchecked")
 		List<Element> groups_elem = doc.selectNodes("//document/group_l10ns/rows/row");
 		for(Element elem : groups_elem) {
+			
 			QuestionGroup group = new QuestionGroup();	
 			group.setName(elem.element("group_name").getText());
 			group.setGID(Integer.parseInt(elem.selectSingleNode("gid").getText()));
+
 			log.info("Added question group: " + group.gid);
+
+			// Add a description, if there is one
 			Node desc = elem.selectSingleNode("description");
 			if (desc != null) {
 				group.setDescription(elem.getText());
 			}
+			
 			survey.groups.add(group);
 		}
 		
@@ -134,7 +141,7 @@ public class LssParser
 				// Date/Time
 				case "D":
 					date_time_qids.add(q.getQid());
-				// Numeric Input
+				// Numeric Input TODO: Integer too?
 				case "N":
 					survey.addQuestion(q);
 					break;
@@ -158,6 +165,7 @@ public class LssParser
 					break;
 				// List with comment
 				case "O":
+						// TODO append "comment" to the question, so the relation is better understandable
 						Question q_comment = new Question(q);
 						q_comment.setQid(q_comment.getQid().concat("comment"));
 						q_comment.setType("T");
@@ -177,7 +185,7 @@ public class LssParser
 				case "Q":
 					addSubquestions(q, "T");
 					break;
-				// Multiple Numeric Inputs
+				// Multiple Numeric Inputs TODO: Implement max/min Sum etc. as conditions
 				case "K":
 					addSubquestions(q, "N");
 					break;
@@ -228,6 +236,8 @@ public class LssParser
 						survey.addQuestion(q);
 					}
 					break;
+				// TODO Equation
+				// TODO MC mit Kommentaren
 				default:
 					log.info("Question type not supported: " + q.type);
 			}
@@ -242,6 +252,7 @@ public class LssParser
 	 * </p>
 	 * @param q The question, to which corresponding conditions will be searched and added
 	 * @return 0 if there are any conditions, -1 if not
+	 * TODO wrong qid with subquestions
 	 */
 	private int addCondition(Question q)
 	{
@@ -256,18 +267,18 @@ public class LssParser
 			match.find();
 			String cond_str = "(";
 			String path = "SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + match.group(1) + "/I-" + match.group(2);
-			cond_str += path;
 
 			if (c.elementText("method").equals("RX")) {
-				cond_str += "==\"";
+				cond_str += "MATCH(";
 
 				String regex = c.elementText("value");
 				int regex_length = regex.length();
-				// Remove beginning whitespace and slash aswell as trailing slash
-				regex = regex.substring(2, regex_length-1);
+				// Remove beginning whitespace
+				regex = regex.substring(1, regex_length);
 
-				cond_str += (regex + "\"");
+				cond_str += (regex + ", " + path + ")");
 			} else {
+				cond_str += path;
 				String val = c.elementText("value");
 				cond_str += (c.elementText("method") + (val.equals("") ? "NULL" : val));
 			}
