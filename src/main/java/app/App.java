@@ -21,8 +21,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.Source;
 
 import writer.ODMWriter;
-import parser.LssParser;
-import parser.LsrParser;
+import parser.lss.LssParser;
+import parser.lsr.LsrParser;
 
 @Log4j
 public class App {

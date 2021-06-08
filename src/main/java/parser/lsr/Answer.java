@@ -1,4 +1,4 @@
-package parser;
+package parser.lsr;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;

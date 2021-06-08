@@ -1,4 +1,4 @@
-package parser;
+package parser.lsr;
 
 import java.util.ArrayList;
 import java.util.HashMap;

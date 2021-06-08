@@ -1,11 +1,11 @@
 package writer;
 
-import parser.Survey;
-import parser.Response;
-import parser.Answer;
-import parser.Condition;
-import parser.QuestionGroup;
-import parser.Question;
+import parser.lss.Survey;
+import parser.lss.Condition;
+import parser.lss.QuestionGroup;
+import parser.lss.Question;
+import parser.lsr.Response;
+import parser.lsr.Answer;
 
 import java.time.LocalDateTime;
 import java.io.InputStream;

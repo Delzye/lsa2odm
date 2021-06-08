@@ -1,4 +1,4 @@
-package parser;
+package parser.lss;
 
 import java.util.ArrayList;
 

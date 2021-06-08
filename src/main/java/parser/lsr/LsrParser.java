@@ -1,6 +1,7 @@
-package parser;
+package parser.lsr;
 
 import writer.ODMWriter;
+import parser.lss.QuestionGroup;
 
 import java.io.File;
 import java.util.ArrayList;

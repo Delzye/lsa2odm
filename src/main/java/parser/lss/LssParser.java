@@ -1,4 +1,4 @@
-package parser;
+package parser.lss;
 
 import java.io.File;
 import java.io.FileInputStream;
