@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ODM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" Description="ODM-version of LimeSurvey Survey with ID: 969249" FileType="Snapshot" FileOID="969249" CreationDateTime="2021-06-01T19:26:52.438805641" ODMVersion="1.3">
+<ODM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" Description="ODM-version of LimeSurvey Survey with ID: 969249" FileType="Snapshot" FileOID="969249" CreationDateTime="2021-06-14T13:45:37.689529454" ODMVersion="1.3">
   <Study OID="PlaceholderOID">
     <GlobalVariables>
       <StudyName>StudyPlaceholderName</StudyName>
@@ -15,9 +15,11 @@
         <FormRef FormOID="969249" Mandatory="No"/>
       </StudyEventDef>
       <FormDef OID="969249" Name="conditions" Repeating="No">
+        <Description></Description>
         <ItemGroupRef ItemGroupOID="14" Mandatory="Yes"/>
       </FormDef>
       <ItemGroupDef OID="14" Name="g1" Repeating="No">
+        <Description></Description>
         <ItemRef ItemOID="156" Mandatory="N"/>
         <ItemRef ItemOID="157" Mandatory="N" CollectionExceptionConditionOID="157.cond"/>
         <ItemRef ItemOID="158SQ001" Mandatory="N"/>
@@ -126,13 +128,13 @@
         </CodeListItem>
       </CodeList>
       <ConditionDef OID="157.cond" Name="157.cond">
-        <FormalExpression Context="imi">NOT((SE-Event.1/F-969249/IG-14/I-156=="^.+?@.+?\..+$"))</FormalExpression>
+        <FormalExpression Context="imi">NOT((MATCH(/^.+?@.+?\..+$/, $(SE-Event.1/F-969249/IG-14/I-156))))</FormalExpression>
       </ConditionDef>
       <ConditionDef OID="162.cond" Name="162.cond">
-        <FormalExpression Context="imi">NOT((SE-Event.1/F-969249/IG-14/I-158SQ001==10) AND (SE-Event.1/F-969249/IG-14/I-158SQ002==5) AND (SE-Event.1/F-969249/IG-14/I-158SQ003==NULL))</FormalExpression>
+        <FormalExpression Context="imi">NOT(($(SE-Event.1/F-969249/IG-14/I-158SQ001)==10) AND ($(SE-Event.1/F-969249/IG-14/I-158SQ002)==5) AND ($(SE-Event.1/F-969249/IG-14/I-158SQ003)==NULL))</FormalExpression>
       </ConditionDef>
       <ConditionDef OID="163.cond" Name="163.cond">
-        <FormalExpression Context="imi">NOT((SE-Event.1/F-969249/IG-14/I-162==4))</FormalExpression>
+        <FormalExpression Context="imi">NOT(($(SE-Event.1/F-969249/IG-14/I-162)==4))</FormalExpression>
       </ConditionDef>
     </MetaDataVersion>
   </Study>

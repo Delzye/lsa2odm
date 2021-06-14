@@ -90,7 +90,7 @@ public class LssParser
 			
 			QuestionGroup group = new QuestionGroup();	
 			group.setName(elem.element("group_name").getText());
-			group.setGID(Integer.parseInt(elem.selectSingleNode("gid").getText()));
+			group.setGid(Integer.parseInt(elem.selectSingleNode("gid").getText()));
 
 			log.info("Added question group: " + group.gid);
 
@@ -141,8 +141,12 @@ public class LssParser
 				// Date/Time
 				case "D":
 					date_time_qids.add(q.getQid());
-				// Numeric Input TODO: Integer too?
+				// Numeric Input
 				case "N":
+					if (check_int_only(q)) {
+						q.setType("I");
+					}
+					add_range(q);
 					survey.addQuestion(q);
 					break;
 				// Single 5-Point Choice
@@ -165,8 +169,8 @@ public class LssParser
 					break;
 				// List with comment
 				case "O":
-						// TODO append "comment" to the question, so the relation is better understandable
 						Question q_comment = new Question(q);
+						q_comment.setQuestion(q_comment.getQuestion().concat(" comment"));
 						q_comment.setQid(q_comment.getQid().concat("comment"));
 						q_comment.setType("T");
 						survey.addQuestion(q_comment);
@@ -185,9 +189,14 @@ public class LssParser
 				case "Q":
 					addSubquestions(q, "T");
 					break;
-				// Multiple Numeric Inputs TODO: Implement max/min Sum etc. as conditions
+				// Multiple Numeric Inputs
 				case "K":
-					addSubquestions(q, "N");
+					add_range(q);
+					if (check_int_only(q)){
+						addSubquestions(q, "I");
+					} else {
+						addSubquestions(q, "N");
+					}
 					break;
 				// Dual scale array
 				case "1":
@@ -236,13 +245,45 @@ public class LssParser
 						survey.addQuestion(q);
 					}
 					break;
-				// TODO Equation
-				// TODO MC mit Kommentaren
+				// MC with comments
+				case "P":
+					addMcWithComments(q);
 				default:
 					log.info("Question type not supported: " + q.type);
 			}
 		}
 	}
+
+	/**
+	 * <p> for a question with numerical input, check if only integers are allowed as answers </p>
+	 * @param q The question to check
+	 * @return true if only integers, false if floats
+	 */
+
+	private boolean check_int_only(Question q)
+	{
+		Node val = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute=num_value_int_only]/value");
+		return val.getText().equals("1") ? true : false;
+	}
+
+	/**
+	 * <p> For a question with numerical input, check if there are range limitations and add them, if there are any </p>
+	 * @param q The question to check
+	 */
+	private void add_range(Question q)
+	{
+		String min = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute=min_num_value_n]/value").getText();
+		String max = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute=max_num_value_n]/value").getText();
+
+		if (min != "") {
+			q.setFloat_range_min(min);
+		}
+		if (max != "") {
+			q.setFloat_range_max(max);
+		}
+	}
+
+//=======================================================add conditions=============================================================
 
 	/**
 	 * <p>
@@ -252,7 +293,6 @@ public class LssParser
 	 * </p>
 	 * @param q The question, to which corresponding conditions will be searched and added
 	 * @return 0 if there are any conditions, -1 if not
-	 * TODO wrong qid with subquestions
 	 */
 	private int addCondition(Question q)
 	{
@@ -266,7 +306,7 @@ public class LssParser
 			Matcher match = ans_p.matcher(c.elementText("cfieldname"));
 			match.find();
 			String cond_str = "(";
-			String path = "SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + match.group(1) + "/I-" + match.group(2);
+			String path = "$(SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + match.group(1) + "/I-" + match.group(2) + ")";
 
 			if (c.elementText("method").equals("RX")) {
 				cond_str += "MATCH(";
@@ -296,6 +336,32 @@ public class LssParser
 		return -1;
 	}
 
+//=======================================================add questions==============================================================
+
+	/**
+	 * <p> For a question, that has subquestions, add all subquestions to the list as individual questions </p>
+	 * @param q The parent question
+	 * @param type The type of answer expected for each subquestion ("T" for text and "N" for numeric)
+	 */
+	private void addSubquestions(Question q, String type)
+	{
+		List<String> sqids = getSqIds(q.getQid());
+		for (String sqid : sqids) {
+			String question = q_l10ns_node.selectSingleNode("row[qid=" + sqid + "]/question").getText();
+			String sq_title = sq_node.selectSingleNode("row[qid=" + sqid + "]/title").getText();
+			Question sq = new Question(q.qid + sq_title,
+					q.gid,
+					type,
+					q.question + " " + question,
+					sqid,
+					q.mandatory,
+					q.language);
+			sq.setHelp(q.help);
+
+			survey.addQuestion(sq);
+		}
+	}
+
 	/**
 	 * <p> For a question that has subquestions and a set list of answer options, add all subquestions to the list as individual questions </p>
 	 * @param q The parent question
@@ -320,30 +386,6 @@ public class LssParser
 					q.language);
 			sq.setHelp(q.help);
 			sq.setAnswers(new AnswersList(oid, ans, t, b));
-
-			survey.addQuestion(sq);
-		}
-	}
-
-	/**
-	 * <p> For a question, that has subquestions, add all subquestions to the list as individual questions </p>
-	 * @param q The parent question
-	 * @param type The type of answer expected for each subquestion ("T" for text and "N" for numeric)
-	 */
-	private void addSubquestions(Question q, String type)
-	{
-		List<String> sqids = getSqIds(q.getQid());
-		for (String sqid : sqids) {
-			String question = q_l10ns_node.selectSingleNode("row[qid=" + sqid + "]/question").getText();
-			String sq_title = sq_node.selectSingleNode("row[qid=" + sqid + "]/title").getText();
-			Question sq = new Question(q.qid + sq_title,
-					q.gid,
-					type,
-					q.question + " " + question,
-					sqid,
-					q.mandatory,
-					q.language);
-			sq.setHelp(q.help);
 
 			survey.addQuestion(sq);
 		}
@@ -400,11 +442,59 @@ public class LssParser
 		 */
 		String cond_oid = q.getQid().concat(prop.getProperty("ext.cond"));
 		log.info("Added cond_oid");
-		String cond_str = "SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + q.getGid() + "/I-" + q.getQid() + "!=\"-oth-\"";
+		String cond_str = "$(SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + q.getGid() + "/I-" + q.getQid() + ")!=\"-oth-\"";
 		log.info("added cond_str");
 		survey.addCondition(new Condition(prop.getProperty("imi.syntax_name"), cond_oid, cond_str));
 		q_other.setCond(cond_oid);
 	}
+
+	/**
+	 * <p> If a question has the option to add comments to the answer, add another question, which stores the text written by a participant in "Comment"
+	 * Also adds a condition, that makes the connection between both questions clear </p>
+	 * @param q The question, which can be commented
+	 */
+	private void addComment(Question q)
+	{
+		Question q_comm = new Question(q);
+		q_comm.setQid(q_comm.getQid().concat("comment"));
+		q_comm.setType("T");
+		/*	Cond: SE-StudyEventOID/F-FormOID[RepeatKey]/IG-ItemGroupOID/I-ItemOID == "-oth-"
+		 */
+		String cond_oid = q.getQid().concat(prop.getProperty("ext.cond"));
+		String cond_str = "$(SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + q.getGid() + "/I-" + q.getQid() + ")==NULL";
+		survey.addCondition(new Condition(prop.getProperty("imi.syntax_name"), cond_oid, cond_str));
+		q_comm.setCond(cond_oid);
+		survey.addQuestion(q_comm);
+	}
+
+	/**
+	 * <p> Equvialent to addSubquestionsWithCL, but also calls addComment for each subquestion</p>
+	 * @param q The multiple choice question
+	 */
+	private void addMcWithComments(Question q)
+	{
+		List<String> sqids = getSqIds(q.getQid());
+		for (String sqid : sqids) {
+			String question = q_l10ns_node.selectSingleNode("row[qid=" + sqid + "]/question").getText();
+			String sq_title = sq_node.selectSingleNode("row[qid=" + sqid + "]/title").getText();
+			Question sq = new Question(q.qid + sq_title,
+					q.gid,
+					"A",
+					q.question + " " + question,
+					sqid,
+					q.mandatory,
+					q.language);
+			sq.setHelp(q.help);
+			sq.setAnswers(new AnswersList("MC.cl", getMCCL(), "string", false));
+
+			// Add comment question
+			addComment(q);
+
+			survey.addQuestion(sq);
+		}
+	}
+
+//===================================================getters via id=================================================================
 
 	/**
 	 * Finds all QIDs of Subquestions that belong to a question
@@ -453,6 +543,7 @@ public class LssParser
 		}
 		return ans_map;
 	}
+
 //============================================code list generation methods==========================================================
 
 	private HashMap<String, String> getIntCl(int l)

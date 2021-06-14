@@ -38,7 +38,6 @@ public class ODMWriter
 	Survey survey;
 	Properties prop;
 	
-	String meta_data_oid;
 	HashMap<Integer, Element> question_groups;
 	ArrayList<String> written_cl_oids;
 	
@@ -116,7 +115,7 @@ public class ODMWriter
 		glob_var.addElement("ProtocolName").addText(prop.getProperty("dummy.protocol_name"));
 		
 		// Construct the MetaDataOID
-		meta_data_oid = prop.getProperty("odm.meta_data_prefix") + survey.getId();
+		String meta_data_oid = prop.getProperty("odm.meta_data_prefix") + survey.getId();
 
 		// Add the MetaDataVersion
 		meta_data = study.addElement("MetaDataVersion")
@@ -164,8 +163,8 @@ public class ODMWriter
 					   .addText(qg.getDescription());
 			}
 			
-			question_groups.put(qg.getGID(), qg_elem);
-			log.info("Added the question group: " + qg.getGID());
+			question_groups.put(qg.getGid(), qg_elem);
+			log.info("Added the question group: " + qg.getGid());
 		}
 	}
 
@@ -189,6 +188,9 @@ public class ODMWriter
 					break;
 				case "A":
 					addQuestionWithCL(q);
+					break;
+				case "I":
+					addQuestion(q, "integer");
 					break;
 				case "N":
 					addQuestion(q, "float");
@@ -218,6 +220,8 @@ public class ODMWriter
 
 	private void addClinicalDataElement()
 	{
+		String meta_data_oid = prop.getProperty("odm.meta_data_prefix") + survey.getId();
+
 		clinical_data = root.addElement("ClinicalData")
 			.addAttribute(" StudyOID", prop.getProperty("dummy.survey_oid"))
 			.addAttribute("MetaDataVersionOID", meta_data_oid);
@@ -225,6 +229,7 @@ public class ODMWriter
 
 	public void addAnswers(LinkedList<Response> responses)
 	{
+		// For each response add a subject_data element
 		for (Response r : responses) {
 			Element form_data = clinical_data.addElement("SubjectData")
 				.addAttribute("SubjectKey", Integer.toString(r.getId()))
@@ -232,9 +237,14 @@ public class ODMWriter
 				.addAttribute(" StudyEventOID", prop.getProperty("dummy.study_event_oid"))
 				.addElement("FormData")
 				.addAttribute("FormOID", survey.getId());
+
+			// Answers are split into multiple lists, one per question group
+			// For each question group add a ItemGroup
 			for (Map.Entry<Integer, ArrayList<Answer>> entry : r.getAnswers().entrySet()) {
 				Element ig_data = form_data.addElement("ItemGroupData")
 					.addAttribute("ItemGroupOID", Integer.toString(entry.getKey()));
+
+				// For each answer in the group add an ItemData element
 				for (Answer a : entry.getValue()) {
 					ig_data.addElement("ItemData")
 						.addAttribute("ItemOID", a.getQid())
@@ -254,6 +264,21 @@ public class ODMWriter
 		 .addElement("TranslatedText")
 		 .addAttribute("xml:lang", q.getLanguage())
 		 .addText(q.getQuestion());
+
+		// integer range checks for numerical questions
+		if (q.getFloat_range_min() != null) {
+			e.addElement("RangeCheck")
+			 .addAttribute("Comparator", "GE")
+			 .addElement("CheckValue")
+			 .addText(q.getFloat_range_min());
+		}
+		if (q.getFloat_range_max() != null) {
+			e.addElement("RangeCheck")
+			 .addAttribute("Comparator", "LE")
+			 .addElement("CheckValue")
+			 .addText(q.getFloat_range_max());
+		}
+
 		return e;
 	}
 

@@ -14,8 +14,11 @@ public class Question
 	protected String title;
 	protected String mandatory;
 	protected String language;
-	protected AnswersList answers;
-	protected String cond;
+	protected String cond; // Do not show the question if the referenced condition evaluates to true
+	protected AnswersList answers; // Only for Questions with a set list of answer options
+	// Only for Questions with numerical input
+	protected String float_range_min;
+	protected String float_range_max;
 
 	public Question(String qid, int gid, String type, String q, String title, String m, String l)
 	{

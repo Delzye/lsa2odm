@@ -61,7 +61,7 @@ public class LsrParser
 			r.id = Integer.parseInt(row.element("id").getText());
 			
 			for (QuestionGroup qg : qg_list) {
-				r.answers.put(qg.getGID(), new ArrayList<Answer>());
+				r.answers.put(qg.getGid(), new ArrayList<Answer>());
 			}
 			@SuppressWarnings("unchecked")
 			List<Element> children = row.elements();
