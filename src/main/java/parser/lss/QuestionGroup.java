@@ -11,6 +11,6 @@ public class QuestionGroup
 
 	public String getGIDString()
 	{
-		return this.gid + "";
+		return Integer.toString(this.gid);
 	}
 }

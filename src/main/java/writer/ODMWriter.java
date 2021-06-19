@@ -74,10 +74,37 @@ public class ODMWriter
 		addClinicalDataElement();
 	}
 
-	public void writeFile()
+	public void addAnswers(LinkedList<Response> responses)
+	{
+		// For each response add a subject_data element
+		for (Response r : responses) {
+			Element form_data = clinical_data.addElement("SubjectData")
+				.addAttribute("SubjectKey", Integer.toString(r.getId()))
+				.addElement("StudyEventData")
+				.addAttribute(" StudyEventOID", prop.getProperty("dummy.study_event_oid"))
+				.addElement("FormData")
+				.addAttribute("FormOID", survey.getId());
+
+			// Answers are split into multiple lists, one per question group
+			// For each question group add a ItemGroup
+			for (Map.Entry<Integer, ArrayList<Answer>> entry : r.getAnswers().entrySet()) {
+				Element ig_data = form_data.addElement("ItemGroupData")
+					.addAttribute("ItemGroupOID", Integer.toString(entry.getKey()));
+
+				// For each answer in the group add an ItemData element
+				for (Answer a : entry.getValue()) {
+					ig_data.addElement("ItemData")
+						.addAttribute("ItemOID", a.getQid())
+						.addAttribute("Value", a.getAnswer());
+				}
+			}
+		}
+	}
+
+	public void writeFile(String path)
 	{
 		try{
-			FileWriter fileWriter = new FileWriter("src/main/xml/odm.xml");
+			FileWriter fileWriter = new FileWriter(path + survey.getId() + ".xml");
 			OutputFormat format = OutputFormat.createPrettyPrint();
 			XMLWriter writer = new XMLWriter(fileWriter, format);
 			writer.write(doc);
@@ -86,7 +113,6 @@ public class ODMWriter
 			log.error(e);
 		}
 	}
-
 //===================================== private functions =======================================
 	private void createODMRoot()
 	{
@@ -120,7 +146,7 @@ public class ODMWriter
 		// Add the MetaDataVersion
 		meta_data = study.addElement("MetaDataVersion")
 						 .addAttribute("OID", meta_data_oid)
-						 .addAttribute("Name", "");
+						 .addAttribute("Name", meta_data_oid);
 		meta_data.addElement("Protocol").addElement("StudyEventRef")
 										.addAttribute("StudyEventOID", prop.getProperty("dummy.study_event_oid"))
 										.addAttribute("Mandatory", "No");
@@ -175,7 +201,7 @@ public class ODMWriter
 		tmp.addElement("code_lists");
 
 		for (Question q : survey.getQuestions()) {
-			log.info("Adding question to group: " + q.getGid());
+			log.info("Adding question" + q.getQid() + " to group: " + q.getGid());
 			if (q.getCond() == "") {
 				addQuestionRef(q.getGid(), q.getQid(), q.getMandatory());
 			}
@@ -223,36 +249,10 @@ public class ODMWriter
 		String meta_data_oid = prop.getProperty("odm.meta_data_prefix") + survey.getId();
 
 		clinical_data = root.addElement("ClinicalData")
-			.addAttribute(" StudyOID", prop.getProperty("dummy.survey_oid"))
+			.addAttribute("StudyOID", prop.getProperty("dummy.survey_oid"))
 			.addAttribute("MetaDataVersionOID", meta_data_oid);
 	}
 
-	public void addAnswers(LinkedList<Response> responses)
-	{
-		// For each response add a subject_data element
-		for (Response r : responses) {
-			Element form_data = clinical_data.addElement("SubjectData")
-				.addAttribute("SubjectKey", Integer.toString(r.getId()))
-				.addElement("StudyEventData")
-				.addAttribute(" StudyEventOID", prop.getProperty("dummy.study_event_oid"))
-				.addElement("FormData")
-				.addAttribute("FormOID", survey.getId());
-
-			// Answers are split into multiple lists, one per question group
-			// For each question group add a ItemGroup
-			for (Map.Entry<Integer, ArrayList<Answer>> entry : r.getAnswers().entrySet()) {
-				Element ig_data = form_data.addElement("ItemGroupData")
-					.addAttribute("ItemGroupOID", Integer.toString(entry.getKey()));
-
-				// For each answer in the group add an ItemData element
-				for (Answer a : entry.getValue()) {
-					ig_data.addElement("ItemData")
-						.addAttribute("ItemOID", a.getQid())
-						.addAttribute("Value", a.getAnswer());
-				}
-			}
-		}
-	}
 //====================================== helper functions ======================================= 
 	private Element addQuestion(Question q, String data_type)
 	{
@@ -318,11 +318,11 @@ public class ODMWriter
 			.addAttribute("Mandatory", mandatory);
 	}
 
-	private void addQuestionRefWithCond(int gid, String qid, String mandatory, String cond_oid)
+	private void addQuestionRefWithCond(int gid, String qid, String mand, String cond_oid)
 	{
 		question_groups.get(gid).addElement("ItemRef")
 			.addAttribute("ItemOID", qid)
-			.addAttribute("Mandatory", mandatory)
+			.addAttribute("Mandatory", mand)
 			.addAttribute("CollectionExceptionConditionOID", cond_oid);
 	}
 }

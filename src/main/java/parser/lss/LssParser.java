@@ -28,13 +28,13 @@ public class LssParser
 	protected File lss;
 	@Getter protected Survey survey;
 	protected Document doc;
-	Properties prop;
+	protected Properties prop;
 	@Getter protected ArrayList<String> date_time_qids;
 
-	Node q_l10ns_node;
-	Node sq_node;
-	Node q_node;
-	Node a_node;
+	protected Node q_l10ns_node;
+	protected Node sq_node;
+	protected Node q_node;
+	protected Node a_node;
 	/**
 	 * The Constructor
 	 * @param lss The .lss-file, which will be parsed
@@ -169,18 +169,14 @@ public class LssParser
 					break;
 				// List with comment
 				case "O":
-						Question q_comment = new Question(q);
-						q_comment.setQuestion(q_comment.getQuestion().concat(" comment"));
-						q_comment.setQid(q_comment.getQid().concat("comment"));
-						q_comment.setType("T");
-						survey.addQuestion(q_comment);
+					addComment(q);
 				// Radio List
 				case "L":
+				// Dropdown List
+				case "!":
 					if (question.elementTextTrim("other").equals("Y")) {
 						addOtherQuestion(q);
 					}
-				// Dropdown List
-				case "!":
 					q.setType("A");
 					q.setAnswers(new AnswersList(q.getQid() + ".cl", getAnswersByID(q.qid), "string", false));
 					survey.addQuestion(q);
@@ -248,8 +244,9 @@ public class LssParser
 				// MC with comments
 				case "P":
 					addMcWithComments(q);
+					break;
 				default:
-					log.info("Question type not supported: " + q.type);
+					log.error("Question type not supported: " + q.type);
 			}
 		}
 	}
@@ -441,9 +438,9 @@ public class LssParser
 		 *
 		 */
 		String cond_oid = q.getQid().concat(prop.getProperty("ext.cond"));
-		log.info("Added cond_oid");
+		log.debug("Added cond_oid");
 		String cond_str = "$(SE-" + prop.getProperty("dummy.study_event_oid") + "/F-" + survey.getId() + "/IG-" + q.getGid() + "/I-" + q.getQid() + ")!=\"-oth-\"";
-		log.info("added cond_str");
+		log.debug("added cond_str");
 		survey.addCondition(new Condition(prop.getProperty("imi.syntax_name"), cond_oid, cond_str));
 		q_other.setCond(cond_oid);
 	}
@@ -487,10 +484,10 @@ public class LssParser
 			sq.setHelp(q.help);
 			sq.setAnswers(new AnswersList("MC.cl", getMCCL(), "string", false));
 
-			// Add comment question
-			addComment(q);
-
 			survey.addQuestion(sq);
+
+			// Add comment question
+			addComment(sq);
 		}
 	}
 

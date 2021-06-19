@@ -51,7 +51,7 @@ public class LsrParser
 		@SuppressWarnings("unchecked")
 		List<Element> row_list = doc.selectNodes("//document/responses/rows/row");
 
-		log.info(date_time_qids);
+		log.debug(date_time_qids);
 		
 		int x = 0;
 		// Iterate over all row-Elements (one per survey-participant)
@@ -60,6 +60,7 @@ public class LsrParser
 			Response r = new Response();
 			r.id = Integer.parseInt(row.element("id").getText());
 			
+			// Sort Answers by the question group the question belongs to
 			for (QuestionGroup qg : qg_list) {
 				r.answers.put(qg.getGid(), new ArrayList<Answer>());
 			}
@@ -69,23 +70,28 @@ public class LsrParser
 			// Iterate over all elements in row (most of which are answers, but also id, language etc.)
 			for (Element e : children) {
 
-				// Pattern for Answer-Names: _{Survey_id}X{gid}X{qid}{ext}
-				// Where ext can be one of "{subquestion_title}|other|comment"
+				// Pattern for Answer-Names: _{Survey_id}X{gid}X{qid}{subquestion_title}?{ext}?
+				// Where ext can be one of "other|comment"
 				Pattern ans_p = Pattern.compile("^_\\d+X(\\d+)X(.+?)$");
-				log.info(e.getName());
+				log.debug(e.getName());
 				Matcher e_match = ans_p.matcher(e.getName());
 
 				// If this is an answer and not another element
 				if (e_match.find()) {
-					log.info("Found matching Element, parsing first group: " + e_match.group(1) + " Second group: " + e_match.group(2));
+					log.debug("Found matching Element, parsing first group: " + e_match.group(1) + " Second group: " + e_match.group(2));
+					String gid = e_match.group(1);
+					String qid = e_match.group(2);
+
+					log.info("Working on question: " + qid);
+
 					String ans = e.getText();
 
 					// only add an answer if it isn't empty
 					if (ans != "") { 
-						if (date_time_qids.contains(e_match.group(2))) {
+						if (date_time_qids.contains(qid)) {
 							ans = ans.replace(" ", "T");
 						}
-						Answer a = new Answer(Integer.parseInt(e_match.group(1)), e_match.group(2), ans);
+						Answer a = new Answer(Integer.parseInt(gid), qid, ans);
 						r.addToAnswers(a);
 					}
 				}
