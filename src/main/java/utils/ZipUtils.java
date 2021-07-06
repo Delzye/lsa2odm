@@ -15,6 +15,7 @@ public class ZipUtils
 {
 	@Getter protected static File lss_file;
 	@Getter protected static File lsr_file;
+	@Getter protected static File lst_file;
 
 	// https://www.baeldung.com/java-compress-and-uncompress
 	public static void unzipFile(String path, String folder_name)
@@ -54,6 +55,8 @@ public class ZipUtils
 		lss_file = destFile;
 	} else if (destFilePath.contains(".lsr")) {
 		lsr_file = destFile;
+	} else if (destFilePath.contains(".lst")) {
+		lst_file = destFile;
 	}
 
     if (!destFilePath.startsWith(destDirPath + File.separator)) {

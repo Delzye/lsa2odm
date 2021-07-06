@@ -6,11 +6,13 @@ import lombok.extern.log4j.Log4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import parser.lss.LssParser;
 import parser.lsr.LsrParser;
+import parser.lsr.Response;
 import utils.ZipUtils;
 import utils.LssValidator;
 import writer.ODMWriter;
@@ -22,6 +24,7 @@ public class LsaConverter
 	{		
 		File lss_file;
 		File lsr_file;
+		File lst_file;
 
 		// Check if the first parameter is actually a lsa path
 		Pattern lsa_pattern = Pattern.compile("^(\\.?/?(?:.*/)*)(.*?)\\.lsa$", Pattern.CASE_INSENSITIVE);
@@ -33,8 +36,8 @@ public class LsaConverter
 		}
 
 		log.info("LSA-Filename is valid");
-		log.info("Path: " + lsa_matcher.group(1));
-		log.info("Filename: " + lsa_matcher.group(2));
+		log.debug("Path: " + lsa_matcher.group(1));
+		log.debug("Filename: " + lsa_matcher.group(2));
 
 		String lsa_path = lsa_matcher.group(1);
 		String output_path = p2_output_path.equals("") ? lsa_path : p2_output_path;
@@ -45,12 +48,15 @@ public class LsaConverter
 
 		lss_file = ZipUtils.getLss_file();
 		lsr_file = ZipUtils.getLsr_file();
+		lst_file = ZipUtils.getLst_file();
 
 		if (lss_file == null || lsr_file == null) {
 			log.error("Could not find lss and lsr file!");
+			System.exit(1);
 		}
 		lss_file.deleteOnExit();
 		lsr_file.deleteOnExit();
+		lst_file.deleteOnExit();
 
 //=================================================================validation============================================================================
 		try{
@@ -63,15 +69,16 @@ public class LsaConverter
 		LssParser lss_parser = new LssParser(lss_file);
 		lss_parser.parseDocument();
 
-		ODMWriter odm = new ODMWriter(lss_parser.getSurvey());
-		odm.createODMFile();
 
 		// Parse .lsr document
-		LsrParser lsr_parser = new LsrParser(lsr_file, lss_parser.getSurvey().getGroups(), lss_parser.getDate_time_qids(), odm);
+		LsrParser lsr_parser = new LsrParser(lsr_file, lss_parser.getSurvey().getGroups(), lss_parser.getDate_time_qids());
 		lsr_parser.createDocument();
-		lsr_parser.parseAnswers();
+		ArrayList<Response> responses = lsr_parser.parseAnswers();
 
 		// Write ODM file
+		ODMWriter odm = new ODMWriter(lss_parser.getSurvey());
+		odm.createODMFile();
+		odm.addAnswers(responses);
 		odm.writeFile(output_path);
 	}
 

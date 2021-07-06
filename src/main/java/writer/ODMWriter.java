@@ -14,7 +14,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Properties;
 
@@ -74,16 +73,23 @@ public class ODMWriter
 		addClinicalDataElement();
 	}
 
-	public void addAnswers(LinkedList<Response> responses)
+	public void addAnswers(ArrayList<Response> responses)
 	{
+		HashMap<String, Element> subject_se_list = new HashMap<>();
 		// For each response add a subject_data element
 		for (Response r : responses) {
-			Element form_data = clinical_data.addElement("SubjectData")
-				.addAttribute("SubjectKey", Integer.toString(r.getId()))
-				.addElement("StudyEventData")
-				.addAttribute(" StudyEventOID", prop.getProperty("dummy.study_event_oid"))
-				.addElement("FormData")
-				.addAttribute("FormOID", survey.getId());
+			Element se = subject_se_list.get(r.getId());
+			if (se == null) {
+				se = clinical_data.addElement("SubjectData")
+								  .addAttribute("SubjectKey", r.getId())
+								  .addElement("StudyEventData")
+								  .addAttribute("StudyEventOID", prop.getProperty("dummy.study_event_oid"));
+				subject_se_list.put(r.getId(), se);
+			}
+
+			Element form_data = se.addElement("FormData")
+								  .addAttribute("FormOID", survey.getId())
+								  .addAttribute("FormRepeatKey", r.getRepeat_key());
 
 			// Answers are split into multiple lists, one per question group
 			// For each question group add a ItemGroup
@@ -165,7 +171,7 @@ public class ODMWriter
 		form = meta_data.addElement("FormDef")
 						.addAttribute("OID", survey.getId())
 						.addAttribute("Name", survey.getName())
-						.addAttribute("Repeating", "No");
+						.addAttribute("Repeating", "Yes");
 		form.addElement("Description").addText(survey.getDescription());
 	}
 

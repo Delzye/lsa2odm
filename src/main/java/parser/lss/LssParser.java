@@ -126,7 +126,7 @@ public class LssParser
 									  question.element("type").getText(),
 									  q_l10ns_node.selectSingleNode("row[qid=" + qid + "]/question").getText(),
 									  question.element("title").getText(),
-									  question.element("mandatory").getText(),
+									  question.element("mandatory").getText().equals("N") ? "No" : "Yes",
 									  q_l10ns_node.selectSingleNode("row[qid=" + qid + "]/language").getText());
 			addCondition(q);
 
@@ -182,6 +182,7 @@ public class LssParser
 					survey.addQuestion(q);
 					break;
 				// Multiple Texts
+				// Input On Demand
 				case "Q":
 					addSubquestions(q, "T");
 					break;

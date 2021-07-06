@@ -1,16 +1,14 @@
 package parser.lsr;
 
-import writer.ODMWriter;
 import parser.lss.QuestionGroup;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -19,21 +17,17 @@ import org.dom4j.io.SAXReader;
 @Log4j
 public class LsrParser
 {
-	File lsr_file;
-	Document doc;
-	Element rows;
-	ArrayList<QuestionGroup> qg_list;
-	@Getter LinkedList<Response> responses;
-	List<String> date_time_qids;
-	ODMWriter writer;
+	protected File lsr_file;
+	protected Document doc;
+	protected Element rows;
+	protected ArrayList<QuestionGroup> qg_list;
+	protected List<String> date_time_qids;
 
-	public LsrParser(File lsr_file, ArrayList<QuestionGroup> qg_list, ArrayList<String> dt_qids, ODMWriter writer)
+	public LsrParser(File lsr_file, ArrayList<QuestionGroup> qg_list, ArrayList<String> dt_qids)
 	{
 		this.lsr_file = lsr_file;
 		this.qg_list = qg_list;
-		responses = new LinkedList<Response>();
 		this.date_time_qids = dt_qids;
-		this.writer = writer;
 	}
 
 	public void createDocument()
@@ -46,20 +40,32 @@ public class LsrParser
 		}
 	}
 
-	public void parseAnswers()
+	public ArrayList<Response> parseAnswers()
 	{
 		@SuppressWarnings("unchecked")
 		List<Element> row_list = doc.selectNodes("//document/responses/rows/row");
 
 		log.debug(date_time_qids);
+
+		ArrayList<Response> responses = new ArrayList<>();
+
+		HashMap<String, Integer> rep_keys = new HashMap<>();
 		
-		int x = 0;
 		// Iterate over all row-Elements (one per survey-participant)
 		for (Element row : row_list) {
 
 			Response r = new Response();
-			r.id = Integer.parseInt(row.element("id").getText());
-			
+			Element token = row.element("token");
+			if (token == null) {
+				r.setId(row.element("id").getText()); 
+			} else {
+				r.setId(token.getText());
+			}
+
+			int rep_key = rep_keys.get(r.getId()) == null ? 1 : rep_keys.get(r.getId());
+			r.setRepeat_key(rep_key + "");
+			rep_keys.put(r.getId(), ++rep_key);
+
 			// Sort Answers by the question group the question belongs to
 			for (QuestionGroup qg : qg_list) {
 				r.answers.put(qg.getGid(), new ArrayList<Answer>());
@@ -97,13 +103,7 @@ public class LsrParser
 				}
 			}
 			responses.add(r);
-			x++;
-			if (x == 1000) {
-				x = 0;
-				writer.addAnswers(responses);
-				responses.clear();
-			}
 		}
-		writer.addAnswers(responses);
+		return responses;
 	}
 }

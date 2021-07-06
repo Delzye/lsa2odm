@@ -9,8 +9,10 @@ import lombok.Setter;
 @Getter
 public class Response
 {
-	@Setter protected int id;
-	HashMap<Integer, ArrayList<Answer>> answers;
+	@Setter protected String id;
+	@Setter protected String repeat_key;
+	// GID, List of Answers for questions of that group
+	protected HashMap<Integer, ArrayList<Answer>> answers;
 
 	public Response()
 	{
