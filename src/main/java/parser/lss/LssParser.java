@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -15,6 +14,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import lombok.extern.log4j.Log4j;
+import utils.ClGenerator;
 import lombok.Getter;
 import org.dom4j.io.SAXReader;
 import org.dom4j.Document;
@@ -152,19 +152,19 @@ public class LssParser
 				// Single 5-Point Choice
 				case "5":
 					q.setType("A");
-					q.setAnswers(new AnswersList("5pt.cl", getIntCl(5), "string", true));
+					q.setAnswers(new AnswersList("5pt.cl", ClGenerator.getIntCl(5), "string", true));
 					survey.addQuestion(q);
 					break;
 				// Yes/No
 				case "Y":
 					q.setType("A");
-					q.setAnswers(new AnswersList("YN.cl", getYNCl(), "string", false));
+					q.setAnswers(new AnswersList("YN.cl", ClGenerator.getYNCl(), "string", false));
 					survey.addQuestion(q);
 					break;
 				// Gender
 				case "G":
 					q.setType("A");
-					q.setAnswers(new AnswersList("Gender.cl", getGenderCl(), "string", false));
+					q.setAnswers(new AnswersList("Gender.cl", ClGenerator.getGenderCl(), "string", false));
 					survey.addQuestion(q);
 					break;
 				// List with comment
@@ -178,7 +178,7 @@ public class LssParser
 						addOtherQuestion(q);
 					}
 					q.setType("A");
-					q.setAnswers(new AnswersList(q.getQid() + ".cl", getAnswersByID(q.qid), "string", false));
+					q.setAnswers(new AnswersList(q.getQid() + ".cl", getAnswerCodesByID(q.qid), "string", false));
 					survey.addQuestion(q);
 					break;
 				// Multiple Texts
@@ -197,7 +197,7 @@ public class LssParser
 					break;
 				// Dual scale array
 				case "1":
-					HashMap<String, String>[] code_lists = getDualScaleCls(q.qid);
+					HashMap<String, String>[] code_lists = ClGenerator.getDualScaleCls(q.getQid(), getAnswerIdsByID(q.getQid()), a_node);
 					addSubquestionsWithCL(q, q.getQid() + ".0", code_lists[0], "string", false, "-0");
 					addSubquestionsWithCL(q, q.getQid() + ".1", code_lists[1], "string", false, "-1");
 					break;
@@ -205,23 +205,23 @@ public class LssParser
 				case "H":
 				// Flexible Array
 				case "F":
-					addSubquestionsWithCL(q, q.getQid().concat(".cl"), getAnswersByID(q.getQid()), "string", false, "");
+					addSubquestionsWithCL(q, q.getQid().concat(".cl"), getAnswerCodesByID(q.getQid()), "string", false, "");
 					break;
 				// 5pt Array
 				case "A":
-					addSubquestionsWithCL(q, "5pt.cl", getIntCl(5), "integer", true, "");
+					addSubquestionsWithCL(q, "5pt.cl", ClGenerator.getIntCl(5), "integer", true, "");
 					break;
 				// 10pt Array
 				case "B":
-					addSubquestionsWithCL(q, "10pt.cl", getIntCl(10), "integer", true, "");
+					addSubquestionsWithCL(q, "10pt.cl", ClGenerator.getIntCl(10), "integer", true, "");
 					break;
 				// Increase/Same/Decrease Array
 				case "E":
-					addSubquestionsWithCL(q, "ISD.cl", getISDCL(), "string", false, "");
+					addSubquestionsWithCL(q, "ISD.cl", ClGenerator.getISDCL(), "string", false, "");
 					break;
 				// 10pt Array
 				case "C":
-					addSubquestionsWithCL(q, "YNU.cl", getYNUCL(), "string", false, "");
+					addSubquestionsWithCL(q, "YNU.cl", ClGenerator.getYNUCL(), "string", false, "");
 					break;
 				// Matrix with numerical input
 				case ":":
@@ -235,7 +235,7 @@ public class LssParser
 					break;
 				// Multiple Choice (Normal, Bootstrap, Image select)
 				case "M":
-					addSubquestionsWithCL(q, "MC.cl", getMCCL(), "string", false, "");
+					addSubquestionsWithCL(q, "MC.cl", ClGenerator.getMCCL(), "string", false, "");
 					if (question.elementTextTrim("other").equals("Y")) {
 						q.setQid(q.getQid().concat("other"));
 						q.setType("T");
@@ -483,7 +483,7 @@ public class LssParser
 					q.mandatory,
 					q.language);
 			sq.setHelp(q.help);
-			sq.setAnswers(new AnswersList("MC.cl", getMCCL(), "string", false));
+			sq.setAnswers(new AnswersList("MC.cl", ClGenerator.getMCCL(), "string", false));
 
 			survey.addQuestion(sq);
 
@@ -513,7 +513,7 @@ public class LssParser
 	 * @param id The Question-ID, for which the answers should be returned
 	 * @return All answer options for a question with QID id in a map in the format <code, answer>
 	 */
-	private HashMap<String, String> getAnswersByID(String id)
+	private HashMap<String, String> getAnswerCodesByID(String id)
 	{
 		HashMap<String, String> ans_map = new HashMap<String, String>();
 		Node ans_l10ns = doc.selectSingleNode("//document/answer_l10ns/rows");
@@ -530,7 +530,7 @@ public class LssParser
 	 * @param id The Question-ID, for which the answers should be returned
 	 * @return All answer options for a question with QID id in a map in the format <AID, answer>
 	 */
-	private HashMap<String, String> getAnswersByIDWithID(String id)
+	private HashMap<String, String> getAnswerIdsByID(String id)
 	{
 		HashMap<String, String> ans_map = new HashMap<String, String>();
 		Node ans_l10ns = doc.selectSingleNode("//document/answer_l10ns/rows");
@@ -540,76 +540,5 @@ public class LssParser
 			ans_map.put(elem.elementText("aid"), ans_l10ns.selectSingleNode("row[aid=" + elem.elementText("aid") + "]/answer").getText());
 		}
 		return ans_map;
-	}
-
-//============================================code list generation methods==========================================================
-
-	private HashMap<String, String> getIntCl(int l)
-	{
-		HashMap<String, String> ans_map = new HashMap<>();
-		for (int i = 1; i <= l; i++){
-			String a = Integer.toString(i);
-			ans_map.put(a,a);
-		}
-		return ans_map;
-	}
-
-	private HashMap<String, String> getYNCl()
-	{
-		HashMap<String, String> ans_map = new HashMap<>();
-		ans_map.put("Y", "yes");
-		ans_map.put("N", "no");
-		return ans_map;
-	}
-
-	private HashMap<String, String> getGenderCl()
-	{
-		HashMap<String, String> ans_map = new HashMap<>();
-		ans_map.put("M", "male");
-		ans_map.put("F", "female");
-		return ans_map;
-	}
-
-	private HashMap<String, String> getISDCL()
-	{
-		HashMap<String, String> ans_map = new HashMap<>();
-		ans_map.put("I", "Increase");
-		ans_map.put("S", "Same");
-		ans_map.put("D", "Decrease");
-		return ans_map;
-	}
-
-	private HashMap<String, String> getYNUCL()
-	{
-		HashMap<String, String> ans_map = new HashMap<>();
-		ans_map.put("Y", "Yes");
-		ans_map.put("N", "No");
-		ans_map.put("U", "Uncertain");
-		return ans_map;
-	}
-
-	private HashMap<String, String> getMCCL()
-	{
-		HashMap<String, String> ans_map = new HashMap<>();
-		ans_map.put("Y", "Yes");
-		ans_map.put("", "No");
-		return ans_map;
-	}
-
-	private HashMap<String, String>[] getDualScaleCls(String qid)
-	{
-		@SuppressWarnings("unchecked")
-		HashMap<String, String>[] cls = new HashMap[2];
-		cls[0] = getAnswersByIDWithID(qid);
-		cls[1] = new HashMap<>();
-		Iterator<Map.Entry<String,String>> iter = cls[0].entrySet().iterator();
-		while (iter.hasNext()) {
-			Map.Entry<String,String> entry = iter.next();
-			if (a_node.selectSingleNode("row[aid=" + entry.getKey() + "]/scale_id").getText().equals("1")) {
-				cls[1].put(entry.getKey(), entry.getValue());
-				iter.remove();
-			}
-		}
-		return cls;
 	}
 }
