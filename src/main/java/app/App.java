@@ -37,9 +37,10 @@ public class App {
 
 	private static void propsConfig()
 	{
-		File file = new File("src/main/java/app/config.properties");
+		String fs = File.separator;
+		File file = new File("src" + fs + "main" + fs + "resources" + fs + "config.properties");
 		if (!file.exists()) {
-			try (OutputStream output = new FileOutputStream("src/main/java/app/config.properties")) {
+			try (OutputStream output = new FileOutputStream("src" + fs + "main" + fs + "resources" + fs + "config.properties")) {
 
             Properties prop = new Properties();
 

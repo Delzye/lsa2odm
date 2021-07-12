@@ -110,7 +110,13 @@
           <version>3.0.0</version>
           <configuration>
             <mainClass>app.App</mainClass>
-          </configuration>
+			<resources>
+				<resource>
+					<directory>${basedir}/src/main/resources</directory>
+					<filtering>false</filtering>
+				</resource>
+			</resources>
+		</configuration>
 		</plugin>     
 	  </plugins>
     </pluginManagement>

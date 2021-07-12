@@ -27,18 +27,18 @@ import org.dom4j.Element;
 @Log4j
 public class ODMWriter
 {
-	Document doc;
-	Element root;
-	Element meta_data;
-	Element form;
-	Element code_lists;
-	Element clinical_data;
+	protected Document doc;
+	protected Element root;
+	protected Element meta_data;
+	protected Element form;
+	protected Element code_lists;
+	protected Element clinical_data;
 
-	Survey survey;
-	Properties prop;
+	protected Survey survey;
+	protected Properties prop;
 	
-	HashMap<Integer, Element> question_groups;
-	ArrayList<String> written_cl_oids;
+	protected HashMap<Integer, Element> question_groups;
+	protected ArrayList<String> written_cl_oids;
 	
 	public ODMWriter(Survey s)
 	{
@@ -48,11 +48,11 @@ public class ODMWriter
 		this.written_cl_oids = new ArrayList<String>();
 
 		// Load properties from the config file
-		try (InputStream input = new FileInputStream("src/main/java/app/config.properties")) {
+		try (InputStream input = ODMWriter.class.getResourceAsStream("/config.properties")) {
 			prop = new Properties();
             prop.load(input);
         } catch (IOException ex) {
-            log.error(ex.getClass());
+            log.error(ex.getMessage());
         }
 	}
 

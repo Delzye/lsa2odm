@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ODM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" Description="ODM-version of LimeSurvey Survey with ID: 969249" FileType="Snapshot" FileOID="969249" CreationDateTime="2021-07-09T12:34:10.355756133" ODMVersion="1.3">
+<ODM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" Description="ODM-version of LimeSurvey Survey with ID: 969249" FileType="Snapshot" FileOID="969249" CreationDateTime="2021-07-12T19:53:26.054064272" ODMVersion="1.3">
   <Study OID="PlaceholderOID">
     <GlobalVariables>
       <StudyName>StudyPlaceholderName</StudyName>
@@ -9,7 +9,7 @@
     </GlobalVariables>
     <MetaDataVersion OID="MetaData969249" Name="MetaData969249">
       <Protocol>
-        <StudyEventRef StudyEventOID="Event.1" Mandatory="No"/>
+        <StudyEventRef StudyEventOID="Event.1" Mandatory="Yes"/>
       </Protocol>
       <StudyEventDef OID="Event.1" Name="StudyEvent.1" Repeating="No" Type="Common">
         <FormRef FormOID="969249" Mandatory="No"/>

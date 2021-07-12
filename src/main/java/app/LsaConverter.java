@@ -27,7 +27,9 @@ public class LsaConverter
 		File lst_file;
 
 		// Check if the first parameter is actually a lsa path
-		Pattern lsa_pattern = Pattern.compile("^(\\.?/?(?:.*/)*)(.*?)\\.lsa$", Pattern.CASE_INSENSITIVE);
+		String fs = File.separator;
+		char fsc = File.separatorChar;
+		Pattern lsa_pattern = Pattern.compile("^(\\.?"+fs+"?(?:.*"+fs+")*)(.*?)\\.lsa$", Pattern.CASE_INSENSITIVE);
 		Matcher lsa_matcher = lsa_pattern.matcher(p1_lsa_path);
 		log.info("Checking Filepaths");
 
@@ -41,8 +43,8 @@ public class LsaConverter
 
 		String lsa_path = lsa_matcher.group(1);
 		String output_path = p2_output_path.equals("") ? lsa_path : p2_output_path;
-		// Path must end with a '/'
-		output_path += output_path.charAt(output_path.length()-1) == '/' ? "" : "/";
+		// Path must end with a '/' (unix) or '\' (windows)
+		output_path += output_path.charAt(output_path.length()-1) == fsc ? "" : fs;
 		log.info("Unzipping archive");
 		ZipUtils.unzipFile(p1_lsa_path, output_path);
 
@@ -56,7 +58,9 @@ public class LsaConverter
 		}
 		lss_file.deleteOnExit();
 		lsr_file.deleteOnExit();
-		lst_file.deleteOnExit();
+		if(lst_file != null){ 
+			lst_file.deleteOnExit();
+		}
 
 //=================================================================validation============================================================================
 		try{

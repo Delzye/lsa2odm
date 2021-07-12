@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!-- Complex types: indirect references-->
+
+	<xs:simpleType name="LanguageType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(en|de|de-informal|\s{0})"/> <!--\s{0} denotes an empty string-->
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="YNType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(Y|N|I|E)"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="OptYSNType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(Y|S|N|\s{0})"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="FieldType">
+        <xs:sequence>
+		<xs:element name="fieldname" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AnswersRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="aid" type="xs:integer"/>
+					<xs:element name="qid" type="xs:integer"/>
+					<xs:element name="code" type="xs:string"/>
+					<xs:element name="sortorder" type="xs:integer"/>
+					<xs:element name="assessment_value" type="xs:integer"/>
+					<xs:element name="scale_id" type="xs:integer"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AnswerRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="id" type="xs:integer"/>
+					<xs:element name="aid" type="xs:integer"/>
+					<xs:element name="answer" type="xs:string"/>
+					<xs:element name="language" type="LanguageType"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ConditionsRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="cid" type="xs:integer"/>
+					<xs:element name="qid" type="xs:integer"/>
+					<xs:element name="cqid" type="xs:integer"/>
+					<xs:element name="cfieldname" type="xs:string"/>
+					<xs:element name="method" type="xs:string"/>
+					<xs:element name="value" type="xs:string"/>
+					<xs:element name="scenario" type="xs:integer"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GroupsRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="gid" type="xs:integer"/>
+					<xs:element name="sid" type="xs:integer"/>
+					<xs:element name="group_order" type="xs:integer"/>
+					<xs:element name="randomization_group" type="xs:string"/>
+					<xs:element name="grelevance" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GroupRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="id" type="xs:integer"/>
+					<xs:element name="gid" type="xs:integer"/>
+					<xs:element name="group_name" type="xs:string"/>
+					<xs:element name="description" type="xs:string" minOccurs="0"/>
+					<xs:element name="language" type="LanguageType"/>
+					<xs:element name="sid" type="xs:integer"/>
+					<xs:element name="group_order" type="xs:integer"/>
+					<xs:element name="randomization_group" type="xs:string"/>
+					<xs:element name="grelevance" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="QuestionsRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:all>
+					<xs:element name="qid" type="xs:integer"/>
+					<xs:element name="parent_qid" type="xs:integer"/>
+					<xs:element name="sid" type="xs:integer"/>
+					<xs:element name="gid" type="xs:integer"/>
+					<xs:element name="type" type="xs:string"/>
+					<xs:element name="title" type="xs:string"/>
+					<xs:element name="preg" type="xs:string" minOccurs="0"/>
+					<xs:element name="other" type="YNType"/>
+					<xs:element name="mandatory" type="OptYSNType" minOccurs="0"/>
+					<xs:element name="question_order" type="xs:integer"/>
+					<xs:element name="scale_id" type="xs:integer"/>
+					<xs:element name="same_default" type="xs:integer"/>
+					<xs:element name="relevance" type="xs:string"/> <!-- TODO: 1 or empty-->
+					<xs:element name="modulename" type="xs:string" minOccurs="0"/>
+					<xs:element name="encrypted" type="YNType"/>
+				</xs:all>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="QuestionRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:all>
+					<xs:element name="id" type="xs:integer"/>
+					<xs:element name="qid" type="xs:integer"/>
+					<xs:element name="question" type="xs:string"/>
+					<xs:element name="help" type="xs:string" minOccurs="0"/>
+					<xs:element name="language" type="LanguageType"/>
+					<xs:element name="script" type="xs:string" minOccurs="0"/>
+				</xs:all>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Question_attributesRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="qid" type="xs:integer"/>
+					<xs:element name="attribute" type="xs:string"/>
+					<xs:element name="value" type="xs:string"/>
+					<xs:element name="language" type="LanguageType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SurveysRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:all>
+					<xs:element name="sid" type="xs:integer"/>
+					<xs:element name="admin" type="xs:string"/>
+					<xs:element name="adminemail" type="xs:string"/>
+					<xs:element name="anonymized" type="YNType"/>
+					<xs:element name="faxto" type="xs:string" minOccurs="0"/>
+					<xs:element name="format" type="xs:string"/>
+					<xs:element name="savetimings" type="YNType"/>
+					<xs:element name="template" type="xs:string"/>
+					<xs:element name="language" type="LanguageType"/>
+					<xs:element name="additional_languages" type="xs:string"/>
+					<xs:element name="datestamp" type="YNType"/>
+					<xs:element name="usecookie" type="YNType"/>
+					<xs:element name="allowregister" type="YNType"/>
+					<xs:element name="allowsave" type="YNType"/>
+					<xs:element name="autonumber_start" type="xs:integer"/>
+					<xs:element name="autoredirect" type="YNType"/>
+					<xs:element name="allowprev" type="YNType"/>
+					<xs:element name="printanswers" type="YNType"/>
+					<xs:element name="ipaddr" type="YNType"/>
+					<xs:element name="refurl" type="YNType"/>
+					<xs:element name="publicstatistics" type="YNType"/>
+					<xs:element name="publicgraphs" type="YNType"/>
+					<xs:element name="listpublic" type="YNType"/>
+					<xs:element name="htmlemail" type="YNType"/>
+					<xs:element name="sendconfirmation" type="YNType"/>
+					<xs:element name="tokenanswerspersistence" type="YNType"/>
+					<xs:element name="assessments" type="YNType"/>
+					<xs:element name="usecaptcha" type="YNType"/>
+					<xs:element name="usetokens" type="YNType"/>
+					<xs:element name="bounce_email" type="xs:string"/>
+					<xs:element name="emailresponseto" type="xs:string"/>
+					<xs:element name="emailnotificationto" type="xs:string"/>
+					<xs:element name="tokenlength" type="xs:integer"/>
+					<xs:element name="showxquestions" type="YNType"/>
+					<xs:element name="showgroupinfo" type="xs:string"/>
+					<xs:element name="shownoanswer" type="YNType"/>
+					<xs:element name="showqnumcode" type="xs:string"/>
+					<xs:element name="bounceprocessing" type="YNType"/>
+					<xs:element name="showwelcome" type="YNType"/>
+					<xs:element name="showprogress" type="YNType"/>
+					<xs:element name="questionindex" type="xs:integer"/>
+					<xs:element name="navigationdelay" type="xs:integer"/>
+					<xs:element name="nokeyboard" type="YNType"/>
+					<xs:element name="alloweditaftercompletion" type="YNType"/>
+					<xs:element name="googleanalyticsstyle" type="xs:integer" minOccurs="0"/>
+					<xs:element name="googleanalyticsapikey" type="xs:string" minOccurs="0"/>
+					<xs:element name="gsid" type="xs:integer"/>
+					<xs:element name="showsurveypolicynotice" type="xs:integer"/>
+					<xs:element name="tokenencryptionoptions" type="xs:string"/>
+					<xs:element name="ipanonymize" type="YNType"/>
+				</xs:all>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Surveys_languagesettingsRowsType">
+        <xs:sequence>
+		<xs:element name="row" maxOccurs="unbounded">
+			<xs:complexType>
+				<xs:all>
+					<xs:element name="surveyls_survey_id" type="xs:integer"/>
+					<xs:element name="surveyls_language" type="LanguageType"/>
+					<xs:element name="surveyls_title" type="xs:string"/>
+					<xs:element name="surveyls_description" type="xs:string"/>
+					<xs:element name="surveyls_welcometext" type="xs:string"/>
+					<xs:element name="surveyls_endtext" type="xs:string"/>
+					<xs:element name="surveyls_url" type="xs:string"/>
+					<xs:element name="surveyls_urldescription" type="xs:string"/>
+					<xs:element name="surveyls_email_invite_subj" type="xs:string"/>
+					<xs:element name="surveyls_email_invite" type="xs:string"/>
+					<xs:element name="surveyls_email_remind_subj" type="xs:string"/>
+					<xs:element name="surveyls_email_remind" type="xs:string"/>
+					<xs:element name="surveyls_email_register_subj" type="xs:string"/>
+					<xs:element name="surveyls_email_register" type="xs:string"/>
+					<xs:element name="surveyls_email_confirm_subj" type="xs:string"/>
+					<xs:element name="surveyls_email_confirm" type="xs:string"/>
+					<xs:element name="surveyls_dateformat" type="xs:integer"/>
+					<xs:element name="surveyls_attributecaptions" type="xs:string" minOccurs="0"/>
+					<xs:element name="email_admin_notification_subj" type="xs:string"/>
+					<xs:element name="email_admin_notification" type="xs:string"/>
+					<xs:element name="email_admin_responses_subj" type="xs:string"/>
+					<xs:element name="email_admin_responses" type="xs:string"/>
+					<xs:element name="surveyls_numberformat" type="xs:integer"/>
+					<xs:element name="attachments" type="xs:string" minOccurs="0"/>
+					<xs:element name="surveyls_policy_notice" type="xs:string" minOccurs="0"/>
+					<xs:element name="surveyls_policy_error" type="xs:string" minOccurs="0"/>
+					<xs:element name="surveyls_policy_notice_label" type="xs:string" minOccurs="0"/>
+				</xs:all>
+			</xs:complexType>
+		</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InheritedConfigType">
+		<xs:all>
+			<xs:element name="ajaxmode" type="xs:string"/>
+			<xs:element name="brandlogo" type="xs:string"/>
+			<xs:element name="brandlogofile" type="xs:string"/>
+			<xs:element name="container" type="xs:string"/>
+			<xs:element name="backgroundimage" type="xs:string"/>
+			<xs:element name="backgroundimagefile" type="xs:string" minOccurs="0"/>
+			<xs:element name="animatebody" type="xs:string"/>
+			<xs:element name="bodyanimation" type="xs:string"/>
+			<xs:element name="bodyanimationduration" type="xs:double"/>
+			<xs:element name="animatequestion" type="xs:string"/>
+			<xs:element name="questionanimation" type="xs:string"/>
+			<xs:element name="questionanimationduration" type="xs:double"/>
+			<xs:element name="animatealert" type="xs:string"/>
+			<xs:element name="alertanimation" type="xs:string"/>
+			<xs:element name="alertanimationduration" type="xs:double"/>
+			<xs:element name="font" type="xs:string"/>
+			<xs:element name="bodybackgroundcolor" type="xs:string"/>
+			<xs:element name="fontcolor" type="xs:string"/>
+			<xs:element name="questionbackgroundcolor" type="xs:string"/>
+			<xs:element name="questionborder" type="xs:string"/>
+			<xs:element name="questioncontainershadow" type="xs:string"/>
+			<xs:element name="checkicon" type="xs:string"/>
+			<xs:element name="animatecheckbox" type="xs:string"/>
+			<xs:element name="checkboxanimation" type="xs:string"/>
+			<xs:element name="checkboxanimationduration" type="xs:double"/>
+			<xs:element name="animateradio" type="xs:string"/>
+			<xs:element name="radioanimation" type="xs:string"/>
+			<xs:element name="radioanimationduration" type="xs:double"/>
+			<xs:element name="zebrastriping" type="xs:string"/>
+			<xs:element name="stickymatrixheaders" type="xs:string"/>
+			<xs:element name="greyoutselected" type="xs:string"/>
+			<xs:element name="hideprivacyinfo" type="xs:string"/>
+			<xs:element name="crosshover" type="xs:string"/>
+			<xs:element name="showpopups" type="xs:integer"/>
+			<xs:element name="fixnumauto" type="xs:string" minOccurs="0"/>
+			<xs:element name="showclearall" type="xs:string"/>
+			<xs:element name="questionhelptextposition" type="xs:string"/>
+			<xs:element name="notables" type="xs:string"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="ThemeType">
+		<xs:sequence>
+			<xs:element name="sid" type="xs:integer"/>
+			<xs:element name="template_name" type="xs:string"/>
+			<xs:element name="config">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="options" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InheritedThemeType">
+		<xs:sequence>
+			<xs:element name="sid" type="xs:integer"/>
+			<xs:element name="template_name" type="xs:string"/>
+			<xs:element name="config">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="options" type="InheritedConfigType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- elements of document -->
+
+	<xs:element name="languages">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="language" type="LanguageType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="answers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="AnswersRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="answer_l10ns">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="AnswerRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="conditions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="ConditionsRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="groups">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="GroupsRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="group_l10ns">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="GroupRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="questions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="QuestionsRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="subquestions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="QuestionsRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="question_l10ns">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="QuestionRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="question_attributes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="Question_attributesRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="surveys">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="SurveysRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="surveys_languagesettings">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="FieldType"/>
+				<xs:element name="rows" type="Surveys_languagesettingsRowsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="themes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="theme" type="ThemeType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="themes_inherited">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="theme" type="InheritedThemeType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Main Type of the document -->
+	<xs:element name="document">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="LimeSurveyDocType" type="xs:string"/>
+				<xs:element name="DBVersion" type="xs:integer"/>
+				<xs:element ref="languages"/>
+				<xs:element ref="answers" minOccurs="0"/>
+				<xs:element ref="answer_l10ns" minOccurs="0"/>
+				<xs:element ref="conditions" minOccurs="0"/>
+				<xs:element ref="groups"/>
+				<xs:element ref="group_l10ns"/>
+				<xs:element ref="questions"/>
+				<xs:element ref="subquestions" minOccurs="0"/>
+				<xs:element ref="question_l10ns"/>
+				<xs:element ref="question_attributes"/>
+				<xs:element ref="surveys"/>
+				<xs:element ref="surveys_languagesettings"/>
+				<xs:element ref="themes"/>
+				<xs:element ref="themes_inherited"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema> 

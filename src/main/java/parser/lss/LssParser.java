@@ -46,11 +46,11 @@ public class LssParser
 		date_time_qids = new ArrayList<>();
 
 		// Load properties from the config file
-		try (InputStream input = new FileInputStream("src/main/java/app/config.properties")) {
+		try (InputStream input = LssParser.class.getResourceAsStream("/config.properties")) {
 			prop = new Properties();
             prop.load(input);
         } catch (IOException ex) {
-            log.error(ex.getClass());
+            log.error(ex.getMessage());
         }
 	}
 
