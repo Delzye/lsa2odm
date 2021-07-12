@@ -20,7 +20,7 @@ import writer.ODMWriter;
 @Log4j
 public class LsaConverter
 {
-	public void convert(String p1_lsa_path, String p2_output_path)
+	public static void convert(String p1_lsa_path, String p2_output_path)
 	{		
 		File lss_file;
 		File lsr_file;

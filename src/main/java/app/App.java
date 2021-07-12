@@ -27,9 +27,8 @@ public class App {
 		if (args.length == 0 || args.length > 2) {
 			invalid_params();
 		}
-		LsaConverter lsa_conv = new LsaConverter();
 		String p2 = args.length == 2 ? args[1] : "";
-		lsa_conv.convert(args[0], p2);
+		LsaConverter.convert(args[0], p2);
 
 		// Performance Output:
 		long afterUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();

@@ -155,7 +155,7 @@ public class ODMWriter
 						 .addAttribute("Name", meta_data_oid);
 		meta_data.addElement("Protocol").addElement("StudyEventRef")
 										.addAttribute("StudyEventOID", prop.getProperty("dummy.study_event_oid"))
-										.addAttribute("Mandatory", "No");
+										.addAttribute("Mandatory", "Yes");
 
 		// Add the dummy StudyEvent
 		Element study_event = meta_data.addElement("StudyEventDef")

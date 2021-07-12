@@ -45,8 +45,6 @@ public class LsrParser
 		@SuppressWarnings("unchecked")
 		List<Element> row_list = doc.selectNodes("//document/responses/rows/row");
 
-		log.debug(date_time_qids);
-
 		ArrayList<Response> responses = new ArrayList<>();
 
 		HashMap<String, Integer> rep_keys = new HashMap<>();
