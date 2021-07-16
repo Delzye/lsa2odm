@@ -27,30 +27,22 @@ public class LsaConverter
 		File lst_file;
 
 		// Check if the first parameter is actually a lsa path
-		String fs = File.separator;
-		String reg_fs;
-		if (fs.equals("/")) {
-			reg_fs = "/";
-		} else {
-			reg_fs = "\\\\";
-		}
-		char fsc = File.separatorChar;
-		Pattern lsa_pattern = Pattern.compile("^(\\.?"+reg_fs+"?(?:.*"+reg_fs+")*)(.*?)\\.lsa$");
-		Matcher lsa_matcher = lsa_pattern.matcher(p1_lsa_path);
-		log.info("Checking Filepaths");
 
-		if(!lsa_matcher.find()) {
+		log.info("Checking Filepaths");
+		File f = new File(p1_lsa_path);
+		String ext = f.getName().substring(f.getName().lastIndexOf(".") + 1);
+
+		if(!f.isFile() || !ext.equals("lsa")) {
 			invalid_params();
 		}
 
-		log.info("LSA-Filename is valid");
-		log.debug("Path: " + lsa_matcher.group(1));
-		log.debug("Filename: " + lsa_matcher.group(2));
+		log.info("Filename is valid");
+		log.debug("Path: " + f.getParent());
+		log.debug("Filename: " + f.getName());
 
-		String lsa_path = lsa_matcher.group(1);
+		String lsa_path = f.getParent();
 		String output_path = p2_output_path.equals("") ? lsa_path : p2_output_path;
-		// Path must end with a '/' (unix) or '\' (windows)
-		output_path += output_path.charAt(output_path.length()-1) == fsc ? "" : fs;
+
 		log.info("Unzipping archive");
 		ZipUtils.unzipFile(p1_lsa_path, output_path);
 
@@ -95,5 +87,6 @@ public class LsaConverter
 	public static void invalid_params()
 	{
 		log.info("Usage: java -jar <lsa2odm-jar-name> <.lsa-File> <Output-Path (optional)>");
+		System.exit(1);
 	}
 }
