@@ -53,4 +53,5 @@ buildNumber.properties
 #
 # Too big
 src/main/xml/trivial_text_responses_long.lsr
-/*.xml
+*.xml
+!pom.xml
