@@ -42,6 +42,7 @@ public class LsrParser
 
 	public ArrayList<Response> parseAnswers()
 	{
+		log.info("Parsing Responses");
 		@SuppressWarnings("unchecked")
 		List<Element> row_list = doc.selectNodes("//document/responses/rows/row");
 
@@ -86,7 +87,7 @@ public class LsrParser
 					String gid = e_match.group(1);
 					String qid = e_match.group(2);
 
-					log.info("Working on question: " + qid);
+					log.debug("Working on question: " + qid);
 
 					String ans = e.getText();
 

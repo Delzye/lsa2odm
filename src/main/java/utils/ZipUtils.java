@@ -50,7 +50,7 @@ public class ZipUtils
 
     String destDirPath = destinationDir.getCanonicalPath();
     String destFilePath = destFile.getCanonicalPath();
-	log.info(destFilePath);
+	log.debug(destFilePath);
 	if (destFilePath.contains(".lss")) {
 		lss_file = destFile;
 	} else if (destFilePath.contains(".lsr")) {

@@ -83,6 +83,7 @@ public class LssParser
 	 */
 	private void parseQuestionGroups()
 	{
+		log.info("Parsing question groups");
 		@SuppressWarnings("unchecked")
 		List<Element> groups_elem = doc.selectNodes("//document/group_l10ns/rows/row");
 		for(Element elem : groups_elem) {
@@ -91,7 +92,7 @@ public class LssParser
 			group.setName(elem.element("group_name").getText());
 			group.setGid(Integer.parseInt(elem.selectSingleNode("gid").getText()));
 
-			log.info("Added question group: " + group.gid);
+			log.debug("Added question group: " + group.gid);
 
 			// Add a description, if there is one
 			Node desc = elem.selectSingleNode("description");
@@ -110,6 +111,7 @@ public class LssParser
 	 */
 	private void parseQuestions()
 	{
+		log.info("Parsing questions");
 		@SuppressWarnings("unchecked")
 		List<Element> questions_list = doc.selectNodes("//document/questions/rows/row");
 		q_l10ns_node = doc.selectSingleNode("//document/question_l10ns/rows");
@@ -119,7 +121,7 @@ public class LssParser
 
 		for (Element question : questions_list) {
 			String qid = question.element("qid").getText();
-			log.info("Working on question: " + qid);
+			log.debug("Working on question: " + qid);
 			Question q = new Question(qid,
 									  Integer.parseInt(question.element("gid").getText()),
 									  question.element("type").getText(),

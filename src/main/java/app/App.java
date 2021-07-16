@@ -1,6 +1,6 @@
 package app;
 
-import org.apache.log4j.BasicConfigurator;
+// import org.apache.log4j.BasicConfigurator;
 
 import lombok.extern.log4j.Log4j;
 
@@ -17,7 +17,7 @@ public class App {
 
     public static void main(String[] args)
     {
-		BasicConfigurator.configure();
+		// BasicConfigurator.configure();
 		long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
 		// Properties File

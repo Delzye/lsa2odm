@@ -9,7 +9,6 @@ import parser.lsr.Answer;
 
 import java.time.LocalDateTime;
 import java.io.InputStream;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,6 +74,7 @@ public class ODMWriter
 
 	public void addAnswers(ArrayList<Response> responses)
 	{
+		log.info("Adding Answers to the ODM document");
 		HashMap<String, Element> subject_se_list = new HashMap<>();
 		// For each response add a subject_data element
 		for (Response r : responses) {
@@ -109,6 +109,7 @@ public class ODMWriter
 
 	public void writeFile(String path)
 	{
+		log.info("Writing ODM-File");
 		try{
 			FileWriter fileWriter = new FileWriter(path + survey.getId() + ".xml");
 			OutputFormat format = OutputFormat.createPrettyPrint();
@@ -122,6 +123,7 @@ public class ODMWriter
 //===================================== private functions =======================================
 	private void createODMRoot()
 	{
+		log.info("Creating the ODM root element");
 		root = doc.addElement("ODM")
 					.addAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
 					.addAttribute("xmlns", "http://www.cdisc.org/ns/odm/v1.3")
@@ -136,6 +138,7 @@ public class ODMWriter
 
 	private void addStudyData()
 	{
+		log.info("Adding study data to ODM");
 		// Study Element
 		Element study = root.addElement("Study")
 			.addAttribute("OID", prop.getProperty("dummy.survey_oid"));
@@ -177,6 +180,7 @@ public class ODMWriter
 
 	private void addQuestionGroups()
 	{
+		log.info("Adding question groups to the ODM document");
 		for (QuestionGroup qg : survey.getGroups()) {
 
 			// Add the reference
@@ -196,18 +200,19 @@ public class ODMWriter
 			}
 			
 			question_groups.put(qg.getGid(), qg_elem);
-			log.info("Added the question group: " + qg.getGid());
+			log.debug("Added the question group: " + qg.getGid());
 		}
 	}
 
 	private void addQuestions()
 	{
+		log.info("Adding questions to the ODM document");
 		// Save code lists in another document temporarily so we don't have to insert between existing elements
 		Document tmp = DocumentHelper.createDocument();
 		tmp.addElement("code_lists");
 
 		for (Question q : survey.getQuestions()) {
-			log.info("Adding question" + q.getQid() + " to group: " + q.getGid());
+			log.debug("Adding question " + q.getQid() + " to group: " + q.getGid());
 			if (q.getCond() == "") {
 				addQuestionRef(q.getGid(), q.getQid(), q.getMandatory());
 			}
@@ -252,6 +257,7 @@ public class ODMWriter
 
 	private void addClinicalDataElement()
 	{
+		log.info("Adding the clincal data element to ODM");
 		String meta_data_oid = prop.getProperty("odm.meta_data_prefix") + survey.getId();
 
 		clinical_data = root.addElement("ClinicalData")
