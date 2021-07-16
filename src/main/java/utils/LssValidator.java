@@ -2,6 +2,7 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 
@@ -22,9 +23,10 @@ public class LssValidator
 	{
 	    SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.1");
 	
-		URL resource = LssValidator.class.getResource("/lss.xsd");
-	    File schemaLocation = new File(resource.getFile());
-		log.info(resource.getPath());
+		// URL resource = LssValidator.class.getResource("/lss.xsd");
+	    // File schemaLocation = new File(resource.getFile());
+		InputStream is = LssValidator.class.getResourceAsStream("/lss.xsd");
+		Source schemaLocation = new StreamSource(is);
 	    Schema schema = factory.newSchema(schemaLocation);
 	
 	    Validator validator = schema.newValidator();

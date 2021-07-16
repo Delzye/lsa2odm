@@ -28,8 +28,14 @@ public class LsaConverter
 
 		// Check if the first parameter is actually a lsa path
 		String fs = File.separator;
+		String reg_fs;
+		if (fs.equals("/")) {
+			reg_fs = "/";
+		} else {
+			reg_fs = "\\\\";
+		}
 		char fsc = File.separatorChar;
-		Pattern lsa_pattern = Pattern.compile("^(\\.?"+fs+"?(?:.*"+fs+")*)(.*?)\\.lsa$", Pattern.CASE_INSENSITIVE);
+		Pattern lsa_pattern = Pattern.compile("^(\\.?"+reg_fs+"?(?:.*"+reg_fs+")*)(.*?)\\.lsa$");
 		Matcher lsa_matcher = lsa_pattern.matcher(p1_lsa_path);
 		log.info("Checking Filepaths");
 

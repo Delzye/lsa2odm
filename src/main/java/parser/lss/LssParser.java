@@ -1,7 +1,6 @@
 package parser.lss;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class LssParser
 		survey.setName(survey_elem.element("surveyls_title").getText());
 		survey.setDescription(survey_elem.element("surveyls_description").getText());
 		survey.setId(survey_elem.element("surveyls_survey_id").getText());
-		
+
 		// questions and question groups
 		parseQuestionGroups();
 		parseQuestions();
@@ -87,8 +86,8 @@ public class LssParser
 		@SuppressWarnings("unchecked")
 		List<Element> groups_elem = doc.selectNodes("//document/group_l10ns/rows/row");
 		for(Element elem : groups_elem) {
-			
-			QuestionGroup group = new QuestionGroup();	
+
+			QuestionGroup group = new QuestionGroup();
 			group.setName(elem.element("group_name").getText());
 			group.setGid(Integer.parseInt(elem.selectSingleNode("gid").getText()));
 
@@ -99,10 +98,10 @@ public class LssParser
 			if (desc != null) {
 				group.setDescription(elem.getText());
 			}
-			
+
 			survey.groups.add(group);
 		}
-		
+
 	}
 
 	/**
@@ -121,7 +120,7 @@ public class LssParser
 		for (Element question : questions_list) {
 			String qid = question.element("qid").getText();
 			log.info("Working on question: " + qid);
-			Question q = new Question(qid, 
+			Question q = new Question(qid,
 									  Integer.parseInt(question.element("gid").getText()),
 									  question.element("type").getText(),
 									  q_l10ns_node.selectSingleNode("row[qid=" + qid + "]/question").getText(),
@@ -244,7 +243,7 @@ public class LssParser
 					break;
 				// MC with comments
 				case "P":
-					addMcWithComments(q);
+					addSubquestionsWithCL(q, "MC.cl", ClGenerator.getMCCL(), "string", false, "");
 					break;
 				default:
 					log.error("Question type not supported: " + q.type);
@@ -325,7 +324,7 @@ public class LssParser
 			condition = condition.concat(cond_str);
 			condition = condition.concat(i < cond_elements.size()? " AND " : ")");
 		}
-		
+
 		if (cond_elements.size() != 0) {
 			survey.addCondition(new Condition(prop.getProperty("imi.syntax_name"), q.getQid().concat(prop.getProperty("ext.cond")), condition));
 			q.setCond(q.getQid().concat(prop.getProperty("ext.cond")));
@@ -367,7 +366,7 @@ public class LssParser
 	 * @param ans The Map with the answer options
 	 * @param t The type of the answer ("integer" or "string")
 	 * @param b True, if the code list is simple, meaning the answer in the lsr is equal to the entire answer, false if the answer in the lsr contains the code of the answer instead
-	 * @param qid_append A string appended to the QID of all subquestions 
+	 * @param qid_append A string appended to the QID of all subquestions
 	 */
 	private void addSubquestionsWithCL(Question q, String oid, HashMap<String, String> ans, String t, boolean b, String qid_append)
 	{
@@ -386,6 +385,12 @@ public class LssParser
 			sq.setAnswers(new AnswersList(oid, ans, t, b));
 
 			survey.addQuestion(sq);
+
+			// If the type is "Multiple Choice with Comments"
+			if (q.getType().equals("P")) {
+				// Add comment question
+				addComment(sq);
+			}
 		}
 	}
 
@@ -465,32 +470,6 @@ public class LssParser
 		survey.addQuestion(q_comm);
 	}
 
-	/**
-	 * <p> Equvialent to addSubquestionsWithCL, but also calls addComment for each subquestion</p>
-	 * @param q The multiple choice question
-	 */
-	private void addMcWithComments(Question q)
-	{
-		List<String> sqids = getSqIds(q.getQid());
-		for (String sqid : sqids) {
-			String question = q_l10ns_node.selectSingleNode("row[qid=" + sqid + "]/question").getText();
-			String sq_title = sq_node.selectSingleNode("row[qid=" + sqid + "]/title").getText();
-			Question sq = new Question(q.qid + sq_title,
-					q.gid,
-					"A",
-					q.question + " " + question,
-					sqid,
-					q.mandatory,
-					q.language);
-			sq.setHelp(q.help);
-			sq.setAnswers(new AnswersList("MC.cl", ClGenerator.getMCCL(), "string", false));
-
-			survey.addQuestion(sq);
-
-			// Add comment question
-			addComment(sq);
-		}
-	}
 
 //===================================================getters via id=================================================================
 
