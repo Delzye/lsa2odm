@@ -1,7 +1,5 @@
 package app;
 
-// import org.apache.log4j.BasicConfigurator;
-
 import lombok.extern.log4j.Log4j;
 
 import java.io.File;
@@ -15,9 +13,12 @@ public class App {
 	protected static File lss_file;
 	protected static File lsr_file;
 
+	/**
+	 *<p>Main Method: Call a converter for the file in the first command line parameter and save the output to the optional second path</p>
+	 *
+	 * */
     public static void main(String[] args)
     {
-		// BasicConfigurator.configure();
 		long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
 		// Properties File
@@ -35,6 +36,10 @@ public class App {
 		log.info("Utilized memory: " + ((afterUsedMem-beforeUsedMem)/(1024*1024)) + "mb");
 	}
 
+	/**
+	 *<p> Add a config file for properties, if one does not exist yet </p>
+	 *
+	 * */
 	private static void propsConfig()
 	{
 		String fs = File.separator;
@@ -62,8 +67,13 @@ public class App {
 		}
 	}
 
+	/**
+	 *<p>Inform the user that the program expects different parameters and exit the application</p>
+	 *
+	 * */
 	public static void invalid_params()
 	{
 		log.info("Usage: java -jar <lsa2odm-jar-name> <.lsa-File> <Output-Path (optional)>");
+		System.exit(1);
 	}
 }

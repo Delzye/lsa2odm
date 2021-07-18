@@ -18,6 +18,12 @@ import writer.ODMWriter;
 @Log4j
 public class LsaConverter
 {
+	/**
+	 * <p>Convert a lsa archive to ODM and save the file to p2_output_path</p>
+	 * @param p1_lsa_path Path to the lsa archive
+	 * @param p2_output_path Where to put the result
+	 *
+	 * */
 	public static void convert(String p1_lsa_path, String p2_output_path)
 	{		
 		File lss_file;
@@ -82,6 +88,10 @@ public class LsaConverter
 		odm.writeFile(output_path);
 	}
 
+	/**
+	 *<p>Inform the user that the program expects different parameters and exit the application</p>
+	 *
+	 * */
 	public static void invalid_params()
 	{
 		log.info("Usage: java -jar <lsa2odm-jar-name> <.lsa-File> <Output-Path (optional)>");

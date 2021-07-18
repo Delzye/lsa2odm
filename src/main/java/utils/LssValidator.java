@@ -3,8 +3,6 @@ package utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
@@ -19,12 +17,14 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class LssValidator
 {
+	/**
+	 * <p>Check if the parameter is a valid XML-File when checked against the lss.xsd file. Results are logged to console</p>
+	 * @param lss_file The file to check
+	 * */
 	public static void validateFile(File lss_file) throws SAXException, IOException
 	{
 	    SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.1");
 	
-		// URL resource = LssValidator.class.getResource("/lss.xsd");
-	    // File schemaLocation = new File(resource.getFile());
 		InputStream is = LssValidator.class.getResourceAsStream("/lss.xsd");
 		Source schemaLocation = new StreamSource(is);
 	    Schema schema = factory.newSchema(schemaLocation);

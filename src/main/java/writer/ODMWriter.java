@@ -55,6 +55,9 @@ public class ODMWriter
         }
 	}
 
+	/**
+	 * <p>Create the ODM structure and add ItemGroups and Items to it</p>
+	 * */
 	public void createODMFile()
 	{
 		createODMRoot();
@@ -72,6 +75,10 @@ public class ODMWriter
 		addClinicalDataElement();
 	}
 
+	/**
+	 * <p>Add SubjectData etc. to clinical data from the list</p>
+	 * @param responses A list of all {@link Response} elements, which will be added to the ODM file
+	 * */
 	public void addAnswers(ArrayList<Response> responses)
 	{
 		log.info("Adding Answers to the ODM document");
@@ -107,6 +114,10 @@ public class ODMWriter
 		}
 	}
 
+	/**
+	 * <p>Write the document, which was created in createODMFile() to the path parameter</p>
+	 * @param path Where to write the file
+	 * */
 	public void writeFile(String path)
 	{
 		log.info("Writing ODM-File");
@@ -121,6 +132,9 @@ public class ODMWriter
 		}
 	}
 //===================================== private functions =======================================
+	/**
+	 * <p>Create the root element ODM</p>
+	 * */
 	private void createODMRoot()
 	{
 		log.info("Creating the ODM root element");
@@ -136,6 +150,9 @@ public class ODMWriter
 	}
 
 
+	/**
+	 * <p>Add the document structure from Study to FormDef</p>
+	 * */
 	private void addStudyData()
 	{
 		log.info("Adding study data to ODM");
@@ -178,6 +195,9 @@ public class ODMWriter
 		form.addElement("Description").addText(survey.getDescription());
 	}
 
+	/**
+	 * <p>Add the ItemGroup Elements to the document from the data in the {@link Survey}</p>
+	 * */
 	private void addQuestionGroups()
 	{
 		log.info("Adding question groups to the ODM document");
@@ -204,6 +224,9 @@ public class ODMWriter
 		}
 	}
 
+	/**
+	 * <p>Add Item Elements from the data in the {@link Survey}</p>
+	 * */
 	private void addQuestions()
 	{
 		log.info("Adding questions to the ODM document");
@@ -243,6 +266,9 @@ public class ODMWriter
 		meta_data.appendContent(code_lists);
 	}
 
+	/**
+	 * <p>Add ConditionDef elements from the data in the {@link Survey}/p>
+	 * */
 	private void addConditions()
 	{
 		for (Condition c : survey.getCond_list()) {
@@ -255,6 +281,9 @@ public class ODMWriter
 		}
 	}
 
+	/**
+	 * <p>Insert the clinical data element into the document</p>
+	 * */
 	private void addClinicalDataElement()
 	{
 		log.info("Adding the clincal data element to ODM");
@@ -266,6 +295,12 @@ public class ODMWriter
 	}
 
 //====================================== helper functions ======================================= 
+	/**
+	 * <p>Add a single ItemDef from the Question q</p>
+	 * @param q The {@link Question} containing the data
+	 * @param data_type The DataType for the ItemDef
+	 * @return A reference to the created Element
+	 * */
 	private Element addQuestion(Question q, String data_type)
 	{
 		Element e =  meta_data.addElement("ItemDef")
@@ -294,6 +329,10 @@ public class ODMWriter
 		return e;
 	}
 
+	/**
+	 * <p>Add a single ItemDef from the Question q with a CodeListRef</p>
+	 * @param q The {@link Question} containing the data
+	 * */
 	private void addQuestionWithCL(Question q)
 	{
 		String answers_oid = q.getAnswers().getAnswers_oid();
@@ -323,6 +362,12 @@ public class ODMWriter
 		}
 	}
 
+	/**
+	 * <p>Add a ItemRef to a ItemGroupDef</p>
+	 * @param gid The ID of the group to which the Ref will be added
+	 * @param qid The ID of the question
+	 * @param mandatory Whether or not the question has to be answered
+	 * */
 	private void addQuestionRef(int gid, String qid, String mandatory)
 	{
 		question_groups.get(gid).addElement("ItemRef")
@@ -330,6 +375,13 @@ public class ODMWriter
 			.addAttribute("Mandatory", mandatory);
 	}
 
+	/**
+	 * <p>Add a ItemRef with a CollectionExceptionConditionOID to a ItemGroupDef</p>
+	 * @param gid The ID of the group to which the Ref will be added
+	 * @param qid The ID of the question
+	 * @param mand Whether or not the question has to be answered
+	 * @param cond_oid The ID of the condition
+	 * */
 	private void addQuestionRefWithCond(int gid, String qid, String mand, String cond_oid)
 	{
 		question_groups.get(gid).addElement("ItemRef")

@@ -30,6 +30,10 @@ public class LsrParser
 		this.date_time_qids = dt_qids;
 	}
 
+	/**
+	 * <p>Create a new document in doc and put the contents of the lsr file into it</p>
+	 *
+	 * */
 	public void createDocument()
 	{
 		try {
@@ -37,9 +41,14 @@ public class LsrParser
 		doc = saxReader.read(lsr_file); 
 		} catch (Exception e) {
 			log.error("Could not read lsr_file: " + e.getMessage());
+			System.exit(1);
 		}
 	}
 
+	/**
+	 * <p>Iterate over all rows in responses and create Response Instances from the data</p>
+	 * @return A list of all created Response-Objects
+	 * */
 	public ArrayList<Response> parseAnswers()
 	{
 		log.info("Parsing Responses");
