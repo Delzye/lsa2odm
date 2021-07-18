@@ -97,7 +97,7 @@ public class LssParser
 			// Add a description, if there is one
 			Node desc = elem.selectSingleNode("description");
 			if (desc != null) {
-				group.setDescription(elem.getText());
+				group.setDescription(desc.getText());
 			}
 
 			survey.groups.add(group);
@@ -129,6 +129,13 @@ public class LssParser
 									  question.element("title").getText(),
 									  question.element("mandatory").getText().equals("N") ? "No" : "Yes",
 									  q_l10ns_node.selectSingleNode("row[qid=" + qid + "]/language").getText());
+
+			// Add a description, if there is one
+			Node desc = q_l10ns_node.selectSingleNode("row[qid=" + q.getQid() + "]/help");
+			if (desc != null) {
+				q.setDescription(desc.getText());
+			}
+
 			addCondition(q);
 
 			switch (q.type) {
@@ -142,6 +149,7 @@ public class LssParser
 				// Date/Time
 				case "D":
 					date_time_qids.add(q.getQid());
+					break;
 				// Numeric Input
 				case "N":
 					if (check_int_only(q)) {
@@ -261,7 +269,7 @@ public class LssParser
 
 	private boolean check_int_only(Question q)
 	{
-		Node val = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute=num_value_int_only]/value");
+		Node val = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute='num_value_int_only']/value");
 		return val.getText().equals("1") ? true : false;
 	}
 
@@ -271,8 +279,9 @@ public class LssParser
 	 */
 	private void add_range(Question q)
 	{
-		String min = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute=min_num_value_n]/value").getText();
-		String max = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute=max_num_value_n]/value").getText();
+		log.debug("Question " + q.getQid() + " is getting checked for ranges");
+		String min = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute='min_num_value_n']/value").getText();
+		String max = doc.selectSingleNode("//document/question_attributes/rows/row[qid=" + q.getQid() + " and attribute='max_num_value_n']/value").getText();
 
 		if (min != "") {
 			q.setFloat_range_min(min);
@@ -280,6 +289,7 @@ public class LssParser
 		if (max != "") {
 			q.setFloat_range_max(max);
 		}
+		log.debug("range check finished");
 	}
 
 //=======================================================add conditions=============================================================

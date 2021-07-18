@@ -312,6 +312,11 @@ public class ODMWriter
 		 .addAttribute("xml:lang", q.getLanguage())
 		 .addText(q.getQuestion());
 
+		if (q.getDescription() != null) {
+			e.addElement("Description")
+				   .addText(q.getDescription());
+		}
+
 		// integer range checks for numerical questions
 		if (q.getFloat_range_min() != null) {
 			e.addElement("RangeCheck")
@@ -336,8 +341,10 @@ public class ODMWriter
 	private void addQuestionWithCL(Question q)
 	{
 		String answers_oid = q.getAnswers().getAnswers_oid();
+
 		addQuestion(q, q.getAnswers().getType()).addElement("CodeListRef")
 			.addAttribute("CodeListOID", answers_oid);
+
 		if (!written_cl_oids.contains(answers_oid)) {
 			Element cl = code_lists.addElement("CodeList")
 				.addAttribute("OID", answers_oid)

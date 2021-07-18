@@ -220,7 +220,7 @@
 					<xs:element name="navigationdelay" type="xs:integer"/>
 					<xs:element name="nokeyboard" type="YNType"/>
 					<xs:element name="alloweditaftercompletion" type="YNType"/>
-					<xs:element name="googleanalyticsstyle" type="xs:integer" minOccurs="0"/>
+					<xs:element name="googleanalyticsstyle" type="xs:string" minOccurs="0"/>
 					<xs:element name="googleanalyticsapikey" type="xs:string" minOccurs="0"/>
 					<xs:element name="gsid" type="xs:integer"/>
 					<xs:element name="showsurveypolicynotice" type="xs:integer"/>

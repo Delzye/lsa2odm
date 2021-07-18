@@ -10,6 +10,7 @@ public class Question
 	protected int gid;
 	protected String type;
 	protected String question;
+	protected String description;
 	protected String help;
 	protected String title;
 	protected String mandatory;
