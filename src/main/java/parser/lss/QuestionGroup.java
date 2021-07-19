@@ -8,6 +8,7 @@ public class QuestionGroup
 	protected String name;
 	protected int gid;
 	protected String description;
+	protected String language;
 
 	public String getGIDString()
 	{

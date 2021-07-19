@@ -51,7 +51,11 @@ buildNumber.properties
 
 # Special files
 #
-# Too big
 src/main/xml/trivial_text_responses_long.lsr
 *.xml
 !pom.xml
+
+# Unpacked LimeSurvey Files
+*.lss
+*.lsr
+*.lst

@@ -139,14 +139,14 @@ public class ODMWriter
 	{
 		log.info("Creating the ODM root element");
 		root = doc.addElement("ODM")
+					.addNamespace("", "http://www.cdisc.org/ns/odm/v1.3")
 					.addAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
-					.addAttribute("xmlns", "http://www.cdisc.org/ns/odm/v1.3")
 					.addAttribute("xsi:schemaLocation", "")
 					.addAttribute("Description", "ODM-version of LimeSurvey Survey with ID: " + survey.getId())
 					.addAttribute("FileType", "Snapshot")
 					.addAttribute("FileOID", survey.getId())
 					.addAttribute("CreationDateTime", LocalDateTime.now().toString())
-					.addAttribute("ODMVersion", "1.3");
+					.addAttribute("ODMVersion", "1.3.2");
 	}
 
 
@@ -192,7 +192,10 @@ public class ODMWriter
 						.addAttribute("OID", survey.getId())
 						.addAttribute("Name", survey.getName())
 						.addAttribute("Repeating", "Yes");
-		form.addElement("Description").addText(survey.getDescription());
+		form.addElement("Description")
+			.addElement("TranslatedText")
+			.addAttribute("xml:lang", survey.getLanguage())
+			.addText(survey.getDescription());
 	}
 
 	/**
@@ -216,6 +219,8 @@ public class ODMWriter
 			
 			if (qg.getDescription() != null) {
 				qg_elem.addElement("Description")
+						.addElement("TranslatedText")
+						.addAttribute("xml:lang", qg.getLanguage())
 					   .addText(qg.getDescription());
 			}
 			
@@ -250,7 +255,7 @@ public class ODMWriter
 					addQuestionWithCL(q);
 					break;
 				case "I":
-					addQuestion(q, "integer");
+					addQuestion(q, "float"); // Only integers, but LimeSurvey still saves them as float values, so we enter float as a type
 					break;
 				case "N":
 					addQuestion(q, "float");
@@ -272,11 +277,15 @@ public class ODMWriter
 	private void addConditions()
 	{
 		for (Condition c : survey.getCond_list()) {
-			Element fe = meta_data.addElement("ConditionDef")
-					 .addAttribute("OID", c.getOid())
-					 .addAttribute("Name", c.getOid())
-					 .addElement("FormalExpression")
-					 .addAttribute("Context", c.getType());
+			Element cd = meta_data.addElement("ConditionDef")
+								  .addAttribute("OID", c.getOid())
+								  .addAttribute("Name", c.getOid());
+			cd.addElement("Description")
+			  .addElement("TranslatedText")
+			  .addAttribute("xml:lang", "en") //TODO: Better language selection
+			  .addText("A Condition in " + prop.getProperty("imi.syntax_name"));
+			Element fe = cd.addElement("FormalExpression")
+						   .addAttribute("Context", c.getType());
 			fe.addText(c.getCond());
 		}
 	}
@@ -307,26 +316,31 @@ public class ODMWriter
 							  .addAttribute("OID", q.getQid())
 							  .addAttribute("Name", q.getTitle())
 							  .addAttribute("DataType", data_type);
+
+		if (q.getDescription() != null) {
+			e.addElement("Description")
+				.addElement("TranslatedText")
+				.addAttribute("xml:lang", q.getLanguage())
+				.addText(q.getDescription());
+		}
+
 		e.addElement("Question")
 		 .addElement("TranslatedText")
 		 .addAttribute("xml:lang", q.getLanguage())
 		 .addText(q.getQuestion());
 
-		if (q.getDescription() != null) {
-			e.addElement("Description")
-				   .addText(q.getDescription());
-		}
-
 		// integer range checks for numerical questions
 		if (q.getFloat_range_min() != null) {
 			e.addElement("RangeCheck")
 			 .addAttribute("Comparator", "GE")
+			 .addAttribute("SoftHard", "Soft")
 			 .addElement("CheckValue")
 			 .addText(q.getFloat_range_min());
 		}
 		if (q.getFloat_range_max() != null) {
 			e.addElement("RangeCheck")
 			 .addAttribute("Comparator", "LE")
+			 .addAttribute("SoftHard", "Soft")
 			 .addElement("CheckValue")
 			 .addText(q.getFloat_range_max());
 		}
@@ -352,7 +366,7 @@ public class ODMWriter
 				.addAttribute("DataType", q.getAnswers().getType());
 			if (q.getAnswers().isSimple()) {
 				for (Map.Entry<String, String> e : q.getAnswers().getAnswers().entrySet()) {
-					cl.addElement("EnumeratedElement")
+					cl.addElement("EnumeratedItem")
 						.addAttribute("CodedValue", e.getValue());
 				}
 			} else {
@@ -361,7 +375,7 @@ public class ODMWriter
 						.addAttribute("CodedValue", e.getKey())
 						.addElement("Decode")
 						.addElement("TranslatedText")
-						.addAttribute("xml:lang", "")
+						.addAttribute("xml:lang", "en") //TODO: correct language
 						.addText(e.getValue());
 				}
 			}

@@ -10,6 +10,7 @@ public class Survey
 {
 	protected String name;
 	protected String description;
+	protected String language;
 	protected String id;
 	
 	protected ArrayList<QuestionGroup> groups;

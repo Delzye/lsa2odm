@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.dom4j.Element;
 import org.dom4j.Node;
 
 public class ClGenerator
@@ -66,13 +67,20 @@ public class ClGenerator
 	{
 		@SuppressWarnings("unchecked")
 		HashMap<String, String>[] cls = new HashMap[2];
-		cls[0] = ids;
+		cls[0] = new HashMap<>();
 		cls[1] = new HashMap<>();
-		Iterator<Map.Entry<String,String>> iter = cls[0].entrySet().iterator();
+		Iterator<Map.Entry<String,String>> iter = ids.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry<String,String> entry = iter.next();
-			if (a_node.selectSingleNode("row[aid=" + entry.getKey() + "]/scale_id").getText().equals("1")) {
-				cls[1].put(entry.getKey(), entry.getValue());
+			Element row = (Element) a_node.selectSingleNode("row[aid=" + entry.getKey() + "]");
+
+			if (row.elementText("scale_id").equals("0")) {
+				cls[0].put(row.elementText("code"), entry.getValue());
+				iter.remove();
+			}
+
+			if (row.elementText("scale_id").equals("1")) {
+				cls[1].put(row.elementText("code"), entry.getValue());
 				iter.remove();
 			}
 		}

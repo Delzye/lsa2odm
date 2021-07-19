@@ -65,9 +65,10 @@ public class LssParser
 
 		// Basic Survey Metadata
 		Element survey_elem = (Element) doc.selectSingleNode("//document/surveys_languagesettings/rows/row");
-		survey.setName(survey_elem.element("surveyls_title").getText());
-		survey.setDescription(survey_elem.element("surveyls_description").getText());
-		survey.setId(survey_elem.element("surveyls_survey_id").getText());
+		survey.setName(survey_elem.elementText("surveyls_title"));
+		survey.setDescription(survey_elem.elementText("surveyls_description"));
+		survey.setId(survey_elem.elementText("surveyls_survey_id"));
+		survey.setLanguage(survey_elem.elementText("surveyls_language"));
 
 		// questions and question groups
 		parseQuestionGroups();
@@ -89,8 +90,9 @@ public class LssParser
 		for(Element elem : groups_elem) {
 
 			QuestionGroup group = new QuestionGroup();
-			group.setName(elem.element("group_name").getText());
+			group.setName(elem.elementText("group_name"));
 			group.setGid(Integer.parseInt(elem.selectSingleNode("gid").getText()));
+			group.setLanguage(elem.elementText("language"));
 
 			log.debug("Added question group: " + group.gid);
 
@@ -183,11 +185,12 @@ public class LssParser
 				case "L":
 				// Dropdown List
 				case "!":
-					if (question.elementTextTrim("other").equals("Y")) {
+					boolean oth = question.elementText("other").equals("Y");
+					if(oth) {
 						addOtherQuestion(q);
 					}
 					q.setType("A");
-					q.setAnswers(new AnswersList(q.getQid() + ".cl", getAnswerCodesByID(q.qid), "string", false));
+					q.setAnswers(new AnswersList(q.getQid() + ".cl", getAnswerCodesByID(q.getQid(), oth), "string", false));
 					survey.addQuestion(q);
 					break;
 				// Multiple Texts
@@ -214,7 +217,7 @@ public class LssParser
 				case "H":
 				// Flexible Array
 				case "F":
-					addSubquestionsWithCL(q, q.getQid().concat(".cl"), getAnswerCodesByID(q.getQid()), "string", false, "");
+					addSubquestionsWithCL(q, q.getQid().concat(".cl"), getAnswerCodesByID(q.getQid(), false), "string", false, "");
 					break;
 				// 5pt Array
 				case "A":
@@ -450,6 +453,7 @@ public class LssParser
 	{
 		Question q_other = new Question(q);
 		q_other.setQid(q_other.getQid().concat("other"));
+		q_other.setQuestion(q_other.getQuestion().concat(" other"));
 		q_other.setType("T");
 		survey.addQuestion(q_other);
 		/*	Cond: SE-StudyEventOID/F-FormOID[RepeatKey]/IG-ItemGroupOID/I-ItemOID == "-oth-"
@@ -472,6 +476,7 @@ public class LssParser
 	{
 		Question q_comm = new Question(q);
 		q_comm.setQid(q_comm.getQid().concat("comment"));
+		q_comm.setQuestion(q_comm.getQuestion().concat(" comment"));
 		q_comm.setType("T");
 		/*	Cond: SE-StudyEventOID/F-FormOID[RepeatKey]/IG-ItemGroupOID/I-ItemOID == "-oth-"
 		 */
@@ -504,7 +509,7 @@ public class LssParser
 	 * @param id The Question-ID, for which the answers should be returned
 	 * @return All answer options for a question with QID id in a map in the format <code, answer>
 	 */
-	private HashMap<String, String> getAnswerCodesByID(String id)
+	private HashMap<String, String> getAnswerCodesByID(String id, boolean oth)
 	{
 		HashMap<String, String> ans_map = new HashMap<String, String>();
 		Node ans_l10ns = doc.selectSingleNode("//document/answer_l10ns/rows");
@@ -512,6 +517,10 @@ public class LssParser
 		List<Element> a_meta = doc.selectNodes("//document/answers/rows/row[qid=" + id + "]");
 		for (Element elem : a_meta) {
 			ans_map.put(elem.elementText("code"), ans_l10ns.selectSingleNode("row[aid=" + elem.elementText("aid") + "]/answer").getText());
+		}
+
+		if (oth) {
+			ans_map.put("-oth-", "other");
 		}
 		return ans_map;
 	}
