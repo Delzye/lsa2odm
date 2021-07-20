@@ -22,6 +22,8 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Namespace;
+import org.dom4j.Attribute;
 
 @Log4j
 public class ODMWriter
@@ -55,12 +57,21 @@ public class ODMWriter
         }
 	}
 
+	public static String getNS()
+	{
+		return "http://www.cdisc.org/ns/odm/v1.3";
+	}
+
 	/**
 	 * <p>Create the ODM structure and add ItemGroups and Items to it</p>
 	 * */
 	public void createODMFile()
 	{
 		createODMRoot();
+
+		Namespace ns = new Namespace("", "http://www.cdisc.org/ns/odm/v1.3");
+		root.add(ns);
+
 		addStudyData();
 		addQuestionGroups();
 		
@@ -73,6 +84,7 @@ public class ODMWriter
 		addQuestions();
 		addConditions();
 		addClinicalDataElement();
+
 	}
 
 	/**
@@ -139,7 +151,6 @@ public class ODMWriter
 	{
 		log.info("Creating the ODM root element");
 		root = doc.addElement("ODM")
-					.addNamespace("", "http://www.cdisc.org/ns/odm/v1.3")
 					.addAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
 					.addAttribute("xsi:schemaLocation", "")
 					.addAttribute("Description", "ODM-version of LimeSurvey Survey with ID: " + survey.getId())
@@ -157,7 +168,7 @@ public class ODMWriter
 	{
 		log.info("Adding study data to ODM");
 		// Study Element
-		Element study = root.addElement("Study")
+		Element study = root.addElement("Study", getNS())
 			.addAttribute("OID", prop.getProperty("dummy.survey_oid"));
 
 		// Add the global variables
@@ -298,7 +309,7 @@ public class ODMWriter
 		log.info("Adding the clincal data element to ODM");
 		String meta_data_oid = prop.getProperty("odm.meta_data_prefix") + survey.getId();
 
-		clinical_data = root.addElement("ClinicalData")
+		clinical_data = root.addElement("ClinicalData", getNS())
 			.addAttribute("StudyOID", prop.getProperty("dummy.survey_oid"))
 			.addAttribute("MetaDataVersionOID", meta_data_oid);
 	}
@@ -360,7 +371,7 @@ public class ODMWriter
 			.addAttribute("CodeListOID", answers_oid);
 
 		if (!written_cl_oids.contains(answers_oid)) {
-			Element cl = code_lists.addElement("CodeList")
+			Element cl = code_lists.addElement("CodeList", getNS())
 				.addAttribute("OID", answers_oid)
 				.addAttribute("Name", answers_oid)
 				.addAttribute("DataType", q.getAnswers().getType());
