@@ -24,10 +24,10 @@ package app;
 import lombok.extern.log4j.Log4j;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.IOException;
-import java.util.Properties;
+// import java.io.FileOutputStream;
+// import java.io.OutputStream;
+// import java.io.IOException;
+// import java.util.Properties;
 
 @Log4j
 public class App {
@@ -63,29 +63,29 @@ public class App {
 	 * */
 	private static void propsConfig()
 	{
-		String fs = File.separator;
-		File file = new File("src" + fs + "main" + fs + "resources" + fs + "config.properties");
-		if (!file.exists()) {
-			try (OutputStream output = new FileOutputStream("src" + fs + "main" + fs + "resources" + fs + "config.properties")) {
+		// String fs = File.separator;
+		// File file = new File("src" + fs + "main" + fs + "resources" + fs + "config.properties");
+		// if (!file.exists()) {
+		// 	try (OutputStream output = new FileOutputStream("src" + fs + "main" + fs + "resources" + fs + "config.properties")) {
 
-            Properties prop = new Properties();
+            // Properties prop = new Properties();
 
-            // set the properties value
-            prop.setProperty("dummy.survey_oid", "PlaceholderOID");
-            prop.setProperty("dummy.study_event_oid", "Event.1");
-            prop.setProperty("dummy.study_event_name", "StudyEvent.1");
-			prop.setProperty("dummy.study_name", "StudyPlaceholderName");
-			prop.setProperty("dummy.protocol_name", "StudyProtocolPlaceholder");
-            prop.setProperty("ext.cond", ".cond");
-			prop.setProperty("odm.meta_data_prefix", "MetaData");
-            prop.setProperty("imi.syntax_name", "imi");
+            // // set the properties value
+            // prop.setProperty("dummy.survey_oid", "PlaceholderOID");
+            // prop.setProperty("dummy.study_event_oid", "Event.1");
+            // prop.setProperty("dummy.study_event_name", "StudyEvent.1");
+		// 	prop.setProperty("dummy.study_name", "StudyPlaceholderName");
+		// 	prop.setProperty("dummy.protocol_name", "StudyProtocolPlaceholder");
+            // prop.setProperty("ext.cond", ".cond");
+		// 	prop.setProperty("odm.meta_data_prefix", "MetaData");
+            // prop.setProperty("imi.syntax_name", "imi");
 
-            prop.store(output, null);
+            // prop.store(output, null);
 
-			} catch (IOException io) {
-				io.printStackTrace();
-			}
-		}
+		// 	} catch (IOException io) {
+		// 		io.printStackTrace();
+		// 	}
+		// }
 	}
 
 	/**

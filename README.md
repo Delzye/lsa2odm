@@ -9,6 +9,8 @@ This repo is the implementation for my bachelors thesis "Design of a mapping and
 ### As a jar
 
 You can use the jar to convert an archive. The first parameter must be the path to the archive, the second parameter is an optional output path.
+Compiling the jar: 'mvn compile assembly:single', executed in the root directory of the project.
+Usage: 'java -jar \<jar-name\> arg1 arg2'
 
 ### In another maven project
 
